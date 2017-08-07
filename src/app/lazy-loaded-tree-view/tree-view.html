@@ -1,0 +1,36 @@
+<div class="tree-node tree-handle">
+  <a class="btn btn-success btn-xs" (click)="expand()">
+    <span class="{{root.cssClass}}"></span>
+  </a>
+  <a *ngIf="root.id > 0" (click)="selectRoot()" data-toggle="tooltip" 
+    title="{{!!root.commodityPart ? root.commodityPart.description : !!root.commodityGroup ? root.commodityGroup.description : ''}}"
+    [ngClass]="{'saipemGreen': true, 'saipemOrange': isSelected}">{{ root.name }}
+    </a>
+  <span *ngIf="root.id == 0" data-toggle="tooltip" 
+    title="{{!!root.commodityPart ? root.commodityPart.description : !!root.commodityGroup ? root.commodityGroup.description : ''}}">{{ root.name }}</span>
+  <span *ngIf="root.hasPositions" class="glyphicon glyphicon-asterisk"></span>
+  <div class="pull-right">
+    <div *ngIf="uiStatusService.userIsAdministrator" class="pull-right" style="width: 80px; padding-left: 5px">
+      <div style="width: 25px; height: 25px; border: 1px black; float: left">
+        <a *ngIf="root.id !== 0 && uiStatusService.userIsAdministrator && root.canDelete()" class="btn btn-xs btn-danger" (click)="deleteNode()"><span class="glyphicon glyphicon-remove-sign"></span></a>
+      </div>
+      <div style="width: 25px; height: 25px; border: 1px black; float: left">
+        <a *ngIf="canEdit()" class="btn btn-xs btn-warning" (click)="editNode()"><span class="glyphicon glyphicon-edit"></span></a>
+      </div>
+      <div style="width: 25px; height: 25px; border: 1px black; float: left">
+        <a *ngIf="uiStatusService.userIsAdministrator && !root.commodityPart" class="btn btn-xs btn-success" (click)="addNode()"><span class="glyphicon glyphicon-plus"></span></a>
+      </div>
+    </div>
+    <a *ngIf="root.id !== 0 && !!uiStatusService.userCode && (uiStatusService.userIsAdministrator || !root.locked || uiStatusService.userCode === root.lockedBy)" [ngClass]="lockClasses" (click)="toggleLockNode()"><span class="glyphicon glyphicon-lock"></span></a>
+    <a *ngIf="root.id !== 0 && !!uiStatusService.userCode && !(uiStatusService.userIsAdministrator || !root.locked || uiStatusService.userCode.login === root.lockedBy)" [ngClass]="lockClasses"><span class="glyphicon glyphicon-lock"></span></a>
+  </div>
+  <div style="clear: both; width: 1px; height: 1px">
+  </div>
+</div>
+<div *ngIf="root.expanded">
+  <ul>
+    <li *ngFor="let node of items" >
+      <tree-view [root]="node" [message]="outMessage" [parentView]="currentView"></tree-view>
+    </li>
+  </ul>
+</div>

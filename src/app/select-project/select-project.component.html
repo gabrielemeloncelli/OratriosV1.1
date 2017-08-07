@@ -1,0 +1,14 @@
+
+<top-bar></top-bar>
+<div class="container">
+  <h1>Select project</h1>
+  <div class="project-selector-list">
+    <ul>
+      <li *ngFor="let project of projects">
+        <div class="project-node">
+          <div class="pull-left project-label">{{project.code}}&nbsp;</div><a class="btn btn-xs btn-success" (click)="selectProject(project.code, project.description)"><span class="glyphicon glyphicon-check"></span></a><span class="project-label">{{project.description}}&nbsp;</span> 
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+ul {
+  list-style-type: none;
+}
+
+div.discipline-selector-list {
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+.discipline-node {
+    margin: 10px;
+    border: 1px solid #dae2ea;
+    background: #f8faff;
+    color: #7c9eb2;
+    width: 150px;
+}
+
+.discipline-label {
+  min-width: 100px;
+  padding-left: 3px;
+}

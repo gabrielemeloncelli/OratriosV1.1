@@ -1,0 +1,14 @@
+.modal-dialog-fs {
+  top: 10%;
+  left: 2%;
+  width: 96%;
+  height: 90%;
+  margin: 0;
+  padding: 0;
+}
+
+.modal-content-fs {
+  height: auto;
+  min-height: 100%;
+  border-radius: 0;
+}

@@ -1,0 +1,13 @@
+<kendo-grid [data]="gridData">
+  <kendo-grid-column field="ProductID" title="Product ID" width="120">
+  </kendo-grid-column>
+  <kendo-grid-column field="ProductName" title="Product Name">
+  </kendo-grid-column>
+  <kendo-grid-column field="UnitPrice" title="Unit Price" width="230">
+  </kendo-grid-column>
+  <kendo-grid-column field="Discontinued" width="120">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <input type="checkbox" [checked]="dataItem.Discontinued" disabled/>
+    </ng-template>
+  </kendo-grid-column>  
+</kendo-grid>

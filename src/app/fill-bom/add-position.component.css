@@ -1,0 +1,98 @@
+.selectContainer
+{
+  display: inline-block;
+  min-width: 450px;
+}
+
+.group-part-block
+{
+  float: left;
+  padding: 10px 5px;
+}
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}
+table > thead > th
+{
+  padding: 5px;
+  border: 1px solid black;
+}
+.errorMessage
+{
+  font-size: large;
+  color: red;
+}
+
+.ng-select
+{
+  background-color: #ffffff;
+}
+
+.control-error
+{
+  background-color: #ffaaaa;
+}
+
+div.filteredMaterials
+{
+  padding:5px;
+  max-height: 350px;
+  width: 900px;
+  overflow-y: scroll; 
+}
+
+div.filteredMaterialsLoading
+{
+  background-image: url('../../assets/images/loader00.gif');
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 80px;
+}
+
+div.addingMaterials
+{
+  clear: both;
+  background-color: white;
+  padding: 5px;
+  overflow-x: auto;
+}
+ .commodity-input
+ {
+   width: 240px;
+ }
+
+.commodity-error
+{
+  color: #ff0000;
+}
+
+.commodity-label
+{
+  padding: 5px 10px 0;
+}
+
+#scroll-modal-div
+{
+  min-height: 100%;
+  overflow-y: auto;
+}
+
+ul.nav.nav-pills > li > a
+{
+  color:#22505F;
+}
+
+.nav.nav-pills > li.active > a
+{
+  color:#FFF;
+  background-color: #22505F;
+}
+
+tr.commodityCodeSelected
+{
+  background-color: #81cee6;
+}

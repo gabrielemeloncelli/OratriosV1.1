@@ -1,0 +1,138 @@
+/*custom generc style*/
+.requiredField {
+    color : #ff6358;
+    font-weight: bold;
+}
+
+.pageHeader {
+    font-size: 27px !important;
+    margin-bottom: 0px !important;
+    margin-top:20px;
+}
+
+.appTitleBig{
+    font-size: 30px;
+    font-weight: bold;
+    color: #ff7458;
+    vertical-align: middle;
+}
+
+.appTitleSmall{
+    font-size: 18px;
+    font-weight: bold;
+    color:#22505F;
+}
+
+.welcome{
+    color:#22505F;
+    font-size: 16px;
+}
+
+.logo{
+    width: 44px;
+    height: 51px;
+}
+
+.saipemGreen{
+    color:#22505F;
+}
+
+.saipemOrange{
+    color:#FA9E1F;
+}
+
+.changeItemButton{
+    background-image: linear-gradient(#FA9E1F,#FA9E1F);
+    color: #fff;
+    border-radius: 23px; 
+    border:none; 
+    outline: none;
+}
+
+.changeItemButton:hover{
+    color: #fff;
+}
+
+.btn.btn-saipem{
+    background-color: #22505F;
+}
+
+.btn.btn-saipem:focus,
+.btn.btn-saipem.focus {
+  background-color: #30606A;
+}
+.btn.btn-saipem:hover {
+  background-color: #30606A;
+}
+.btn.btn-saipem:active,
+.btn.btn-saipem.active,
+.open > .dropdown-toggle.btn.btn-saipem {
+  background-color: #30606A;
+}
+
+
+
+
+
+
+/*margin style*/
+.marginTop15 {
+    margin-top: 15px;
+}
+.marginTop20 {
+    margin-top: 20px;
+}
+.marginBottom27 {
+    margin-bottom: 10px;
+}
+
+
+
+
+
+/*padding style*/
+.paddingRight0 {
+    padding-right: 0px;
+}
+.paddingLeft0 {
+   padding-left: 0px;
+}
+
+
+
+
+
+/*font style*/
+.fontBold {
+    font-weight: bold;
+}
+
+.vertical-center-parent {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.vertical-center-child {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.horizontal-center {
+    text-align: center;
+}
+
+.err-label-base {
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #f00;
+    background-color: #fff;
+    background-image: none;
+}
+
+body {
+    height: 100%;
+    max-height: 700px;
+}

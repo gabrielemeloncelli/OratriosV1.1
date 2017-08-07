@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="login-panel panel panel-default" >
+                <div class="panel-heading text-center" style="background-color: #22505F; color: white; padding: 16px;">
+                    <h3 class="panel-title" style="font-size: 20px;">{{login}}</h3>
+                </div>
+            <div class="panel-body" style="padding: 55px; padding-top: 45px;">
+                <form role="form">
+                    <fieldset>
+                        <div class="form-group" style="margin-bottom: 30px;">
+                            <input class="form-control" placeholder={{usernameLabel}} name="email" type="email" autofocus [(ngModel)]="username" [disabled]="loading">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 30px;">
+                            <input class="form-control" placeholder={{password}} name="password" type="password" [(ngModel)]="userPassword" value="" [disabled]="loading">
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input name="remember" type="checkbox" [checked]="userRememberMe" (change)="userRememberMe = !userRememberMe" value="" [disabled]="loading">
+                                    {{rememberMe}}
+                            </label>
+                        </div>
+                        <div class="row" style="margin-top: 25px; margin-bottom: 25px;">
+                            <div class="col-xs-6 col-xs-offset-3">
+                                <button (click)="SignIn()" type="button" class="btn btn-primary btn-saipem btn-block" style="background-color: #FA9E1F;" [disabled]="loading">
+                                    <i class="fa fa-spinner fa-spin fa-fw" aria-hidden="true" *ngIf="loading"></i> 
+                                    {{signIn}}
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

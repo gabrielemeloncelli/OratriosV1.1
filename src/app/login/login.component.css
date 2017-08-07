@@ -1,0 +1,11 @@
+.container-margined{
+    padding: 7px 0;
+}
+
+.btn-padded {
+    padding: 5px 20px;
+}
+
+.col-centered {
+    text-align: center;
+}

@@ -1,0 +1,14 @@
+<top-bar></top-bar>
+<div class="container">
+  <h1>Select Discipline</h1>
+  <div class="discipline-selector-list">
+    <ul>
+      <li *ngFor="let projectDiscipline of projectDisciplines">
+        <div class="discipline-node">
+          <div class="pull-left discipline-label">{{projectDiscipline.discipline.code}}&nbsp;</div><a class="btn btn-xs btn-success" (click)="selectProjectDiscipline(projectDiscipline)"><span class="glyphicon glyphicon-check"></span></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+</div>

@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { FillBomComponent } from './fill-bom/fill-bom.component';
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+
+
+@Component ({
+  templateUrl: 'app.component.html',
+  selector: 'main-view',
+
+
 })
-export class AppComponent {
-  title = 'app';
-}
+export class AppComponent {}

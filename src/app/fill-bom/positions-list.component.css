@@ -1,0 +1,26 @@
+div.positionsLoading
+{
+  background-image: url('../../assets/images/loader00.gif');
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 80px;
+}
+
+span.reducedFont
+{
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.vert-scroll {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+p.reduced-margin {
+  margin: 0;
+}
+
+a.no-anchor {
+  color: inherit;
+}

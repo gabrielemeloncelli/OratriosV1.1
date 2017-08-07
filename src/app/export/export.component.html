@@ -1,0 +1,10 @@
+<nav>
+    <a class='btn btn-primary btn-saipem' href='index.html'>Select project</a>
+</nav>
+<div>
+    <a  class='btn btn-primary btn-saipem' *ngIf="!exportQueued" (click)='exportAll()'>Export all</a>
+</div>
+<div>
+    <span  class='label label-success'>{{exportResult}}</span>
+    <a *ngIf="exportSuccess" href="{{downloadFileUrl}}">Download file</a>
+</div>

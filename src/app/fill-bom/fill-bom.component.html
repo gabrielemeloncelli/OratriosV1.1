@@ -1,0 +1,66 @@
+<top-bar></top-bar>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a (click)='exportFile()' href="#">Load BOM to SPMat</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="row no-margin">
+  <div class="col-sm-5 vert-scroll" id="main-fill-bom-col-1">
+    <tree-viewx [message]="outMessage">Loading Tree ...</tree-viewx>
+  </div>
+  <div class="col-sm-7">
+    <div>
+      <positions-list></positions-list>
+    </div>
+  </div>
+</div>
+<div>
+  <addposition></addposition>
+</div>
+<modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="storeNode()" #navigateModal>
+  <modal-header [show-close]="true">
+    <h4 class="modal-title">Node details</h4>
+  </modal-header>
+  <modal-body>
+    <div>
+      <label for="nodeType">Node type&nbsp;</label>
+      <ng-select *ngIf="!nodeTypeChangeDisabled" name="nodeType" #nodeTypeSelector [allowClear]="false" [options]="nodeTypeOptions"
+        (selected)="nodeTypeSelected($event)" [placeholder]="nodeSelectorPlaceholder" class="ng-select">
+      </ng-select>
+      <div *ngIf="nodeTypeVisible" class="btn-group" dropdown>
+        <button id="split-button" type="button" class="btn btn-primary btn-saipem">Node Type</button>
+        <button type="button" class="btn btn-primary btn-saipem dropdown-toggle-split" dropdownToggle>
+            <span class="caret"></span>
+            <span class="sr-only">Split button!</span>
+          </button>
+        <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="split-button">
+          <li *ngFor="let nodeType of nodeTypes" role="menuitem"><a class="dropdown-item" (click)="nodeTypeSelected2(nodeType)">{{nodeType.code + " - " + nodeType.shortDescription}}</a></li>
+        </ul>
+      </div>
+      <label class="form-control">{{changedNode.type}}</label>
+    </div>
+    <p>
+      <label for="nodeName">Node name&nbsp;</label>
+      <br/>
+      <input *ngIf="!nodeNameDisabled && !nameIsPullDown" class="form-control" name="nodeName" id="nodeName" [(ngModel)]="changedNode.name"
+        #nodeName />
+      <ng-select *ngIf="!nodeNameDisabled && nameIsPullDown" name="nodeName" #nodeNameSelector [allowClear]="false" [options]="nodeNameOptions"
+        (selected)="nodeNameSelected($event)" placeholder="Select / Change node name" class="ng-select">
+      </ng-select>
+
+      <span *ngIf="nodeNameDisabled" class="form-control" name="nodeName" id="nodeName">{{changedNode.name}}</span>
+    </p>
+    <p *ngIf="conflictDetected">
+      <label class="form-control">{{warningMessage}}</label>
+      <br/>
+      <button *ngIf="canConfirmConflict" type="button" class="btn btn-primary btn-saipem" (click)="storeNodeConfirm()">Confirm</button>
+    </p>
+  </modal-body>
+  <modal-footer>
+    <button type="button" class="btn btn-primary btn-saipem" data-dismiss="modal" (click)="navigateModal.dismiss()">Cancel</button>
+    <button type="button" class="btn btn-primary btn-saipem" autofocus (click)="tryStoreNode()">{{confirmButtonText}}</button>
+  </modal-footer>
+</modal>

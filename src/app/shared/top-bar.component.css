@@ -1,0 +1,17 @@
+.navbar.navbarNoMargin{
+    margin-bottom: 0;
+}
+
+.pull-right.textBar,
+.pull-left.textBar
+{
+    padding: 14px 10px 0 20px;
+}
+
+.pull-left.centerTextBar {
+    padding: 1px 0 0 15px;
+}
+
+.saipemGreen.smaller {
+    font-size: 13px;
+}
