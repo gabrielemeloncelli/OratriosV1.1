@@ -6,47 +6,65 @@
   <a class="btn btn-m btn-primary btn-saipem" (click)="addTagItem()" data-toogle="tooltip" title="Add tag item"><span class="glyphicon glyphicon-tag"></span></a>
   <a class="btn btn-m btn-primary btn-saipem" (click)="clearNode()" data-toogle="tooltip" title="Reset node quantities"><span class="glyphicon glyphicon-erase"></span></a>
   <a class="btn btn-m btn-primary btn-saipem" (click)="copyNodeContents()" data-toogle="tooltip" title="Copy node content"><span class="glyphicon glyphicon glyphicon-copy"></span></a>
-  <button class="btn btn-m btn-primary btn-saipem" (click)="copyPastedContents()" data-toogle="tooltip" title="Paste node content" [disabled]="!canPaste()"><span class="glyphicon glyphicon glyphicon-paste"></span></button>
+  <button class="btn btn-m btn-primary btn-saipem" (click)="copyPastedContents()" data-toogle="tooltip" title="Paste node content"
+    [disabled]="!canPaste()"><span class="glyphicon glyphicon glyphicon-paste"></span></button>
 </div>
 <div *ngIf="!!nodeName && nodeName !== '-'" [ngClass]="{'vert-scroll': true, 'positionsLoading': loadingVisible}" id="main-fill-bom-col-2">
-<table class="table-bordered" style="width: 98%">
-  <thead>
-    <tr>
-      <th>Group</th>
-      <th>Part</th>
-      <th>Commodity Code</th>
-      <th>Tag</th>
-      <th>Description</th>
-      <th>Quantity</th>
-      <th>Unit</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let pos of positionsService.positions | async">
-      <td>{{pos.groupCode}}</td>
-      <td>{{pos.partCode}}</td>
-      <td><a data-toggle="tooltip" title="{{pos.description}}" class="no-anchor">{{pos.calculateCommodityCode()}}</a></td>
-      <td>{{pos.tag}}</td>
-      <td>{{pos.description}}</td>
-      <td>{{pos.quantity}}</td>
-      <td>{{pos.unit}}</td>
-      <td *ngIf="!nodeLocked">
-        <a class="btn btn-xs btn-warning" (click)="editPosition(pos)"><span class="glyphicon glyphicon-edit"></span></a>
-        <a class="btn btn-xs btn-danger" (click)="deletePosition(pos)"><span class="glyphicon glyphicon-remove-sign"></span></a>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<pager [totalItems]="positionsCount" (onPageChanged)="onPageChanged($event)"></pager>
+  <table class="table-bordered" style="width: 98%">
+    <thead>
+      <tr>
+        <th>Group</th>
+        <th>Part</th>
+        <th>Commodity Code</th>
+        <th>Tag</th>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Unit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pos of positionsService.positions | async">
+        <td>{{pos.groupCode}}</td>
+        <td>{{pos.partCode}}</td>
+        <td><a data-toggle="tooltip" title="{{pos.description}}" class="no-anchor">{{pos.calculateCommodityCode()}}</a></td>
+        <td>{{pos.tag}}</td>
+        <td>{{pos.description}}</td>
+        <td>{{pos.quantity}}</td>
+        <td>{{pos.unit}}</td>
+        <td *ngIf="!nodeLocked">
+          <a class="btn btn-xs btn-warning" (click)="editPosition(pos)"><span class="glyphicon glyphicon-edit"></span></a>
+          <a class="btn btn-xs btn-danger" (click)="deletePosition(pos)"><span class="glyphicon glyphicon-remove-sign"></span></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <kendo-grid [data]="gridData" [height]="410">
+    <kendo-grid-column field="ProductID" title="ID" width="40">
+    </kendo-grid-column>
+    <kendo-grid-column field="ProductName" title="Name" width="250">
+    </kendo-grid-column>
+    <kendo-grid-column field="Category.CategoryName" title="Category">
+    </kendo-grid-column>
+    <kendo-grid-column field="UnitPrice" title="Price" width="80">
+    </kendo-grid-column>
+    <kendo-grid-column field="UnitsInStock" title="In stock" width="80">
+    </kendo-grid-column>
+    <kendo-grid-column field="Discontinued" title="Discontinued" width="120">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <input type="checkbox" [checked]="dataItem.Discontinued" disabled/>
+      </ng-template>
+    </kendo-grid-column>
+  </kendo-grid>
+  <pager [totalItems]="positionsCount" (onPageChanged)="onPageChanged($event)"></pager>
 </div>
 <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" #confirmModal>
-    <modal-header [show-close]="true">
-        <h4 class="modal-title">Confirm deletion</h4>
-    </modal-header>
-    <modal-body>
-    </modal-body>
-    <modal-footer>
-        <button type="button" class="btn btn-primary bth-saipem" data-dismiss="modal" (click)="confirmModal.dismiss()">Cancel</button>
-        <button type="button" class="btn btn-primary btn-saipem" autofocus (click)="confirmDeletion()">Confirm</button>
-    </modal-footer>
+  <modal-header [show-close]="true">
+    <h4 class="modal-title">Confirm deletion</h4>
+  </modal-header>
+  <modal-body>
+  </modal-body>
+  <modal-footer>
+    <button type="button" class="btn btn-primary bth-saipem" data-dismiss="modal" (click)="confirmModal.dismiss()">Cancel</button>
+    <button type="button" class="btn btn-primary btn-saipem" autofocus (click)="confirmDeletion()">Confirm</button>
+  </modal-footer>
 </modal>

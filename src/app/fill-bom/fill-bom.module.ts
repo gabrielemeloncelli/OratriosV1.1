@@ -3,6 +3,8 @@ import { NgModule }         from '@angular/core';
 import { ToasterModule,
           ToasterService }  from 'angular2-toaster';
 
+import { GridModule } from '@progress/kendo-angular-grid';
+
 import { PositionsListComponent }           from './positions-list.component';
 import { AddPositionComponent }             from './add-position.component';
 import { CommodityGroupService }            from './commodity-group.service';
@@ -33,7 +35,14 @@ import { NodeSelectorService }              from './node-selector.service';
 import { PagerModule }                      from '../pager/pager.module';
 
 @NgModule({
-  imports:      [ CoreModule, FillBomRoutingModule, TreeViewModule, ModalModule, ToasterModule, SharedModule, PagerModule ],
+  imports:      [ CoreModule,
+                  FillBomRoutingModule,
+                  TreeViewModule,
+                  ModalModule,
+                  ToasterModule,
+                  SharedModule,
+                  PagerModule,
+                  GridModule ],
   declarations: [ PositionsListComponent, AddPositionComponent, FillBomComponent ],
   exports:      [ PositionsListComponent, AddPositionComponent ],
   providers:    [ CoreEstService, CommodityGroupService, CommodityGroupStoreService, CommodityPartService, CommodityPartStoreService,
