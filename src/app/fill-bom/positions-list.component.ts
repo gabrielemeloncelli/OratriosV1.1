@@ -56,7 +56,7 @@ export class PositionsListComponent {
       this.loadingVisible = false;
       this.gridData = positions;
     });
-    
+
     this.positionsService.positionsCount.subscribe(positionsCount => {
       this.positionsCount = positionsCount;
       if (this.positionsCount === 0)
@@ -148,7 +148,7 @@ export class PositionsListComponent {
   onPageChanged(pageChanged: number) {
     this.loadingVisible = true;
     this._currentPage = pageChanged;
-    this.positionsService.selectPage(this._node.id, pageChanged, 10);
+    this.positionsService.selectPage(this._node.id, pageChanged, 50);
     console.log('position-list.component -- onPageChanged -- pageSelected :' + pageChanged); //TODO: replace
   }
 

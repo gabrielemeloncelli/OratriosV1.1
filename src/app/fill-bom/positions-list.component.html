@@ -9,6 +9,7 @@
   <button class="btn btn-m btn-primary btn-saipem" (click)="copyPastedContents()" data-toogle="tooltip" title="Paste node content"
     [disabled]="!canPaste()"><span class="glyphicon glyphicon glyphicon-paste"></span></button>
 </div>
+  <!--
 <div *ngIf="!!nodeName && nodeName !== '-'" [ngClass]="{'vert-scroll': true, 'positionsLoading': loadingVisible}" id="main-fill-bom-col-2">
   <table class="table-bordered" style="width: 98%">
     <thead>
@@ -38,21 +39,32 @@
       </tr>
     </tbody>
   </table>
-  <kendo-grid [data]="gridData" [height]="410">
-    <kendo-grid-column field="groupCode" title="Group" width="40">
+
+  
+</div>
+-->
+<div *ngIf="!!nodeName && nodeName !== '-'" [ngClass]="{'positionsLoading': loadingVisible}">
+  <kendo-grid [data]="gridData" id="kg-positions">
+    <kendo-grid-column field="groupCode" title="Group" width="120">
     </kendo-grid-column>
-    <kendo-grid-column field="partCode" title="Part" width="250">
+    <kendo-grid-column field="partCode" title="Part" width="80">
     </kendo-grid-column>
-    <kendo-grid-column field="commodityCode" title="Commodity Code">
+    <kendo-grid-column field="calculateCommodityCode()" title="Commodity Code" width="220">
     </kendo-grid-column>
-    <kendo-grid-column field="tag" title="Tag" width="80">
+    <kendo-grid-column field="tag" title="Tag" width="120">
     </kendo-grid-column>
-    <kendo-grid-column field="description" title="Description" width="80">
+    <kendo-grid-column field="description" title="Description">
     </kendo-grid-column>
-    <kendo-grid-column field="quantity" title="Qty" width="120">
+    <kendo-grid-column field="quantity" title="Qty" width="80">
     </kendo-grid-column>
+    <kendo-grid-column field="unit" title="Unit" width="65">
+    </kendo-grid-column>  
+    <kendo-grid-column width="80">
+    </kendo-grid-column>    
   </kendo-grid>
-  <pager [totalItems]="positionsCount" (onPageChanged)="onPageChanged($event)"></pager>
+</div>
+<div *ngIf="positionsCount > 50">
+  <pager [totalItems]="positionsCount" [pageSize]="50" (onPageChanged)="onPageChanged($event)"></pager>
 </div>
 <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" #confirmModal>
   <modal-header [show-close]="true">
