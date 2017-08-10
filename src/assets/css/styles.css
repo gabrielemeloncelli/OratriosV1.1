@@ -137,6 +137,8 @@ body {
     max-height: 700px;
 }
 
+/* Fix the size for kendo grid content
+ in the position-list */
 #kg-positions .k-grid-content {
     max-height: 256px;
 }

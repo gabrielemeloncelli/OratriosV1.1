@@ -9,7 +9,7 @@ import { PagerService } from './pager.service';
 
 @Component({
     templateUrl: 'pager.component.html',
-    selector: 'pager'
+    selector: 'mbe-pager'
 })
 
 export class PagerComponent {
@@ -21,15 +21,11 @@ export class PagerComponent {
     // The total items
     @Input() set totalItems(value: number) {
         this._totalItems = value;
-        console.log('pager.component -- set totalItems -- this._totalItems: ' + this._totalItems); // TODO: remove
-        console.log('pager.component -- set totalItems -- this._pageSize: ' + this._pageSize); // TODO: remove
         this.refreshPager();
     }
 
-    @Input() set pageSize(value: number) {        
+    @Input() set pageSize(value: number) {
         this._pageSize = value;
-        console.log('pager.component -- set pageSize -- this._totalItems: ' + this._totalItems); // TODO: remove
-        console.log('pager.component -- set pageSize -- this._pageSize: ' + this._pageSize); // TODO: remove
         this.refreshPager();
     }
 
@@ -44,20 +40,13 @@ export class PagerComponent {
 
 
     setPage(page: number) {
-        console.log("pager.component -- setPage -- page: " + page); //TODO: remove
-        console.log("pager.component -- setPage -- this.pager.totalPages: " + this.pager.totalPages); //TODO: remove
         if (page < 1 || page > this.pager.totalPages || page === this.pager.page) {
             return;
         }
-
         // get pager object from service
         this.pager = this.pagerService.getPager(this._totalItems, page, this._pageSize);
         this.pager.page = page;
         this.onPageChanged.emit(page);
-
-        console.log("pager.component -- setPage -- this.pager.page: " + this.pager.page); //TODO: remove
-
-
     }
 
     refreshPager() {
@@ -65,17 +54,12 @@ export class PagerComponent {
         if (!!this.pager) {
             if (!this.pager.page) {
                 currentPage = 1;
-            }
-            else {
+            } else {
                 currentPage = this.pager.page;
             }
-        }
-        else {
+        } else {
             currentPage = 1;
         }
-        console.log('pager.component -- refreshPager -- this._totalItems: ' + this._totalItems); // TODO: remove
-        console.log('pager.component -- refreshPager -- currentPage: ' + currentPage); // TODO: remove
-        console.log('pager.component -- refreshPager -- this._pageSize: ' + this._pageSize); // TODO: remove
         this.pager = this.pagerService.getPager(this._totalItems, currentPage, this._pageSize);
         if (currentPage > this.pager.totalPages) {
             currentPage = this.pager.startPage;

@@ -64,7 +64,7 @@
   </kendo-grid>
 </div>
 <div *ngIf="positionsCount > 50">
-  <pager [totalItems]="positionsCount" [pageSize]="50" (onPageChanged)="onPageChanged($event)"></pager>
+  <mbe-pager [totalItems]="positionsCount" [pageSize]="50" (onPageChanged)="onPageChanged($event)"></mbe-pager>
 </div>
 <modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" #confirmModal>
   <modal-header [show-close]="true">
