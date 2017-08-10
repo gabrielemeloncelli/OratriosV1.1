@@ -34,6 +34,7 @@ export class PositionsListComponent {
   private DELETION_POSITION = "DELETION_POSITION";
   public positionsCount = 0;
   private _currentPage = 0;
+  public gridData: BomPosition[];
 
 
   constructor(private selectorService: NodeSelectorService, public positionsService: PositionService, private uiStatusService: UiStatusService) {
@@ -51,7 +52,11 @@ export class PositionsListComponent {
         this.uiStatusService.nodePath = path;
       }
     )
-    this.positionsService.positions.subscribe(() => this.loadingVisible = false);
+    this.positionsService.positions.subscribe(positions => {
+      this.loadingVisible = false;
+      this.gridData = positions;
+    });
+    
     this.positionsService.positionsCount.subscribe(positionsCount => {
       this.positionsCount = positionsCount;
       if (this.positionsCount === 0)

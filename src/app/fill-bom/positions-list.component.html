@@ -39,20 +39,17 @@
     </tbody>
   </table>
   <kendo-grid [data]="gridData" [height]="410">
-    <kendo-grid-column field="ProductID" title="ID" width="40">
+    <kendo-grid-column field="groupCode" title="Group" width="40">
     </kendo-grid-column>
-    <kendo-grid-column field="ProductName" title="Name" width="250">
+    <kendo-grid-column field="partCode" title="Part" width="250">
     </kendo-grid-column>
-    <kendo-grid-column field="Category.CategoryName" title="Category">
+    <kendo-grid-column field="commodityCode" title="Commodity Code">
     </kendo-grid-column>
-    <kendo-grid-column field="UnitPrice" title="Price" width="80">
+    <kendo-grid-column field="tag" title="Tag" width="80">
     </kendo-grid-column>
-    <kendo-grid-column field="UnitsInStock" title="In stock" width="80">
+    <kendo-grid-column field="description" title="Description" width="80">
     </kendo-grid-column>
-    <kendo-grid-column field="Discontinued" title="Discontinued" width="120">
-      <ng-template kendoGridCellTemplate let-dataItem>
-        <input type="checkbox" [checked]="dataItem.Discontinued" disabled/>
-      </ng-template>
+    <kendo-grid-column field="quantity" title="Qty" width="120">
     </kendo-grid-column>
   </kendo-grid>
   <pager [totalItems]="positionsCount" (onPageChanged)="onPageChanged($event)"></pager>
