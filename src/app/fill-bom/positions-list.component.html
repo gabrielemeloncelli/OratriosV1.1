@@ -38,7 +38,7 @@
 <div *ngIf="positionsCount > 50">
   <mbe-pager [totalItems]="positionsCount" [pageSize]="50" (onPageChanged)="onPageChanged($event)"></mbe-pager>
 </div>
-<modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" #confirmModal>
+<mbe-modal id="position-list-modal" [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" #confirmModal>
   <modal-header [show-close]="true">
     <h4 class="modal-title">Confirm deletion</h4>
   </modal-header>
@@ -48,4 +48,4 @@
     <button type="button" class="btn btn-primary bth-saipem" data-dismiss="modal" (click)="confirmModal.dismiss()">Cancel</button>
     <button type="button" class="btn btn-primary btn-saipem" autofocus (click)="confirmDeletion()">Confirm</button>
   </modal-footer>
-</modal>
+</mbe-modal>

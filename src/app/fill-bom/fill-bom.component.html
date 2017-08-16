@@ -20,7 +20,7 @@
 <div>
   <addposition></addposition>
 </div>
-<modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="storeNode()" #navigateModal>
+<mbe-modal id="fill-bom-modal" [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="storeNode()" #navigateModal>
   <modal-header [show-close]="true">
     <h4 class="modal-title">Node details</h4>
   </modal-header>
@@ -63,4 +63,4 @@
     <button type="button" class="btn btn-primary btn-saipem" data-dismiss="modal" (click)="navigateModal.dismiss()">Cancel</button>
     <button type="button" class="btn btn-primary btn-saipem" autofocus (click)="tryStoreNode()">{{confirmButtonText}}</button>
   </modal-footer>
-</modal>
+</mbe-modal>

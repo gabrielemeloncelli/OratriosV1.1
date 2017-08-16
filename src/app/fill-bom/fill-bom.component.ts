@@ -60,8 +60,8 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
     this.coreEstService = coreEstService;
   }
 
-  @ViewChild(ModalComponent)
-  private modalComponent: ModalComponent;
+  @ViewChild('navigateModal')
+  modalComponent: ModalComponent;
 
 
 

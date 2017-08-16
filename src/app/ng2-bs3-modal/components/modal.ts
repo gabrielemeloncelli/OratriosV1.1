@@ -1,8 +1,8 @@
-import { Component, OnDestroy, Input, Output, EventEmitter, Type, ElementRef, HostBinding } from '@angular/core';
+import { Component, OnDestroy, Input, Output, EventEmitter, Type, ElementRef, HostBinding, AfterViewInit } from '@angular/core';
 import { ModalInstance, ModalResult } from './modal-instance';
 
 @Component({
-    selector: 'modal',
+    selector: 'mbe-modal',
     host: {
         'class': 'modal',
         'role': 'dialog',
@@ -18,7 +18,7 @@ import { ModalInstance, ModalResult } from './modal-instance';
     styleUrls: ["modal.css"  ]
 
 })
-export class ModalComponent implements OnDestroy {
+export class ModalComponent implements OnDestroy, AfterViewInit {
 
     private overrideSize: string = null;
 
@@ -39,6 +39,7 @@ export class ModalComponent implements OnDestroy {
     @HostBinding('attr.data-backdrop') get dataBackdropAttr(): string | boolean { return this.backdrop; }
 
     constructor(private element: ElementRef) {
+        console.log('modal -- constructor'); // TODO: remove
         this.instance = new ModalInstance(this.element);
 
         this.instance.hidden.subscribe((result) => {
@@ -54,6 +55,10 @@ export class ModalComponent implements OnDestroy {
 
     ngOnDestroy() {
         return this.instance && this.instance.destroy();
+    }
+
+    ngAfterViewInit() {
+        this.instance.initAfter();
     }
 
     routerCanDeactivate(): any {

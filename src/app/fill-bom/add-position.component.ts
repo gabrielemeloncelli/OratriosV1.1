@@ -37,8 +37,8 @@ styleUrls: ["add-position.component.css"  ]
 export class AddPositionComponent
 {
 
-  @ViewChild(ModalComponent)
-  private modalComponent: ModalComponent;
+
+  @ViewChild('addComp') modalComponent: ModalComponent;
   public groups: Option[] = new Array<Option>();
   public groupsDisabled: boolean = false;
   public parts: Option[] = new Array<Option>();
@@ -89,6 +89,7 @@ export class AddPositionComponent
      private positionService: PositionService, private attributeService: AttributeService,
      private allowedValueService: AllowedValueService)
   {
+    console.log('add-position.component -- constructor'); // TODO: remove
     this._allowedUnits = new Array<Option>();
     this._allowedUnits.push(new Option({value: "U", label: "U"}));
     this._allowedUnits.push(new Option({value: "M2", label: "M2"}));

@@ -1,4 +1,4 @@
-<modal [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" [size]="'fs'" #addModal>
+<mbe-modal id="add-position-modal" [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" [size]="'fs'" #addComp>
   <form (ngSubmit)="onSubmit()" #addPositionForm="ngForm">
     <modal-header [show-close]="true">
       <h4 class="modal-title">Position details</h4>
@@ -189,4 +189,4 @@
     </modal-footer>
   </form>
 
-</modal>
+</mbe-modal>

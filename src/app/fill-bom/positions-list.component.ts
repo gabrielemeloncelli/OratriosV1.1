@@ -24,8 +24,7 @@ export class PositionsListComponent {
   public nodeName: string;
   public nodeLocked: boolean;
   private _node: TreeNode;
-  @ViewChild(ModalComponent)
-  confirmModal: ModalComponent;
+  @ViewChild('confirmModal') confirmModal: ModalComponent;
   private _positionToBeDeleted: BomPosition;
   public loadingVisible = false;
   public selectedNodePath: string;
