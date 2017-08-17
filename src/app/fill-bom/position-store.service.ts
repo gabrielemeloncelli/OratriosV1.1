@@ -185,7 +185,7 @@ export class PositionStoreService {
     resultPosition.description2 = res.description2;
     resultPosition.unit = res.unit;
     resultPosition.attributes = this.mapAttributes(res.attributes);
-
+    resultPosition.indexedAttributes = this.indexAttributes(resultPosition.attributes);
     return resultPosition;
   }
 
@@ -209,6 +209,14 @@ export class PositionStoreService {
 
   mapSingleAttribute(attr: any) {
     return new PositionAttributeValue(attr.attribute, attr.value);
+  }
+
+  indexAttributes(rawAttributes: PositionAttributeValue[]): PositionAttributeValue[] {
+    const result = new Array<PositionAttributeValue>();
+    for (let position of rawAttributes) {
+      result[position.attribute.id] = position;
+    }
+    return result;
   }
 
   getTag(tag: string, projectDisciplineId: number): Observable<BomPosition[]> {
