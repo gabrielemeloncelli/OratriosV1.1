@@ -34,11 +34,10 @@ export class PositionsListComponent {
   public positionsCount = 0;
   private _currentPage = 0;
   public gridData: BomPosition[];
-  public extraAttributes: Array<any>;
+
 
 
   constructor(private selectorService: NodeSelectorService, public positionsService: PositionService, private uiStatusService: UiStatusService) {
-    this.extraAttributes = [{code: 'AREA_SA', id: 303}, {code: 'REF_SPEC_SA', id: 304}];
   }
 
   ngOnInit() {

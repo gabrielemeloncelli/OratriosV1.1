@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Subject}     from 'rxjs/Subject';
+import { Subject} from 'rxjs/Subject';
 
-import { BomPosition }            from '../fill-bom/bom-position';
-import { InsertPositionDetails }  from '../fill-bom/insert-position-details';
-import { ProjectDiscipline }      from './project-discipline';
-import { NodeTypeService }        from './node-type.service';
-import { NodeType }               from './node-type';
-import { NodePositionsUpdate }    from './node-positions-update';
-import { CommodityGroup }         from '../fill-bom/commodity-group';
-import { CommodityPart }          from '../fill-bom/commodity-part';
-import { TreeNode }               from '../lazy-loaded-tree-view/tree-node';
-import { TreeNodeService }        from './tree-node.service';
+import { BomPosition } from '../fill-bom/bom-position';
+import { InsertPositionDetails } from '../fill-bom/insert-position-details';
+import { ProjectDiscipline } from './project-discipline';
+import { NodeTypeService } from './node-type.service';
+import { NodeType } from './node-type';
+import { NodePositionsUpdate } from './node-positions-update';
+import { CommodityGroup } from '../fill-bom/commodity-group';
+import { CommodityPart } from '../fill-bom/commodity-part';
+import { TreeNode } from '../lazy-loaded-tree-view/tree-node';
+import { TreeNodeService } from './tree-node.service';
+import { Attribute } from '../fill-bom/attribute';
 
 @Injectable()
 export class UiStatusService
@@ -43,6 +44,7 @@ export class UiStatusService
 
   private nodePositionsUpdateSubject = new Subject<NodePositionsUpdate>();
   public nodePositionsUpdate = this.nodePositionsUpdateSubject.asObservable();
+  public attributes: Attribute[];
 
 
   constructor(private nodeTypeService: NodeTypeService,

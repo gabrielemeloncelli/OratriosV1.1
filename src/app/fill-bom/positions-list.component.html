@@ -33,7 +33,7 @@
     </kendo-grid-column>
     <kendo-grid-column field="unit" title="Unit" width="65">
     </kendo-grid-column>
-    <kendo-grid-column *ngFor="let extraAttribute of extraAttributes" title="{{extraAttribute.code}}" field="{{'indexedAttributes[' + extraAttribute.id + '].value'}}" width="90">
+    <kendo-grid-column *ngFor="let extraAttribute of uiStatusService.attributes" title="{{extraAttribute.code}}" field="{{'indexedAttributes[' + extraAttribute.id + '].value'}}" width="130">
     </kendo-grid-column>
   </kendo-grid>
 </div>

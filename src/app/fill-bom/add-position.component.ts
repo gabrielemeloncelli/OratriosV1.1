@@ -141,6 +141,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     );
     this.attributeService.attributes.subscribe(
       attributes => {
+        this.uiStatusService.attributes = attributes;
         this.attributes = attributes;
         for (let attribute of attributes) {
           this.allowedValues[attribute.spmatId] = new Array<Option>();
