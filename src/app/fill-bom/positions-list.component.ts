@@ -1,17 +1,19 @@
 import {
   Component,
-  ViewChild }               from '@angular/core';
-import { Observable }       from 'rxjs/Observable';
-import { BehaviorSubject }  from 'rxjs/BehaviorSubject';
+  ViewChild
+} from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { BomPosition }          from './bom-position';
-import { NodeSelectorService }  from './node-selector.service';
-import { TreeNode }             from '../lazy-loaded-tree-view/tree-node';
-import { PositionService }      from './position.service';
-import { UiStatusService }      from '../core/ui-status.service';
-import { CommodityGroup }       from './commodity-group';
-import { CommodityPart }        from './commodity-part';
-import { ModalComponent }       from '../ng2-bs3-modal/components/modal';
+import { BomPosition } from './bom-position';
+import { NodeSelectorService } from './node-selector.service';
+import { TreeNode } from '../lazy-loaded-tree-view/tree-node';
+import { PositionService } from './position.service';
+import { UiStatusService } from '../core/ui-status.service';
+import { CommodityGroup } from './commodity-group';
+import { CommodityPart } from './commodity-part';
+import { ModalComponent } from '../ng2-bs3-modal/components/modal';
+import { PositionAttributeValue } from './position-attribute-value';
 
 
 
@@ -54,13 +56,12 @@ export class PositionsListComponent {
     )
     this.positionsService.positions.subscribe(positions => {
       this.loadingVisible = false;
-      this.gridData = positions;
+      this.gridData = this.completeAttributes(positions);
     });
 
     this.positionsService.positionsCount.subscribe(positionsCount => {
       this.positionsCount = positionsCount;
-      if (this.positionsCount === 0)
-      {
+      if (this.positionsCount === 0) {
         this.loadingVisible = false;
       }
     });
@@ -130,11 +131,10 @@ export class PositionsListComponent {
     if (!this.uiStatusService.nodeToBeCopied) {
       return false;
     }
-    if (!this._node.commodityPart || !this._node.commodityPart.id)
-    {
+    if (!this._node.commodityPart || !this._node.commodityPart.id) {
       return true;
     }
-    if(!this.uiStatusService.nodeToBeCopied.commodityPart) {
+    if (!this.uiStatusService.nodeToBeCopied.commodityPart) {
       return false;
     }
     return this.uiStatusService.nodeToBeCopied.commodityPart.id === this._node.commodityPart.id;
@@ -142,14 +142,26 @@ export class PositionsListComponent {
 
   copyPastedContents() {
     this.positionsService.pasteNode(this.uiStatusService.nodeToBeCopied.id, this._node.id)
-    .subscribe(() => { this.updateSelection(this._node) });
+      .subscribe(() => { this.updateSelection(this._node) });
   }
 
   onPageChanged(pageChanged: number) {
     this.loadingVisible = true;
     this._currentPage = pageChanged;
     this.positionsService.selectPage(this._node.id, pageChanged, 50);
-    console.log('position-list.component -- onPageChanged -- pageSelected :' + pageChanged); //TODO: replace
+
+  }
+
+  completeAttributes(inputPositions: BomPosition[]): BomPosition[] {
+    for (let position of inputPositions) {
+      for (let attribute of this.uiStatusService.attributes) {
+        if (!position.indexedAttributes[attribute.id]) {
+          position.indexedAttributes[attribute.id] = 
+            new PositionAttributeValue(attribute, '');        
+        }
+      }
+    }
+    return inputPositions;
   }
 
 }
