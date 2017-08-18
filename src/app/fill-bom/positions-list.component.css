@@ -24,3 +24,7 @@ p.reduced-margin {
 a.no-anchor {
   color: inherit;
 }
+
+input.column-input {
+  width: 150px;
+}
