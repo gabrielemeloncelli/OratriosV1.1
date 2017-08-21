@@ -45,6 +45,9 @@ export class UiStatusService
   private nodePositionsUpdateSubject = new Subject<NodePositionsUpdate>();
   public nodePositionsUpdate = this.nodePositionsUpdateSubject.asObservable();
   public attributes: Attribute[];
+  public positionsDirty = false;
+  private _saveDirtyData = new Subject<void>();
+  public saveDirtyData = this._saveDirtyData.asObservable();
 
 
   constructor(private nodeTypeService: NodeTypeService,
@@ -80,5 +83,9 @@ export class UiStatusService
 
    updateNodePositions(id: number) {
     this.nodeService.updateNodePositions(id);
+   }
+
+   public triggerSaveDirtyData() {
+     this._saveDirtyData.next();
    }
  }

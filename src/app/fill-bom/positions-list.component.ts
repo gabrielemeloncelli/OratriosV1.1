@@ -65,6 +65,8 @@ export class PositionsListComponent {
         this.loadingVisible = false;
       }
     });
+
+    this.uiStatusService.saveDirtyData.subscribe(() => this.saveDirtyData());
   }
 
   editPosition(position: BomPosition) {
@@ -82,9 +84,7 @@ export class PositionsListComponent {
     this.nodeName = this._node.name;
     this.nodeLocked = selectedNode.locked;
     this.uiStatusService.commodityGroup = !selectedNode.commodityGroup ? new CommodityGroup(0, "", "") : selectedNode.commodityGroup;
-    console.log("position-list.component - updateSelection - !!this.uiStatusService.commodityGroup.id: " + this.uiStatusService.commodityGroup.id); //TODO: remove
     this.uiStatusService.commodityPart = !selectedNode.commodityPart ? new CommodityPart(0, "", "", this.uiStatusService.commodityGroup.code) : selectedNode.commodityPart;
-    console.log("position-list.component - updateSelection - !!this.uiStatusService.commodityPart.id: " + this.uiStatusService.commodityPart.id); //TODO: remove
     this.positionsService.selectNode(selectedNode.id);
     this.uiStatusService.updateNodePositions(selectedNode.id);
     this.onPageChanged(this._currentPage);
@@ -109,13 +109,10 @@ export class PositionsListComponent {
 
   confirmDeletion() {
     this.confirmModal.dismiss();
-    console.log("positions-list.component -- confirmDeletion -- this.deletionAction: " + this.deletionAction); //TODO: remove
     if (this.deletionAction === this.DELETION_POSITION) {
-      console.log("positions-list.component -- confirmDeletion -- deletePosition -- !!this._positionToBeDeleted: " + !!this._positionToBeDeleted); //TODO: remove
       this.positionsService.deletePosition(this._positionToBeDeleted).subscribe(p => { this.updateSelection(this._node) });
     }
     if (this.deletionAction === this.DELETION_NODE_QUANTITIES) {
-      console.log("positions-list.component -- confirmDeletion -- clearNode -- this._node.id: " + this._node.id); //TODO: remove
       this.positionsService.clearNode(this._node.id).subscribe(() => { this.updateSelection(this._node) });
     }
   }
@@ -154,14 +151,65 @@ export class PositionsListComponent {
 
   completeAttributes(inputPositions: BomPosition[]): BomPosition[] {
     for (let position of inputPositions) {
+      position.isDirty = false;
       for (let attribute of this.uiStatusService.attributes) {
         if (!position.indexedAttributes[attribute.id]) {
-          position.indexedAttributes[attribute.id] = 
-            new PositionAttributeValue(attribute, '');        
+          position.indexedAttributes[attribute.id] =
+            new PositionAttributeValue(attribute, '');
         }
       }
     }
     return inputPositions;
+  }
+
+  saveDirtyData() {
+    let dirtyData = new Array<BomPosition>();
+    for (let position of this.gridData) {
+      if (position.isDirty) {
+        // save dirty data
+        // TODO: implement
+        dirtyData.push(this.updatePositionAttributes(position));
+      }
+    }
+
+  }
+
+  setDirty(position: BomPosition) {
+    position.isDirty = true;
+    this.uiStatusService.positionsDirty = true;
+  }
+
+  updatePositionAttributes(dirtyPosition: BomPosition): BomPosition {
+    for (let attribute of dirtyPosition.indexedAttributes) {
+      if (!!attribute) {
+        if (attribute.value === undefined || attribute.value === '') {
+          this.updateAttribute(dirtyPosition, attribute, true);
+        } else {
+          this.updateAttribute(dirtyPosition, attribute, false);
+        }
+      }
+    }
+    return dirtyPosition;
+  }
+
+  updateAttribute(dirtyPosition: BomPosition, attribute: PositionAttributeValue, remove: boolean) {
+    let foundAttributeIdx = -1;
+    if (!!dirtyPosition.attributes) {
+      for (let index = 0; index < dirtyPosition.attributes.length; index += 1) {
+        if (attribute.attribute.id === dirtyPosition.attributes[index].attribute.id) {
+          foundAttributeIdx = index;
+        }
+      }
+    }
+    if (foundAttributeIdx > -1) {
+      if (remove) {
+        dirtyPosition.attributes.splice(foundAttributeIdx, 1);
+      } else {
+        dirtyPosition.attributes[foundAttributeIdx].value = attribute.value;
+      }
+    } else if (!remove) {
+      dirtyPosition.attributes.push(new PositionAttributeValue(attribute.attribute, attribute.value));
+    }
   }
 
 }

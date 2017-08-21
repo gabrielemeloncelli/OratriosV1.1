@@ -1,13 +1,18 @@
 <p *ngIf="!!nodeName && nodeName !== '-'" class="reduced-margin"><label *ngIf="!!selectedNodePath" class="welcome saipemGreen">{{selectedNodePath}}</label></p>
 <div *ngIf="!nodeLocked">
-  <a class="btn btn-m btn-primary btn-saipem" (click)="refreshList()" data-toogle="tooltip" title="Refresh"><span class="glyphicon glyphicon-refresh"></span></a>
-  <a class="btn btn-m btn-primary btn-saipem" (click)="addCatalogItem(true)" data-toogle="tooltip" title="Add catalog item"><span class="glyphicon glyphicon-book"></span></a>
-  <a class="btn btn-m btn-primary btn-saipem" (click)="addCatalogItem(false)" data-toogle="tooltip" title="Add catalog item with tag"><span class="glyphicon glyphicon-bookmark"></span></a>
-  <a class="btn btn-m btn-primary btn-saipem" (click)="addTagItem()" data-toogle="tooltip" title="Add tag item"><span class="glyphicon glyphicon-tag"></span></a>
-  <a class="btn btn-m btn-primary btn-saipem" (click)="clearNode()" data-toogle="tooltip" title="Reset node quantities"><span class="glyphicon glyphicon-erase"></span></a>
-  <a class="btn btn-m btn-primary btn-saipem" (click)="copyNodeContents()" data-toogle="tooltip" title="Copy node content"><span class="glyphicon glyphicon glyphicon-copy"></span></a>
-  <button class="btn btn-m btn-primary btn-saipem" (click)="copyPastedContents()" data-toogle="tooltip" title="Paste node content"
-    [disabled]="!canPaste()"><span class="glyphicon glyphicon glyphicon-paste"></span></button>
+  <div *ngIf="!uiStatusService.positionsDirty">
+    <a class="btn btn-m btn-primary btn-saipem" (click)="refreshList()" data-toogle="tooltip" title="Refresh"><span class="glyphicon glyphicon-refresh"></span></a>
+    <a class="btn btn-m btn-primary btn-saipem" (click)="addCatalogItem(true)" data-toogle="tooltip" title="Add catalog item"><span class="glyphicon glyphicon-book"></span></a>
+    <a class="btn btn-m btn-primary btn-saipem" (click)="addCatalogItem(false)" data-toogle="tooltip" title="Add catalog item with tag"><span class="glyphicon glyphicon-bookmark"></span></a>
+    <a class="btn btn-m btn-primary btn-saipem" (click)="addTagItem()" data-toogle="tooltip" title="Add tag item"><span class="glyphicon glyphicon-tag"></span></a>
+    <a class="btn btn-m btn-primary btn-saipem" (click)="clearNode()" data-toogle="tooltip" title="Reset node quantities"><span class="glyphicon glyphicon-erase"></span></a>
+    <a class="btn btn-m btn-primary btn-saipem" (click)="copyNodeContents()" data-toogle="tooltip" title="Copy node content"><span class="glyphicon glyphicon glyphicon-copy"></span></a>
+    <button class="btn btn-m btn-primary btn-saipem" (click)="copyPastedContents()" data-toogle="tooltip" title="Paste node content"
+      [disabled]="!canPaste()"><span class="glyphicon glyphicon glyphicon-paste"></span></button>
+  </div>
+  <div *ngIf="uiStatusService.positionsDirty">
+    <a class="btn btn-m btn-primary btn-saipem" (click)="saveDirtyData()" data-toogle="tooltip" title="Save modified data"><span class="glyphicon glyphicon glyphicon-floppy-save"></span></a>
+  </div>
 </div>
 
 
@@ -18,7 +23,7 @@
         <a class="btn btn-xs btn-warning" (click)="editPosition(dataItem)"><span class="glyphicon glyphicon-edit"></span></a>
         <a class="btn btn-xs btn-danger" (click)="deletePosition(dataItem)"><span class="glyphicon glyphicon-remove-sign"></span></a>
       </ng-template>
-    </kendo-grid-column>  
+    </kendo-grid-column>
     <kendo-grid-column field="groupCode" title="Group" width="120">
     </kendo-grid-column>
     <kendo-grid-column field="partCode" title="Part" width="80">
@@ -34,9 +39,10 @@
     <kendo-grid-column field="unit" title="Unit" width="65">
     </kendo-grid-column>
     <kendo-grid-column *ngFor="let extraAttribute of uiStatusService.attributes" title="{{extraAttribute.code}}" width="180">
-        <ng-template kendoGridCellTemplate let-dataItem>
-           <input *ngIf="!!dataItem.indexedAttributes[extraAttribute.id]" [(ngModel)]="dataItem.indexedAttributes[extraAttribute.id].value" class="column-input"/>
-        </ng-template>
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <input *ngIf="!!dataItem.indexedAttributes[extraAttribute.id]" [(ngModel)]="dataItem.indexedAttributes[extraAttribute.id].value"
+          (input)="setDirty(dataItem)" class="column-input" />
+      </ng-template>
     </kendo-grid-column>
   </kendo-grid>
 </div>

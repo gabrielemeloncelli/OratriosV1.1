@@ -22,4 +22,5 @@ export class BomPosition{
     return this.tag;
   }
   public indexedAttributes: PositionAttributeValue[];
+  public isDirty: boolean;
 }
