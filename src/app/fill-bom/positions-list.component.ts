@@ -171,6 +171,11 @@ export class PositionsListComponent {
         dirtyData.push(this.updatePositionAttributes(position));
       }
     }
+    this.positionsService.editPositionList(dirtyData)
+    .subscribe(() => {
+      this.uiStatusService.positionsDirty = false;
+      this.onPageChanged(this._currentPage);
+    });
 
   }
 

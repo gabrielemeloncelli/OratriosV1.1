@@ -30,6 +30,9 @@ export class PositionService {
     return this._storeService.editPosition(modifiedPosition);
   }
 
+  editPositionList(modifiedPositions: BomPosition[]): Observable<PositionErrorList> {
+    return this._storeService.editPositionList(modifiedPositions);
+  }
   selectNode(nodeId: number) {
     this._positions.next(new Array<BomPosition>());
     this._storeService.selectNode(nodeId).subscribe(

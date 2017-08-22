@@ -66,6 +66,15 @@ export class PositionStoreService {
     return result.asObservable();
   }
 
+  editPositionList(modifiedPositions: BomPosition[]): Observable<PositionErrorList> {
+    var headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    var result = new Subject<BomPosition[]>();
+    return this._http.post(this.BASE_URL + '/multiple', JSON.stringify(modifiedPositions), options)
+    .map(() => this.emptyError()) 
+    .catch((res: Response) => this.mapError(res));
+  }
+
   mapError(errorResponse: any): Observable<PositionErrorList> {
     var list: PositionErrorList = new PositionErrorList();
     console.log("position-store.service -- mapError -- errorResponse: " + errorResponse); //TODO: remove
