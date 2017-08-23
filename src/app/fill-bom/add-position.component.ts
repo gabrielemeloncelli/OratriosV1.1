@@ -85,7 +85,6 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     private materialService: MaterialService, private selectorService: NodeSelectorService,
     private positionService: PositionService, private attributeService: AttributeService,
     private allowedValueService: AllowedValueService) {
-    console.log('add-position.component -- constructor'); // TODO: remove
     this._allowedUnits = new Array<Option>();
     this._allowedUnits.push(new Option({ value: 'U', label: 'U' }));
     this._allowedUnits.push(new Option({ value: 'M2', label: 'M2' }));
@@ -237,6 +236,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     this.selectedMaterial.groupCode = foundGroup.code;
     this.uiStatusService.commodityGroup = foundGroup;
     this.uiStatusService.commodityPart = new CommodityPart(0, '', '', foundGroup.code);
+    this.commodityPartService.getAll(foundGroup.id);
   }
 
   findSelectedGroup(id: number): CommodityGroup {
@@ -473,7 +473,6 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
 
 
   setAttributes(attributes: PositionAttributeValue[]) {
-    const identifier: number;
     if (attributes != null) {
       let index: number;
       for (index = 0; index < attributes.length; index += 1) {
@@ -669,7 +668,6 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
   savePositionList() {
     this.clearErrorMessages();
     const addedBomPositions = new Array<BomPosition>();
-    const loopPosition: PositionInput;
     let newPosition: BomPosition;
     let index: number;
     for (index = 0; index < this.addedPositions.length; index += 1) {
