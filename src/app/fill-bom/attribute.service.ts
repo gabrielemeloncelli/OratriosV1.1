@@ -5,21 +5,19 @@ import { Attribute } from './attribute';
 import { AttributeStoreService } from './attribute-store.service';
 
 @Injectable()
-export class AttributeService{
+export class AttributeService {
   private _attributes: BehaviorSubject<Array<Attribute>> = new BehaviorSubject(new Array<Attribute>());
   public attributes: Observable<Array<Attribute>> = this._attributes.asObservable();
 
 
-constructor(private _storeService: AttributeStoreService){}
+  constructor(private _storeService: AttributeStoreService) { }
 
 
-  getAll(projDisciplineId: number)
-  {
-    this._storeService.getAll(projDisciplineId).subscribe( attributes => this._attributes.next(attributes));
+  getAll(projDisciplineId: number) {
+    this._storeService.getAll(projDisciplineId).subscribe(attributes => this._attributes.next(attributes));
   }
 
-  clear()
-  {
+  clear() {
     this._attributes.next(new Array<Attribute>());
   }
 

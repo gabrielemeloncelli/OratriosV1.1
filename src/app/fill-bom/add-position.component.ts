@@ -37,7 +37,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
 
   @ViewChild('addComp') modalComponent: ModalComponent;
   public groups: Option[] = new Array<Option>();
-  public groupsDisabled: boolean = false;
+  public groupsDisabled = false;
   public parts: Option[] = new Array<Option>();
   public materials: Material[] = new Array<Material>();
   public addedPositions: PositionInput[] = new Array<PositionInput>();
@@ -115,8 +115,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
                 label: '' + this.uiStatusService.commodityPart.id
               });
               this.partSelected(partOption);
-            }
-            else {
+            } else {
               const groupOption = new Option({
                 value: '' + this.uiStatusService.commodityGroup.id,
                 label: '' + this.uiStatusService.commodityGroup.id
@@ -143,12 +142,12 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
       attributes => {
         this.uiStatusService.attributes = attributes;
         this.attributes = attributes;
-        for (let attribute of attributes) {
+        for (const attribute of attributes) {
           this.allowedValues[attribute.spmatId] = new Array<Option>();
           this.allowedValueService.getAll(attribute.spmatId)
             .subscribe(v => {
               if (true && v && v.length > 0) {
-                let index = v[0].attributeId;
+                const index = v[0].attributeId;
                 this.allowedValues[index] = v.map(v1 => new Option({
                   value: v1.value,
                   label: v1.value
@@ -203,8 +202,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
       (materials: Material[]) => {
         if (this._loadingTimeoutExpired) {
           this.filteredMaterialsLoading = false;
-        }
-        else {
+        } else {
           setTimeout(() => this.filteredMaterialsLoading = false, 500);
         }
         this.materials = materials;
@@ -274,8 +272,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
 
     if (this._isTag) {
       this._tagAndQuantityVisible = true;
-    }
-    else {
+    } else {
       this.commodityTableService.getAll(this.uiStatusService.disciplineCode, selectedPart.groupCode, selectedPart.code);
     }
   }
@@ -301,8 +298,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     if (!foundFilter) {
       foundFilter = new TableFilter(tableName, event.value);
       this._tableFilters.push(foundFilter);
-    }
-    else {
+    } else {
       foundFilter.detail = event.value;
     }
   }
@@ -386,8 +382,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     this._tableFilters = new Array<TableFilter>();
     if (!this.uiStatusService.commodityPart.id) {
       this.resetPart();
-    }
-    else {
+    } else {
       this.partObjectSelected(this.uiStatusService.commodityPart, false);
     }
     this.uiStatusService.materialsVisible = false;
@@ -445,7 +440,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
   }
 
   clonePosition(positionToEdit: BomPosition): BomPosition {
-    let clonedPosition = new BomPosition();
+    const clonedPosition = new BomPosition();
     clonedPosition.attributes = this.clonePositionAttributes(positionToEdit.attributes);
     clonedPosition.commodityCode = positionToEdit.commodityCode;
     clonedPosition.description = positionToEdit.description;
@@ -465,7 +460,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
   }
 
   clonePositionAttributes(attributesToClone: PositionAttributeValue[]): PositionAttributeValue[] {
-    let clonedAttributes = new Array<PositionAttributeValue>();
+    const clonedAttributes = new Array<PositionAttributeValue>();
     if (!!attributesToClone) {
       attributesToClone.forEach(a => clonedAttributes.push(this.cloneAttributeValue(a)));
     }
@@ -478,7 +473,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
 
 
   setAttributes(attributes: PositionAttributeValue[]) {
-    let identifier: number;
+    const identifier: number;
     if (attributes != null) {
       let index: number;
       for (index = 0; index < attributes.length; index += 1) {
@@ -600,8 +595,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     this._saveFailedCount = 0;
     if (this._isEdit || this._isTag) {
       this.saveSinglePosition();
-    }
-    else {
+    } else {
       this.savePositionList();
     }
   }
@@ -637,16 +631,14 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
           this.errorMessage = e.message;
         }
       );
-    }
-    else {
+    } else {
       this.positionService.addPosition(newPosition)
         .subscribe(
         p => {
           this.selectorService.refreshNode();
           if (!this._isTag) {
             this.modalComponent.dismiss();
-          }
-          else {
+          } else {
             this.clearTag();
           }
         },
@@ -677,7 +669,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
   savePositionList() {
     this.clearErrorMessages();
     const addedBomPositions = new Array<BomPosition>();
-    let loopPosition: PositionInput;
+    const loopPosition: PositionInput;
     let newPosition: BomPosition;
     let index: number;
     for (index = 0; index < this.addedPositions.length; index += 1) {
@@ -794,20 +786,18 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     if (this._toBeSavedIndex < this.addedPositions.length - 1) {
       this._toBeSavedIndex += 1;
       this.savePositionInArray(this._toBeSavedIndex);
-    }
-    else {
+    } else {
       this.purgeSavedPositions();
     }
   }
 
   purgeSavedPositions(): void {
-    let purgedCount = 0;
+    const purgedCount = 0;
     let index = 0;
     while (index < this.addedPositions.length) {
       if (this.addedPositions[index].saved) {
         this.addedPositions.splice(index, 1);
-      }
-      else {
+      } else {
         this.addedPositions[index].saveFailed = false;
         index += 1;
       }
@@ -830,7 +820,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     let i: number;
     const keys = Object.keys(this.attributeValues);
     for (i = 0; i < keys.length; i += 1) {
-      let attribute = this.getPositionAttribute(+keys[i]);
+      const attribute = this.getPositionAttribute(+keys[i]);
       result.push(new PositionAttributeValue(attribute, this.attributeValues[keys[i]]));
     }
     return result;
@@ -906,14 +896,12 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
   cleanupModal() {
     if (!!this.selectorService.lastSelectedNode && !!this.selectorService.lastSelectedNode.commodityGroup) {
       this.uiStatusService.commodityGroup = this.selectorService.lastSelectedNode.commodityGroup;
-    }
-    else {
+    } else {
       this.uiStatusService.commodityGroup = new CommodityGroup(0, '', '');
     }
     if (!!this.selectorService.lastSelectedNode && !!this.selectorService.lastSelectedNode.commodityPart) {
       this.uiStatusService.commodityPart = this.selectorService.lastSelectedNode.commodityPart;
-    }
-    else {
+    } else {
       this.uiStatusService.commodityPart = new CommodityPart(0, '', '', this.uiStatusService.commodityGroup.code);
     }
   }
@@ -927,9 +915,9 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     this.materialLoadingError = '';
     setTimeout(() => this._loadingTimeoutExpired = true, 1000);
     if (!!this.uiStatusService.commodityPart && this.uiStatusService.commodityPart.id > 0) {
-      this.materialService.getByCommodityCodeAndPart(this.uiStatusService.disciplineId, this.uiStatusService.commodityPart.id, this.commodityCodeToBeFound);
-    }
-    else {
+      this.materialService.getByCommodityCodeAndPart(this.uiStatusService.disciplineId,
+        this.uiStatusService.commodityPart.id, this.commodityCodeToBeFound);
+    } else {
       this.materialService.getByCommodityCode(this.uiStatusService.disciplineId, this.commodityCodeToBeFound);
     }
   }
