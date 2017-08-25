@@ -28,3 +28,12 @@ a.no-anchor {
 input.column-input {
   width: 150px;
 }
+
+/* Personalize grid appearance */
+.k-block, .k-widget {
+  font-size: 12px;
+}
+
+#kg-positions .glyphicon {
+  color: #fff;
+}
