@@ -1,43 +1,45 @@
-import { Component, Input, OnInit, ViewChild }  from '@angular/core';
-import { Router }                               from '@angular/router';
-import { Observable }                           from 'rxjs/Observable';
-import { Option }                               from 'ng-select/dist/option';
-import { SelectComponent }                      from 'ng-select/dist/select.component';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { Option } from 'ng-select/dist/option';
+import { SelectComponent } from 'ng-select/dist/select.component';
 
 import { BubbleNodeMessageInterface } from '../lazy-loaded-tree-view/bubble-node-message.interface';
-import { TreeNode }                   from '../lazy-loaded-tree-view/tree-node';
-import { TreeNodeService }            from '../core/tree-node.service';
-import { CoreEstService }             from './core-est.service';
-import { UiStatusService }            from '../core/ui-status.service';
-import { CommodityGroupService }      from './commodity-group.service';
-import { CommodityPartService }       from './commodity-part.service';
-import { ModalComponent }             from '../ng2-bs3-modal/components/modal';
-import { NodeDTO }                    from '../lazy-loaded-tree-view/nodeDTO';
-import { NodeType }                   from '../core/node-type';
-import { CommodityGroup }             from './commodity-group';
-import { CommodityPart }              from './commodity-part';
-import { NodeSelectorService }        from './node-selector.service';
+import { TreeNode } from '../lazy-loaded-tree-view/tree-node';
+import { TreeNodeService } from '../core/tree-node.service';
+import { CoreEstService } from './core-est.service';
+import { UiStatusService } from '../core/ui-status.service';
+import { CommodityGroupService } from './commodity-group.service';
+import { CommodityPartService } from './commodity-part.service';
+import { ModalComponent } from '../ng2-bs3-modal/components/modal';
+import { NodeDTO } from '../lazy-loaded-tree-view/nodeDTO';
+import { NodeType } from '../core/node-type';
+import { CommodityGroup } from './commodity-group';
+import { CommodityPart } from './commodity-part';
+import { NodeSelectorService } from './node-selector.service';
+
+declare var jQuery: any;
 
 @Component({
   templateUrl: 'fill-bom.component.html',
-  styleUrls: [ 'fill-bom.component.css' ],
+  styleUrls: ['fill-bom.component.css'],
   selector: 'main-view'
 })
 export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
   outMessage = this;
-  confirmButtonText : string = "Add";
-  actionType : string = '';
-  eventNodeView : BubbleNodeMessageInterface = null;
-  eventNode : TreeNode = null;
-  eventParentNodeView : BubbleNodeMessageInterface = null;
-  treeNodeService : TreeNodeService;
+  confirmButtonText: string = 'Add';
+  actionType: string = '';
+  eventNodeView: BubbleNodeMessageInterface = null;
+  eventNode: TreeNode = null;
+  eventParentNodeView: BubbleNodeMessageInterface = null;
+  treeNodeService: TreeNodeService;
   root: TreeNode = null;
   nodeTypes: NodeType[];
   coreService: any;
-  coreEstService : CoreEstService;
+  coreEstService: CoreEstService;
   positionAdd: boolean = false;
   positionIsTag: boolean = false;
-  conflictDetected= false;
+  conflictDetected = false;
   canConfirmConflict = false;
   warningMessage: string = '';
   nodeTypeOptions: Option[];
@@ -49,13 +51,12 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
   nodeNameOptions: Option[];
   commodityGroups: CommodityGroup[] = new Array<CommodityGroup>();
   commodityParts: CommodityPart[] = new Array<CommodityPart>();
-  changedNode = new TreeNode(0,"","","",0,false,"", false, null, null);
+  changedNode = new TreeNode(0, '', '', '', 0, false, '', false, null, null);
 
-  constructor (treeNodeService : TreeNodeService, coreEstService : CoreEstService,
-     private uiStatusService: UiStatusService, private commodityGroupService: CommodityGroupService,
-     private router: Router, private commodityPartService: CommodityPartService,
-     private selectorService: NodeSelectorService)
-  {
+  constructor(treeNodeService: TreeNodeService, coreEstService: CoreEstService,
+    private uiStatusService: UiStatusService, private commodityGroupService: CommodityGroupService,
+    private router: Router, private commodityPartService: CommodityPartService,
+    private selectorService: NodeSelectorService) {
     this.treeNodeService = treeNodeService;
     this.coreEstService = coreEstService;
   }
@@ -65,8 +66,7 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
 
 
 
-  handleNode(): void
-  {
+  handleNode(): void {
     this.conflictDetected = false;
     this.canConfirmConflict = false;
     this.warningMessage = '';
@@ -74,11 +74,9 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
     this.nodeNameDisabled = false;
     this.nodeTypeChangeDisabled = false;
     this.nameIsPullDown = false;
-   
-    if (!!this.nodeSelectorComponent)
-    {
-      if (!!this.nodeSelectorComponent.value)
-      {
+
+    if (!!this.nodeSelectorComponent) {
+      if (!!this.nodeSelectorComponent.value) {
         this.nodeSelectorComponent.clear();
       }
     }
@@ -86,20 +84,17 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
   }
 
 
-  addChildNode(): void
-  {
+  addChildNode(): void {
     this.actionType = 'add';
-    this.changedNode = new TreeNode(0, "", "", "", this.eventNode.id, false, "", false, null, null)
+    this.changedNode = new TreeNode(0, '', '', '', this.eventNode.id, false, '', false, null, null)
     this.handleNode();
-    if (this.eventNode && !!this.eventNode.commodityGroup && !this.eventNode.commodityPart)
-    {
+    if (this.eventNode && !!this.eventNode.commodityGroup && !this.eventNode.commodityPart) {
       this.changedNode.commodityGroup = this.eventNode.commodityGroup;
       this.changedNode.type = this.uiStatusService.PART_CODE;
       this.nodeTypeChangeDisabled = true;
       this.nameIsPullDown = true;
       this.nodeNameOptions = new Array<Option>();
-      if (this.eventNode && this.eventNode.commodityGroup)
-      {
+      if (this.eventNode && this.eventNode.commodityGroup) {
         this.commodityPartService.getAll(this.eventNode.commodityGroup.id);
       }
     }
@@ -107,27 +102,25 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
 
   }
 
-  editNode() : void
-  {
+  editNode(): void {
     this.actionType = 'edit';
     this.changedNode = new TreeNode(this.eventNode.id,
-                                      this.eventNode.url,
-                                      this.eventNode.name,
-                                      this.eventNode.type,
-                                      this.eventNode.idFather,
-                                      this.eventNode.locked,
-                                      this.eventNode.lockedBy,
-                                      this.eventNode.hasPositions,
-                                      this.eventNode.commodityGroup,
-                                      this.eventNode.commodityPart);
+      this.eventNode.url,
+      this.eventNode.name,
+      this.eventNode.type,
+      this.eventNode.idFather,
+      this.eventNode.locked,
+      this.eventNode.lockedBy,
+      this.eventNode.hasPositions,
+      this.eventNode.commodityGroup,
+      this.eventNode.commodityPart);
     this.handleNode();
     this.nodeTypeChangeDisabled = !!this.changedNode.commodityGroup || !!this.changedNode.commodityPart;
     this.confirmButtonText = 'Save';
     this.modalComponent.open();
   }
 
-  deleteNode() : void
-  {
+  deleteNode(): void {
     this.actionType = 'delete';
     this.changedNode = this.eventNode;
     this.handleNode();
@@ -137,8 +130,7 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
     this.nodeTypeChangeDisabled = true;
   }
 
-  toggleLockNode() : void
-  {
+  toggleLockNode(): void {
     this.actionType = 'togglelock';
     this.changedNode = this.eventNode;
     this.handleNode();
@@ -146,132 +138,124 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
     this.storeNode();
   }
 
-  createNodeTypeOptions(): Option[]
-  {
+  createNodeTypeOptions(): Option[] {
     let result = new Array<Option>();
-    for(let loopNodeType of this.nodeTypes)
-    {
-      if (loopNodeType.code != this.uiStatusService.PART_CODE)
-      {
-        result.push(new Option({value: loopNodeType.code,
-          label: loopNodeType.code + " - " + loopNodeType.description}));
+    for (let loopNodeType of this.nodeTypes) {
+      if (loopNodeType.code != this.uiStatusService.PART_CODE) {
+        result.push(new Option({
+          value: loopNodeType.code,
+          label: loopNodeType.code + ' - ' + loopNodeType.description
+        }));
       }
     }
     return result;
   }
 
-  createPartNameOptions(parts: CommodityPart[]): Option[]
-  {
+  createPartNameOptions(parts: CommodityPart[]): Option[] {
     this.commodityParts = parts;
-    return parts.map(p => new Option({value: p.id.toString(),
-      label: p.code + " - " + p.description}));
+    return parts.map(p => new Option({
+      value: p.id.toString(),
+      label: p.code + ' - ' + p.description
+    }));
   }
 
-  createGroupNameOptions(): Option[]
-  {
-    return this.commodityGroups.map(g => new Option({value: g.id.toString(),
-      label: g.code + " - " + g.description}));
+  createGroupNameOptions(): Option[] {
+    return this.commodityGroups.map(g => new Option({
+      value: g.id.toString(),
+      label: g.code + ' - ' + g.description
+    }));
   }
 
 
 
 
 
-   ngOnInit(){    
-     this.commodityGroupService.getAll(this.uiStatusService.disciplineId);
-     
+  ngOnInit() {
+    this.commodityGroupService.getAll(this.uiStatusService.disciplineId);
 
 
 
 
-     this.uiStatusService.insertPosition.subscribe(
-       details => { this.positionAdd = details.displayInsertPosition;
+
+    this.uiStatusService.insertPosition.subscribe(
+      details => {
+        this.positionAdd = details.displayInsertPosition;
         this.positionIsTag = details.positionFromTag;
-          }
-       );
-      this.uiStatusService.editPositionObservable.subscribe(
-        position => { this.positionAdd = true;
-          if (position) {
-         this.positionIsTag = position.isTwm;
-       }
-       else
-       {
-         this.positionIsTag = false;
-       }
-         }
-      );
-      setTimeout(() => {
-        this.nodeTypes = this.uiStatusService.nodeTypes;
-        this.nodeTypeOptions = this.createNodeTypeOptions();}
-        , 1000);
-      
-      this.nodeSelectorPlaceholder = "Select / Change node type";
-      this.commodityGroupService.groups.subscribe(g => this.commodityGroups = g);
-      this.commodityPartService.parts.subscribe(p => this.nodeNameOptions = this.createPartNameOptions(p));
+      }
+    );
+    this.uiStatusService.editPositionObservable.subscribe(
+      position => {
+        this.positionAdd = true;
+        if (position) {
+          this.positionIsTag = position.isTwm;
+        }
+        else {
+          this.positionIsTag = false;
+        }
+      }
+    );
+    setTimeout(() => {
+      this.nodeTypes = this.uiStatusService.nodeTypes;
+      this.nodeTypeOptions = this.createNodeTypeOptions();
+    }
+      , 1000);
 
-      this.selectorService.selectedNodePath.subscribe(
+    this.nodeSelectorPlaceholder = 'Select / Change node type';
+    this.commodityGroupService.groups.subscribe(g => this.commodityGroups = g);
+    this.commodityPartService.parts.subscribe(p => this.nodeNameOptions = this.createPartNameOptions(p));
+
+    this.selectorService.selectedNodePath.subscribe(
       (path: string) => this.windowResized()
     )
 
-      this.windowResized();
-      this.trimSize();
-      
-   }
+    this.windowResized();
+    this.trimSize();
 
-   tryStoreNode(): void
-   {
-      return this.baseStoreNode(false);
-   }
+  }
 
-   storeNodeConfirm(): void
-   {
-     return this.baseStoreNode(true);
-   }
+  tryStoreNode(): void {
+    return this.baseStoreNode(false);
+  }
 
-   baseStoreNode(forceDifferentType: boolean): void
-   {
-     var newNode = this.createNodeDTO();
-     newNode.forceDifferentType = forceDifferentType;
-     var action = this.createNodeAction(newNode);
-     if (action.name)
-     {
-       this.treeNodeService.persistNode(action)
-       .subscribe(
-        () =>
-        {
+  storeNodeConfirm(): void {
+    return this.baseStoreNode(true);
+  }
+
+  baseStoreNode(forceDifferentType: boolean): void {
+    var newNode = this.createNodeDTO();
+    newNode.forceDifferentType = forceDifferentType;
+    var action = this.createNodeAction(newNode);
+    if (action.name) {
+      this.treeNodeService.persistNode(action)
+        .subscribe(
+        () => {
           this.refreshTree();
           this.modalComponent.dismiss();
         },
-        error =>
-          {
-            if (error.status && error.status === 409)
-            {
-              this.warningMessage = error.message;
-              this.conflictDetected = true;
-              let stringMessage: string = error.message.toString();
-              if (stringMessage.length >= 61)
-              {
-                stringMessage = stringMessage.substring(0, 61);
-              }              
-              this.canConfirmConflict = stringMessage === 'The following node type(s) are already present in the branch:';
+        error => {
+          if (error.status && error.status === 409) {
+            this.warningMessage = error.message;
+            this.conflictDetected = true;
+            let stringMessage: string = error.message.toString();
+            if (stringMessage.length >= 61) {
+              stringMessage = stringMessage.substring(0, 61);
             }
-          });
-      }   
-   }
-
-  storeNode(): void
-  {
-    var newNode = this.createNodeDTO();
-    var action = this.createNodeAction(newNode);
-    if (action.name)
-    {
-      this.treeNodeService.persistNode(action)
-      .subscribe(() => {this.refreshTree();});
+            this.canConfirmConflict = stringMessage === 'The following node type(s) are already present in the branch:';
+          }
+        });
     }
   }
 
-  private createNodeDTO(): NodeDTO
-  {
+  storeNode(): void {
+    var newNode = this.createNodeDTO();
+    var action = this.createNodeAction(newNode);
+    if (action.name) {
+      this.treeNodeService.persistNode(action)
+        .subscribe(() => { this.refreshTree(); });
+    }
+  }
+
+  private createNodeDTO(): NodeDTO {
 
     var newNode: NodeDTO = new NodeDTO();
     newNode.id = 0;
@@ -284,16 +268,14 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
     newNode.commodityGroup = this.changedNode.commodityGroup;
     newNode.commodityPart = this.changedNode.commodityPart;
     newNode.projectDisciplineId = this.uiStatusService.projectDisciplineId;
-    
+
     return newNode;
   }
 
-  private createNodeAction(newNode: NodeDTO): any
-  {
+  private createNodeAction(newNode: NodeDTO): any {
     var action: any;
-    action = { name: null, url: 'api/Nodes/' + this.eventNode.id.toString(), node: newNode};
-    switch (this.actionType)
-    {
+    action = { name: null, url: 'api/Nodes/' + this.eventNode.id.toString(), node: newNode };
+    switch (this.actionType) {
       case 'add':
         newNode.id = 0;
         newNode.url = 'api/Nodes/' + newNode.id;
@@ -312,13 +294,11 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
     return action;
   }
 
-  bubbleNodeMessage(action: string, callingView: BubbleNodeMessageInterface, parentView: BubbleNodeMessageInterface)
-  {
+  bubbleNodeMessage(action: string, callingView: BubbleNodeMessageInterface, parentView: BubbleNodeMessageInterface) {
     this.eventNodeView = callingView;
     this.eventParentNodeView = parentView;
     this.eventNode = callingView.root;
-    switch (action)
-    {
+    switch (action) {
       case 'add':
         this.addChildNode();
         break;
@@ -335,10 +315,8 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
 
   }
 
-  refreshTree()
-  {
-    switch(this.actionType)
-    {
+  refreshTree() {
+    switch (this.actionType) {
       case 'add':
         this.eventNodeView.refreshCurrentNode(true);
         break;
@@ -353,72 +331,64 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
 
   }
 
-  refreshChildNodes() : void {}
+  refreshChildNodes(): void { }
 
-  refreshCurrentNode(modifiedChildNode : boolean) : void {}
+  refreshCurrentNode(modifiedChildNode: boolean): void { }
 
-  public exportFile()
-  {
+  public exportFile() {
     this.router.navigate(['/export']);
   }
 
 
-  private value:any = {};
-  private nodeNameDisabled:boolean = false;
+  private value: any = {};
+  private nodeNameDisabled: boolean = false;
 
 
 
 
-  public nodeTypeSelected(value: Option):void {
+  public nodeTypeSelected(value: Option): void {
     this.changedNode.type = value.value;
     this.nameIsPullDown = false;
-    if (this.changedNode.type === this.uiStatusService.GROUP_CODE)
-    {
+    if (this.changedNode.type === this.uiStatusService.GROUP_CODE) {
       this.nameIsPullDown = true;
       this.nodeNameOptions = this.createGroupNameOptions();
     }
-    else
-    {
+    else {
       this.changedNode.commodityGroup = null;
       this.changedNode.commodityPart = null;
     }
   }
 
-  public nodeNameSelected(value: Option):void {
+  public nodeNameSelected(value: Option): void {
     this.changedNode.name = this.selectGroupOrPart(+value.value);
   }
 
-  public removed(value:any):void {
+  public removed(value: any): void {
     console.log('Removed value is: ', value);
   }
 
-  public typed(value:any):void {
+  public typed(value: any): void {
     console.log('New search input: ', value);
   }
 
-  public refreshValue(value:any):void {
+  public refreshValue(value: any): void {
     this.value = value;
   }
 
-  private selectGroupOrPart(entityId: number): string
-  {
-    var entityCode= "";
-    var useGroup = (!!this.eventNode.commodityGroup && !this.eventNode.commodityPart && this.actionType === "add")
-     || (!!this.eventNode.commodityGroup && !!this.eventNode.commodityPart && this.actionType === "edit");
-    if (useGroup)
-    {
+  private selectGroupOrPart(entityId: number): string {
+    var entityCode = '';
+    var useGroup = (!!this.eventNode.commodityGroup && !this.eventNode.commodityPart && this.actionType === 'add')
+      || (!!this.eventNode.commodityGroup && !!this.eventNode.commodityPart && this.actionType === 'edit');
+    if (useGroup) {
       var filteredPart = this.commodityParts.filter(p => p.id === entityId);
-      if (filteredPart.length > 0)
-      {
+      if (filteredPart.length > 0) {
         entityCode = filteredPart[0].code;
         this.changedNode.commodityPart = filteredPart[0];
       }
     }
-    else
-    {
+    else {
       var filteredGroup = this.commodityGroups.filter(g => g.id === entityId);
-      if (filteredGroup.length > 0)
-      {
+      if (filteredGroup.length > 0) {
         entityCode = filteredGroup[0].code;
         this.changedNode.commodityGroup = filteredGroup[0];
       }
@@ -428,19 +398,28 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
   }
 
   trimSize() {
-    window.addEventListener("resize", this.windowResized)
+    window.addEventListener('resize', this.windowResized)
   }
 
   windowResized() {
-    var column = document.getElementById("main-fill-bom-col-1");
-    if (!!column)
-    {
-      column.style.maxHeight = (window.innerHeight - 180).toString() + "px";
+    let column = document.getElementById('main-fill-bom-col-1');
+    if (!!column) {
+      column.style.maxHeight = (window.innerHeight - 180).toString() + 'px';
     }
-    column = document.getElementById("main-fill-bom-col-2");
-    if (!!column)
-    {
-      column.style.maxHeight = (window.innerHeight - 240).toString() + "px";
+    column = document.getElementById('main-fill-bom-col-2');
+    if (!!column) {
+      column.style.maxHeight = (window.innerHeight - 240).toString() + 'px';
+    }
+    const grid = document.getElementById('kg-positions')
+    if (!!grid) {
+      grid.style.height = (window.innerHeight - 241).toString() + 'px';
+    }
+    // Get the scrolling part of the grid
+    const gridContent = jQuery('#kg-positions div.k-grid-content');
+    console.log('fill-bom.component -- windowResized -- !!gridContent[0]: ' + !!gridContent[0]); // TODO: remove
+    if (!!gridContent[0]) {
+      const lockedGridContent = jQuery('#kg-positions div.k-grid-content-locked');
+      lockedGridContent[0].style.height = gridContent[0].clientHeight.toString() + 'px';
     }
   }
 

@@ -17,22 +17,22 @@
 
 
 <div *ngIf="!!nodeName && nodeName !== '-'" [ngClass]="{'positionsLoading': loadingVisible}">
-  <kendo-grid [data]="gridData" id="kg-positions">
-    <kendo-grid-column width="80">
+  <kendo-grid [data]="gridData" [scrollable]="scrollable" id="kg-positions" style="height: 400px">
+    <kendo-grid-column width="80" [locked]="true">
       <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
         <a class="btn btn-xs btn-warning" (click)="editPosition(dataItem)"><span class="glyphicon glyphicon-edit"></span></a>
         <a class="btn btn-xs btn-danger" (click)="deletePosition(dataItem)"><span class="glyphicon glyphicon-remove-sign"></span></a>
       </ng-template>
     </kendo-grid-column>
+    <kendo-grid-column field="calculateCommodityCode()" title="Commodity Code" width="220" [locked]="true">
+    </kendo-grid-column>
+    <kendo-grid-column field="description" title="Description" width="220" [locked]="true">
+    </kendo-grid-column>
     <kendo-grid-column field="groupCode" title="Group" width="120">
     </kendo-grid-column>
     <kendo-grid-column field="partCode" title="Part" width="80">
     </kendo-grid-column>
-    <kendo-grid-column field="calculateCommodityCode()" title="Commodity Code" width="220">
-    </kendo-grid-column>
     <kendo-grid-column field="tag" title="Tag" width="120">
-    </kendo-grid-column>
-    <kendo-grid-column field="description" title="Description" width="220">
     </kendo-grid-column>
     <kendo-grid-column field="quantity" title="Qty" width="80">
     </kendo-grid-column>
