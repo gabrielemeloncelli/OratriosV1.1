@@ -4,6 +4,10 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { State,
+        process,
+        DataResult } from '@progress/kendo-data-query';
+import { DataStateChangeEvent } from '@progress/kendo-angular-grid';
 
 import { BomPosition } from './bom-position';
 import { NodeSelectorService } from './node-selector.service';
@@ -36,7 +40,13 @@ export class PositionsListComponent {
   public positionsCount = 0;
   private _currentPage = 0;
   public gridData: BomPosition[];
+  public gridState: State = {
+    sort: [],
+    skip: 0,
+    take: 50
+  };
 
+  public gridProcessedData: DataResult;
 
 
   constructor(private selectorService: NodeSelectorService, public positionsService: PositionService, private uiStatusService: UiStatusService) {
@@ -57,6 +67,7 @@ export class PositionsListComponent {
     this.positionsService.positions.subscribe(positions => {
       this.loadingVisible = false;
       this.gridData = this.completeAttributes(positions);
+      this.gridProcessedData = process(this.gridData, this.gridState);
     });
 
     this.positionsService.positionsCount.subscribe(positionsCount => {
@@ -216,5 +227,9 @@ export class PositionsListComponent {
       dirtyPosition.attributes.push(new PositionAttributeValue(attribute.attribute, attribute.value));
     }
   }
-
+  // Grid data change
+  protected dataStateChange(state: DataStateChangeEvent): void {
+    this.gridState = state;
+    this.gridProcessedData = process(this.gridData, this.gridState);
+  }
 }

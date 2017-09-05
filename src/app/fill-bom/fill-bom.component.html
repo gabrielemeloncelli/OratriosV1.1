@@ -1,10 +1,28 @@
 <mbe-top-bar></mbe-top-bar>
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
-    <ul class="nav navbar-nav">
-      <li><a href="index.html">Home</a></li>
-      <li><a (click)='exportFile()' href="#">Load BOM to SPMat</a></li>
-    </ul>
+    <div class="navbar-header">
+      <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbarCollapse" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a data-toggle="dropdown" class="dropdown-toggle" href="#"> Export <b class="caret"></b></a>
+          <ul role="menu" class="dropdown-menu">
+            <li><a (click)='exportOmiFile()'>Load BOM to SPMat</a></li>
+            <li class="divider"></li>
+            <li><a (click)='exportExcelTree()'>Export tree to Excel</a></li>
+            <li><a (click)='exportExcelPositions()'>Export positions to Excel</a></li>              
+          </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
 <div class="row no-margin">
@@ -20,7 +38,8 @@
 <div>
   <mbe-addposition></mbe-addposition>
 </div>
-<mbe-modal id="fill-bom-modal" [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="storeNode()" #navigateModal>
+<mbe-modal id="fill-bom-modal" [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="storeNode()"
+  #navigateModal>
   <modal-header [show-close]="true">
     <h4 class="modal-title">Node details</h4>
   </modal-header>

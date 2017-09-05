@@ -339,6 +339,18 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
     this.router.navigate(['/export']);
   }
 
+  public exportOmiFile() {
+    window.location.replace('api/export/omi/' + this.uiStatusService.projectDisciplineId);
+  }
+
+  public exportExcelPositions() {
+    window.location.replace('api/export/excelpositions/' + this.uiStatusService.projectDisciplineId);
+  }
+
+  public exportExcelTree() {
+    window.location.replace('api/export/exceltree/' + this.uiStatusService.projectDisciplineId);
+  }
+
 
   private value: any = {};
   private nodeNameDisabled: boolean = false;
