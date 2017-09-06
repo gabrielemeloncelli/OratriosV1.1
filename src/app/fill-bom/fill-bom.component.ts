@@ -423,7 +423,6 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
     }
     // Get the scrolling part of the grid
     const gridContent = jQuery('#kg-positions div.k-grid-content');
-    console.log('fill-bom.component -- windowResized -- !!gridContent[0]: ' + !!gridContent[0]); // TODO: remove
     if (!!gridContent[0]) {
       const lockedGridContent = jQuery('#kg-positions div.k-grid-content-locked');
       lockedGridContent[0].style.height = gridContent[0].clientHeight.toString() + 'px';

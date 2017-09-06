@@ -22,7 +22,6 @@ export class ExportComponent {
         this.exportService.exportAll(this.uiStatusService.projectDisciplineId)
         .subscribe(res => {
             this.downloadFileUrl = res;
-            console.log('export.component -- exportAll -- this.downloadFileUrl: <' + this.downloadFileUrl + '>'); // TODO: remove
             this.exportResult = 'Export success';
             this.exportQueued = true;
             this.exportSuccess = true;

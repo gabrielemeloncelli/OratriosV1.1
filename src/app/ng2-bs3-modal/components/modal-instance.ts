@@ -73,12 +73,6 @@ export class ModalInstance {
 
     private init() {
         this.$modal = jQuery(this.element.nativeElement);
-        console.log('modal-instance -- init -- this.element.nativeElement.id: ' + this.element.nativeElement.id); // TODO: remove
-        console.log('modal-instance -- init -- this.element: ' + JSON.stringify(this.element)); // TODO: remove
-        console.log('modal-instance -- init -- this.$modal: ' + JSON.stringify(this.$modal)); // TODO: remove
-        console.log('modal-instance -- init -- !!this.$modal.modal: ' + !!this.$modal.modal); // TODO: remove
-        console.log('modal-instance -- init -- this.$modal.nodeName: ' + this.$modal.nodeName); // TODO: remove
-        console.log('modal-instance -- init -- this.$modal.parentElement: ' + JSON.stringify(this.$modal.parentElement)); // TODO: remove
         this.$modal.appendTo('body');
 
         this.shown = Observable.fromEvent(this.$modal, this.shownEventName)

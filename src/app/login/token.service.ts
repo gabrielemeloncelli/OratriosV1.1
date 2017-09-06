@@ -46,7 +46,6 @@ export class TokenService {
     }
 
     handleError(error: Response | any) {
-        console.log('token.service -- handleError'); // TODO: remove
         this.errorSubject.next('Authentication failed');
         return Observable.throw('');
     }

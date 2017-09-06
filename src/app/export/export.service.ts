@@ -13,7 +13,6 @@ export class ExportService {
 
 
     exportAll(projectDisciplineId: number): Observable<string> {
-        console.log('export.service -- exportAll'); // TODO remove
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
         const result = new Subject<string>();
@@ -21,8 +20,6 @@ export class ExportService {
             .get(this.BASE_URL + '/all/' + projectDisciplineId, options)
             .subscribe(res => {
                 JSON.parse(res.text());
-                console.log('export.service -- exportAll -- JSON.parse(res.text()).linkAddress: <'
-                 + JSON.parse(res.text()).linkAddress + '>'); // TODO:remove
                 result.next(JSON.parse(res.text()).linkAddress);
             });
         return result.asObservable();

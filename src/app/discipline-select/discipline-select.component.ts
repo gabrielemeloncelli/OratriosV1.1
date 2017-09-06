@@ -21,8 +21,6 @@ export class DisciplineSelectComponent implements OnInit {
 
     ngOnInit() {
         this.projectDisciplines = this.uiStatusService.projectDisciplines;
-        console.log('discipline-select-component -- ngOnInit -- !!this.uiStatusService.projectDisciplines: '
-         + !!this.uiStatusService.projectDisciplines); // TODO: remove
         this.projectDisciplineService.discipline.subscribe(
             projectDiscipline => this.projectDisciplineRetrieved(projectDiscipline));
     }
@@ -32,12 +30,10 @@ export class DisciplineSelectComponent implements OnInit {
     }
 
     projectDisciplineRetrieved(projectDiscipline: ProjectDiscipline) {
-        console.log('discipline-select.component -- projectDisciplineRetrieved'); // TODO:remove
         if (projectDiscipline != null) {
             this.uiStatusService.disciplineId = projectDiscipline.discipline.id;
             this.uiStatusService.disciplineCode = projectDiscipline.discipline.code;
             this.uiStatusService.projectDisciplineId = projectDiscipline.id;
-            console.log('discipline-select.component -- projectDisciplineRetrieved -- navigate'); // TODO:remove
             this.router.navigate(['/fill-bom']);
         }
     }

@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { TreeViewModule } from './lazy-loaded-tree-view/tree-view.module';
 import { ModalModule } from './ng2-bs3-modal/ng2-bs3-modal.module';
-import { CoreEstService } from './fill-bom/core-est.service'; // TODO : remove
 import { FillBomModule } from './fill-bom/fill-bom.module';
 import { SelectProjectModule } from './select-project/select-project.module';
 import { ExportModule } from './export/export.module';
