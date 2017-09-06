@@ -47,6 +47,7 @@ export class UiStatusService {
   public positionsDirty = false;
   private _saveDirtyData = new Subject<void>();
   public saveDirtyData = this._saveDirtyData.asObservable();
+  public treeToolbarVisible = false;
 
 
   constructor(private nodeTypeService: NodeTypeService,

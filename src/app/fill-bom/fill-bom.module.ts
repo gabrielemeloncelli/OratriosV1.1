@@ -33,6 +33,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CoreEstService } from './core-est.service';
 import { NodeSelectorService } from './node-selector.service';
 import { PagerModule } from '../pager/pager.module';
+import { TreeToolbarComponent } from './tree-toolbar.component';
 
 @NgModule({
   imports: [ CoreModule,
@@ -45,7 +46,8 @@ import { PagerModule } from '../pager/pager.module';
               GridModule ],
   declarations: [ PositionsListComponent,
                   AddPositionComponent,
-                  FillBomComponent ],
+                  FillBomComponent,
+                TreeToolbarComponent ],
   exports: [ PositionsListComponent,
               AddPositionComponent ],
   providers: [ CoreEstService,

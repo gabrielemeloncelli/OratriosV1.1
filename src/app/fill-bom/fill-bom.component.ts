@@ -62,6 +62,7 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
     private selectorService: NodeSelectorService) {
     this.treeNodeService = treeNodeService;
     this.coreEstService = coreEstService;
+    this.uiStatusService.treeToolbarVisible = true; // TODO: remove
   }
 
   @ViewChild('navigateModal')

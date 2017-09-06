@@ -27,6 +27,7 @@
 </nav>
 <div class="row no-margin">
   <div class="col-sm-5 vert-scroll" id="main-fill-bom-col-1">
+    <mbe-tree-toolbar *ngIf="uiStatusService.treeToolbarVisible"></mbe-tree-toolbar>
     <mbe-tree-viewx [message]="outMessage">Loading Tree ...</mbe-tree-viewx>
   </div>
   <div class="col-sm-7">
