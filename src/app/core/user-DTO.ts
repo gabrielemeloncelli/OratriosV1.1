@@ -1,4 +1,4 @@
-export class UserDTO{
+export class UserDTO {
   code: string;
   isAdministrator: boolean;
 }

@@ -24,11 +24,9 @@ export class TreeNodeService {
 
   private nodes: any = {};
 
-  private BASE_URL: string = 'api/Nodes';
+  private BASE_URL = 'api/Nodes';
 
   private getChildNodesUrl(id: number, projectDisciplineId: number): string {
-    //return this.BASE_URL + '/' + id + '/nodes.json';
-    //return this.BASE_URL + '/' + id + '/nodes.json';
     return this.BASE_URL + '/' + id + '/' + projectDisciplineId + '/nodes';
   }
 
@@ -45,8 +43,7 @@ export class TreeNodeService {
     if (action.name === 'LOAD_NODES') {
       if (this.nodes[action.id]) {
         this.treeNodes[action.id].next(this.nodes[action.id]);
-      }
-      else {
+      } else {
 
         this._http
           .get(action.url)
@@ -58,28 +55,29 @@ export class TreeNodeService {
 
       }
     }
-    if (action.name === "STORE_NODE") {
-      console.log("tree-node.service -- STORE_NODE -- action.node.projectDisciplineId: " + action.node.projectDisciplineId); //TODO:remove
+    if (action.name === 'STORE_NODE') {
       this._http.post(action.url, action.node)
         .subscribe(res => {
           this.nodes[action.id] = null;
-          this.handleAction.bind(this, { name: 'LOAD_NODES', url: 'api/Nodes/' + action.id + '/' + action.node.projectDisciplineId + '/nodes', id: action.id });
+          this.handleAction.bind(this, { name: 'LOAD_NODES',
+            url: 'api/Nodes/' + action.id + '/' + action.node.projectDisciplineId + '/nodes', id: action.id });
         },
-        error => { throw (error) });
+        error => { throw(error); });
     }
-    if (action.name === "EDIT_NODE") {
+    if (action.name === 'EDIT_NODE') {
       this._http.put(action.url, action.node)
         .subscribe(res => {
           this.nodes[action.id] = null;
-          this.handleAction.bind(this, { name: 'LOAD_NODES', url: 'api/Nodes/' + action.id + '/' + action.node.projectDisciplineId + '/nodes', id: action.id });
+          this.handleAction.bind(this, { name: 'LOAD_NODES',
+            url: 'api/Nodes/' + action.id + '/' + action.node.projectDisciplineId + '/nodes', id: action.id });
         });
     }
-    if (action.name === "DELETE_NODE") {
-      console.log('tree-node.service -- handleAction -- action.url: ' + action.url);//TODO:remove
+    if (action.name === 'DELETE_NODE') {
       this._http.delete(action.url)
         .subscribe(res => {
           this.nodes[action.id] = null;
-          this.handleAction.bind(this, { name: 'LOAD_NODES', url: 'api/Nodes/' + action.id + '/' + action.node.projectDisciplineId + '/nodes', id: action.id });
+          this.handleAction.bind(this, { name: 'LOAD_NODES',
+            url: 'api/Nodes/' + action.id + '/' + action.node.projectDisciplineId + '/nodes', id: action.id });
         });
     }
   }
@@ -92,18 +90,16 @@ export class TreeNodeService {
   }
 
   persistNode(action: any) {
-    console.log('tree-node.service -- persistNode -- action.name: ' + action.name);//TODO:remove
-    console.log('tree-node.service -- persistNode -- action.url: ' + action.url);//TODO:remove
-    if (action.name === "STORE_NODE") {
+    if (action.name === 'STORE_NODE') {
       return this._http.post(action.url, action.node)
         .map((res: Response) => null)
         .catch(this.handleError);
     }
-    if (action.name === "EDIT_NODE") {
+    if (action.name === 'EDIT_NODE') {
       return this._http.put(action.url, action.node)
         .map((res: Response) => null);
     }
-    if (action.name === "DELETE_NODE") {
+    if (action.name === 'DELETE_NODE') {
       return this._http.delete(action.url)
         .map((res: Response) => null);
     }
@@ -120,7 +116,6 @@ export class TreeNodeService {
   }
 
   fetchTreeNodes(id: number, projectDisciplineId: number) {
-    console.log('tree-node.service -- fetchTreeNodes -- this.getChildNodesUrl(id): ' + this.getChildNodesUrl(id, projectDisciplineId)); //TODO:remove
     return this._http
       .get(this.getChildNodesUrl(id, projectDisciplineId))
       .map((res: Response) => treeNodeReducer(res.json()));

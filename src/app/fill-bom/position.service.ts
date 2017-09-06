@@ -14,7 +14,7 @@ export class PositionService {
   private _positionsCount: Subject<number> = new Subject<number>();
   public positionsCount = this._positionsCount.asObservable();
 
-  private nodeId: number = 0;
+  private nodeId = 0;
 
   constructor(private _storeService: PositionStoreService) { }
 
@@ -50,7 +50,7 @@ export class PositionService {
   }
 
   deletePosition(position: BomPosition): Observable<BomPosition> {
-    var result = new Subject<BomPosition>();
+    const result = new Subject<BomPosition>();
     this._storeService.deletePosition(position).subscribe(
       deletedPosition => {
         result.next(deletedPosition);
@@ -60,7 +60,7 @@ export class PositionService {
   }
 
   clearNode(nodeId: number): Observable<null> {
-    var result = new Subject<null>();
+    const result = new Subject<null>();
     this._storeService.clearNode(nodeId).subscribe(
       () => {
         result.next();
@@ -68,9 +68,9 @@ export class PositionService {
     );
     return result.asObservable();
   }
-  
+
   pasteNode(sourceNodeId: number, targetNodeId: number): Observable<null> {
-    var result = new Subject<null>();
+    const result = new Subject<null>();
     this._storeService.pasteNode(sourceNodeId, targetNodeId).subscribe(
       () => {
         result.next();

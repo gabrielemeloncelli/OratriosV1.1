@@ -1,4 +1,3 @@
-export class CommodityPart
-{
-  constructor(public id: number, public code: string, public description: string, public groupCode: string){}
+export class CommodityPart {
+  constructor(public id: number, public code: string, public description: string, public groupCode: string) {}
 }

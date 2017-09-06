@@ -1,24 +1,22 @@
 import {
   Component,
   Input,
-  OnInit }  from '@angular/core';
+  OnInit } from '@angular/core';
 
-import { TreeNode }                   from './tree-node';
-import { TreeNodeService }            from '../core/tree-node.service';
+import { TreeNode } from './tree-node';
+import { TreeNodeService } from '../core/tree-node.service';
 import { BubbleNodeMessageInterface } from './bubble-node-message.interface';
-import { NodeSelectorService }        from '../fill-bom/node-selector.service';
-import { UiStatusService }            from '../core/ui-status.service';
-import { NodePositionsUpdate }        from '../core/node-positions-update';
+import { NodeSelectorService } from '../fill-bom/node-selector.service';
+import { UiStatusService } from '../core/ui-status.service';
+import { NodePositionsUpdate } from '../core/node-positions-update';
 
 
 @Component({
   templateUrl: 'tree-view.html',
   styleUrls: ['tree-view.css'],
-  selector: 'tree-view',
+  selector: 'mbe-tree-view',
 })
-
-export class TreeView implements OnInit, BubbleNodeMessageInterface {
-
+export class TreeViewComponent implements OnInit, BubbleNodeMessageInterface {
   @Input() root: TreeNode;
   children: any;
   items: any[] = [];
@@ -33,12 +31,9 @@ export class TreeView implements OnInit, BubbleNodeMessageInterface {
   constructor(private treeNodeService: TreeNodeService, private selectorService: NodeSelectorService,
     private uiStatusService: UiStatusService) {
     this.currentView = this;
-    console.log("tree-view -- constructor -- uiStatusService.userIsAdministrator: " + uiStatusService.userIsAdministrator);//TODO: remove
   }
 
   refreshCurrentNode(modifiedChildNode: boolean): void {
-    console.log("tree-view - refreshCurrentNode - root exixst: " + !!this.root); //TODO: remove
-    console.log("tree-view - refreshCurrentNode - root.id: " + this.root.id); //TODO: remove
     this.treeNodeService.getSingleNode(this.root.id)
       .subscribe((r: any) => {
         this.root.url = r.url;
@@ -66,10 +61,6 @@ export class TreeView implements OnInit, BubbleNodeMessageInterface {
   }
 
   ngOnInit() {
-    //this.subscription = this._store.getTreeNodes(this.root.id).subscribe((res:any) => {
-    //  this.items = res;
-    //});
-    //this._treeNodeService.loadTreeNodes(this.root);
     this.outMessage = this;
     if (this.root.expanded) {
       this.refreshChildNodes();
@@ -88,10 +79,6 @@ export class TreeView implements OnInit, BubbleNodeMessageInterface {
         this.isSelected = this.root.id === node.id;
       }
     );
-
-
-
-
   }
 
   public get enabled(): boolean {
@@ -111,14 +98,12 @@ export class TreeView implements OnInit, BubbleNodeMessageInterface {
     {
       if (this.root.locked) {
         if (this.enabled) {
-          return "btn btn-warning btn-xs pull-right";
+          return 'btn btn-warning btn-xs pull-right';
+        } else {
+          return 'btn btn-danger btn-xs pull-right';
         }
-        else {
-          return "btn btn-danger btn-xs pull-right";
-        }
-      }
-      else {
-        return "btn btn-success btn-xs pull-right";
+      } else {
+        return 'btn btn-success btn-xs pull-right';
       }
 
     }
@@ -131,8 +116,6 @@ export class TreeView implements OnInit, BubbleNodeMessageInterface {
     }
   }
 
-  ngOnDestroy() {
-  }
 
   addNode() {
     this.bubbleNodeMessage('add', this, this.parentView);
@@ -152,7 +135,7 @@ export class TreeView implements OnInit, BubbleNodeMessageInterface {
 
   persistNode(action: any) {
     this.treeNodeService.persistNode(action)
-      .subscribe(() => { this.refreshChildNodes(); })
+      .subscribe(() => { this.refreshChildNodes(); });
   }
 
   toggleLockNode() {

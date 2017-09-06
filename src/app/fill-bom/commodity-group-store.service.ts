@@ -5,22 +5,19 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
 @Injectable()
-export class CommodityGroupStoreService
-{
-  private BASE_URL : string = 'api/commoditygroups';
+export class CommodityGroupStoreService {
+  private BASE_URL = 'api/commoditygroups';
 
-  constructor(private _http:Http){}
+  constructor(private _http: Http) {}
 
-  getAll(disciplineId: number): Observable<Array<CommodityGroup>>
-  {
-    var result = new Subject<Array<CommodityGroup>>();
+  getAll(disciplineId: number): Observable<Array<CommodityGroup>> {
+    const result = new Subject<Array<CommodityGroup>>();
     this._http
-        .get(this.BASE_URL + "/" + disciplineId)
-        .map((res:Response) => res.json())
+        .get(this.BASE_URL + '/' + disciplineId)
+        .map((res: Response) => res.json())
         .subscribe(res => {
-          var resultArray = new Array<CommodityGroup>();
-          for(var index = 0; index < res.length; index += 1)
-          {
+          const resultArray = new Array<CommodityGroup>();
+          for (let index = 0; index < res.length; index += 1) {
             resultArray.push(new CommodityGroup(res[index].id, res[index].code, res[index].description));
           }
           result.next(resultArray);

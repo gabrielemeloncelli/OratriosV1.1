@@ -1,13 +1,10 @@
 import { Component, OnDestroy, Input, Output, EventEmitter, Type, ElementRef, HostBinding, AfterViewInit } from '@angular/core';
 import { ModalInstance, ModalResult } from './modal-instance';
 
+import { ModalSize } from './modal-size';
+
 @Component({
     selector: 'mbe-modal',
-    host: {
-        'class': 'modal',
-        'role': 'dialog',
-        'tabindex': '-1'
-    },
     template: `
         <div class="modal-dialog" [ngClass]="{ 'modal-sm': isSmall(), 'modal-lg': isLarge(), 'modal-dialog-fs': isFullScreen() }">
             <div class="modal-content" [ngClass]="{ 'modal-content-fs': isFullScreen() }">
@@ -15,19 +12,22 @@ import { ModalInstance, ModalResult } from './modal-instance';
             </div>
         </div>
     `,
-    styleUrls: ["modal.css"  ]
-
+    styleUrls: ['modal.css']
 })
 export class ModalComponent implements OnDestroy, AfterViewInit {
+
+    @HostBinding('attr.class') boundClass = 'modal';
+    @HostBinding('attr.role') boundRole = 'dialog';
+    @HostBinding('attr.tabindex') boundTabIndex = '-1';
 
     private overrideSize: string = null;
 
     instance: ModalInstance;
-    visible: boolean = false;
+    visible = false;
 
-    @Input() animation: boolean = true;
+    @Input() animation = true;
     @Input() backdrop: string | boolean = true;
-    @Input() keyboard: boolean = true;
+    @Input() keyboard = true;
     @Input() size: string;
 
     @Output() onClose: EventEmitter<any> = new EventEmitter(false);
@@ -44,8 +44,9 @@ export class ModalComponent implements OnDestroy, AfterViewInit {
 
         this.instance.hidden.subscribe((result) => {
             this.visible = this.instance.visible;
-            if (result === ModalResult.Dismiss)
+            if (result === ModalResult.Dismiss) {
                 this.onDismiss.emit(undefined);
+            }
         });
 
         this.instance.shown.subscribe(() => {
@@ -66,9 +67,9 @@ export class ModalComponent implements OnDestroy, AfterViewInit {
     }
 
     open(size?: string): Promise<void> {
-      console.log("modal.ts -- open -- size: " + size); //TODO: remove
-      console.log("modal.ts -- open -- this.overrideSize: " + this.overrideSize); //TODO: remove
-        if (ModalSize.validSize(size)) this.overrideSize = size;
+        if (ModalSize.validSize(size)) {
+            this.overrideSize = size;
+        }
         return this.instance.open().then(() => {
             this.visible = this.instance.visible;
         });
@@ -96,16 +97,8 @@ export class ModalComponent implements OnDestroy, AfterViewInit {
             || this.overrideSize === ModalSize.Large;
     }
     private isFullScreen() {
-      return this.overrideSize === ModalSize.FullScreen;
+        return this.overrideSize === ModalSize.FullScreen;
     }
 }
 
-export class ModalSize {
-    static Small = 'sm';
-    static Large = 'lg';
-    static FullScreen = 'fs';
 
-    static validSize(size: string) {
-        return size && (size === ModalSize.Small || size === ModalSize.Large || size === ModalSize.FullScreen);
-    }
-}

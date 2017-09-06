@@ -30,7 +30,7 @@
 <div *ngIf="root.expanded">
   <ul>
     <li *ngFor="let node of items" >
-      <tree-view [root]="node" [message]="outMessage" [parentView]="currentView"></tree-view>
+      <mbe-tree-view [root]="node" [message]="outMessage" [parentView]="currentView"></mbe-tree-view>
     </li>
   </ul>
 </div>

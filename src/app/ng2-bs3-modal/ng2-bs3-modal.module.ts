@@ -1,12 +1,12 @@
 import { NgModule,
-          Type }        from '@angular/core';
+          Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ModalComponent }       from './components/modal';
+import { ModalComponent } from './components/modal';
 import { ModalHeaderComponent } from './components/modal-header';
-import { ModalBodyComponent }   from './components/modal-body';
+import { ModalBodyComponent } from './components/modal-body';
 import { ModalFooterComponent } from './components/modal-footer';
-import { AutofocusDirective }   from './directives/autofocus';
+import { AutofocusDirective } from './directives/autofocus';
 
 
 @NgModule({

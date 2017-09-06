@@ -27,11 +27,11 @@
 </nav>
 <div class="row no-margin">
   <div class="col-sm-5 vert-scroll" id="main-fill-bom-col-1">
-    <tree-viewx [message]="outMessage">Loading Tree ...</tree-viewx>
+    <mbe-tree-viewx [message]="outMessage">Loading Tree ...</mbe-tree-viewx>
   </div>
   <div class="col-sm-7">
     <div>
-      <positions-list></positions-list>
+      <mbe-positions-list></mbe-positions-list>
     </div>
   </div>
 </div>
@@ -40,10 +40,10 @@
 </div>
 <mbe-modal id="fill-bom-modal" [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" (onClose)="storeNode()"
   #navigateModal>
-  <modal-header [show-close]="true">
+  <mbe-modal-header [showClose]="true">
     <h4 class="modal-title">Node details</h4>
-  </modal-header>
-  <modal-body>
+  </mbe-modal-header>
+  <mbe-modal-body>
     <div>
       <label for="nodeType">Node type&nbsp;</label>
       <ng-select *ngIf="!nodeTypeChangeDisabled" name="nodeType" #nodeTypeSelector [allowClear]="false" [options]="nodeTypeOptions"
@@ -77,9 +77,9 @@
       <br/>
       <button *ngIf="canConfirmConflict" type="button" class="btn btn-primary btn-saipem" (click)="storeNodeConfirm()">Confirm</button>
     </p>
-  </modal-body>
-  <modal-footer>
+  </mbe-modal-body>
+  <mbe-modal-footer>
     <button type="button" class="btn btn-primary btn-saipem" data-dismiss="modal" (click)="navigateModal.dismiss()">Cancel</button>
-    <button type="button" class="btn btn-primary btn-saipem" autofocus (click)="tryStoreNode()">{{confirmButtonText}}</button>
-  </modal-footer>
+    <button type="button" class="btn btn-primary btn-saipem" mbeAutofocus (click)="tryStoreNode()">{{confirmButtonText}}</button>
+  </mbe-modal-footer>
 </mbe-modal>

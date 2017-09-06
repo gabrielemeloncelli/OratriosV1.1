@@ -1,6 +1,6 @@
 import { PositionAttributeValue } from './position-attribute-value';
 
-export class BomPosition{
+export class BomPosition {
   public id: number;
   public nodeId: number;
   public materialId: number;
@@ -15,12 +15,13 @@ export class BomPosition{
   public description2: string;
   public unit: string;
   public attributes: PositionAttributeValue[];
+  public indexedAttributes: PositionAttributeValue[];
+  public isDirty: boolean;
   public calculateCommodityCode(): string {
     if (!!this.commodityCode) {
       return this.commodityCode;
     }
     return this.tag;
   }
-  public indexedAttributes: PositionAttributeValue[];
-  public isDirty: boolean;
+
 }

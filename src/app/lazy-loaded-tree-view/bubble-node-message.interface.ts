@@ -1,9 +1,7 @@
 import { TreeNode } from './tree-node';
 
-export interface BubbleNodeMessageInterface
-{
+export interface BubbleNodeMessageInterface {
   root: TreeNode;
-  bubbleNodeMessage(action : string, callingView : BubbleNodeMessageInterface, parentView : BubbleNodeMessageInterface) : void;
-  refreshCurrentNode(modifiedChildNode : boolean) : void;
-
+  bubbleNodeMessage(action: string, callingView: BubbleNodeMessageInterface, parentView: BubbleNodeMessageInterface): void;
+  refreshCurrentNode(modifiedChildNode: boolean): void;
 }

@@ -13,14 +13,14 @@ export class CommodityTableStoreService {
 
   getAll(disciplineCode: string, groupCode: string, partCode: string): Observable<Array<CommodityTable>> {
 
-    var _resultArray = new Array<CommodityTable[]>();
-    var result = new Subject<Array<CommodityTable>>();
+    const _resultArray = new Array<CommodityTable[]>();
+    const result = new Subject<Array<CommodityTable>>();
     this._http
       .get(this.BASE_URL + '/' + disciplineCode + '/' + groupCode + '/' + partCode)
       .map((res: Response) => res.json())
       .subscribe(res => {
-        var resultArray = new Array<CommodityTable>();
-        for (var index = 0; index < res.length; index += 1) {
+        const resultArray = new Array<CommodityTable>();
+        for (let index = 0; index < res.length; index += 1) {
           resultArray.push(new CommodityTable(res[index].name, res[index].description,
             res[index].values.map((v: any) => new CommodityTableValue(v.code, v.description))));
         }

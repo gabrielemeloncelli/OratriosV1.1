@@ -1,9 +1,9 @@
 import { CommodityGroup } from '../fill-bom/commodity-group';
-import { CommodityPart }  from '../fill-bom/commodity-part';
+import { CommodityPart } from '../fill-bom/commodity-part';
 
-export class TreeNode{
-  expanded : boolean = false;
-  cssClass : string = null;
+export class TreeNode {
+  expanded = false;
+  cssClass: string = null;
 
 
 
@@ -17,35 +17,30 @@ export class TreeNode{
    public lockedBy: string,
    public hasPositions: boolean,
    public commodityGroup: CommodityGroup,
-   public commodityPart: CommodityPart)
-  {
+   public commodityPart: CommodityPart) {
       this.cssClass = this.getCssClass();
   }
 
 
 
-  expand(){
-    if (this.url)
-    {
+  expand() {
+    if (this.url) {
       this.expanded = !this.expanded;
       this.cssClass = this.getCssClass();
     }
   }
 
   canDelete(): boolean {
-    if(!!this.url)
-    {
+    if (!!this.url) {
       return false;
     }
     return !this.hasPositions;
   }
 
 
-  private getCssClass() : string
-  {
-    if (this.url)
-    {
-      if(this.expanded){
+  private getCssClass(): string {
+    if (this.url) {
+      if (this.expanded) {
         return 'glyphicon glyphicon-chevron-down';
       }
       return 'glyphicon glyphicon-chevron-right';

@@ -1,11 +1,11 @@
 import { Injectable,
-          Optional }  from '@angular/core';
+          Optional } from '@angular/core';
 import { Response,
-          Http }      from '@angular/http';
+          Http } from '@angular/http';
 import { Observable } from 'rxjs/observable';
-import { Subject }    from 'rxjs/Subject';
+import { Subject } from 'rxjs/Subject';
 
-import { UserDTO }    from './user-DTO';
+import { UserDTO } from './user-DTO';
 
 
 
@@ -31,7 +31,7 @@ export class SessionService {
 
     this._http
         .get(this.USERDATA_BASE_URL + '?platformAuthenticatedUserName=' + encodeURIComponent(platformAuthenticatedUserName))
-        .map((res:Response) => res.json())
+        .map((res: Response) => res.json())
         .subscribe((res: UserDTO) => {
           this._userSubject.next(res);
 

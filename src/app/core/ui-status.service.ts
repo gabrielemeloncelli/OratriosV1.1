@@ -15,26 +15,25 @@ import { TreeNodeService } from './tree-node.service';
 import { Attribute } from '../fill-bom/attribute';
 
 @Injectable()
-export class UiStatusService
-{
+export class UiStatusService {
   private _insertPosition: Subject<InsertPositionDetails> = new Subject<InsertPositionDetails>();
   public insertPosition: Observable<InsertPositionDetails> = this._insertPosition.asObservable();
   private _editPositionSubject: Subject<BomPosition> = new Subject<BomPosition>();
   public editPositionObservable: Observable<BomPosition> = this._editPositionSubject.asObservable();
-  public commodityGroup = new CommodityGroup(0, "", "");
+  public commodityGroup = new CommodityGroup(0, '', '');
   public tablesAndSizesVisible = false;
   public materialsVisible = false;
-  public disciplineCode = "";
+  public disciplineCode = '';
   public disciplineId = 0;
   public projectDisciplineId = 0;
   public projectId = 0;
-  public projectCode = "";
-  public projectDisciplines: ProjectDiscipline[]
+  public projectCode = '';
+  public projectDisciplines: ProjectDiscipline[];
   public nodeTypes: NodeType[];
-  public GROUP_CODE = "C_GROUP";
-  public PART_CODE = "C_PART";
-  public commodityPart = new CommodityPart(0, "", "", "");
-  public nodePath = "";
+  public GROUP_CODE = 'C_GROUP';
+  public PART_CODE = 'C_PART';
+  public commodityPart = new CommodityPart(0, '', '', '');
+  public nodePath = '';
   public userCode: string;
   public userIsAdministrator: boolean;
   public projectDescription: string;
@@ -55,9 +54,8 @@ export class UiStatusService
                 this.nodeService.nodePositionsUpdate.subscribe(n => this.nodePositionsUpdateSubject.next(n));
                }
 
-  setInsertPosition(insertPositionVisible: boolean, insertTagPosition: boolean, hideTag: boolean)
-  {
-     var details: InsertPositionDetails  = new InsertPositionDetails();
+  setInsertPosition(insertPositionVisible: boolean, insertTagPosition: boolean, hideTag: boolean) {
+     const details: InsertPositionDetails  = new InsertPositionDetails();
      details.displayInsertPosition = insertPositionVisible;
      details.positionFromTag = insertTagPosition;
      details.hideTag = hideTag;
@@ -65,19 +63,15 @@ export class UiStatusService
 
    }
 
-   editPosition(positionToEdit: BomPosition)
-   {
+   editPosition(positionToEdit: BomPosition) {
      this._editPositionSubject.next(positionToEdit);
    }
 
-   selectProject(projectId: number)
-   {
+   selectProject(projectId: number) {
      this.nodeTypes = new Array<NodeType>();
-     console.log("ui-status.service -- selectProject"); //TODO: remove
      this.nodeTypeService.getNodeTypes(projectId)
      .subscribe(nodes => {
       this.nodeTypes = nodes;
-      console.log("ui-status.service -- selectProject - node types retrieved"); //TODO: remove
      });
    }
 

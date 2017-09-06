@@ -1,7 +1,6 @@
-import { PositionError }    from './position-error';
+import { PositionError } from './position-error';
 
-export class PositionErrorList
-{
+export class PositionErrorList {
     public message: string;
     public errorObject: PositionError[];
 }

@@ -1,10 +1,10 @@
 <mbe-modal id="add-position-modal" [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" [size]="'fs'" #addComp>
   <form (ngSubmit)="onSubmit()" #addPositionForm="ngForm">
-    <modal-header [show-close]="true">
+    <mbe-modal-header [showClose]="true">
       <h4 class="modal-title">Position details</h4>
       <h3>{{uiStatusService.nodePath}}</h3>
-    </modal-header>
-    <modal-body>
+    </mbe-modal-header>
+    <mbe-modal-body>
       <div class="row">
         <div id="tabs-and-filters" class="col-md-4">
           <div *ngIf="_commodityPropertiesSwitch && !_isEdit">
@@ -180,13 +180,13 @@
           <span class='errorMessage'>{{errorMessage}}</span>
         </div>
       </div>
-    </modal-body>
-    <modal-footer>
+    </mbe-modal-body>
+    <mbe-modal-footer>
       <button *ngIf="!_isEdit" type="button" [id]="'btn-reset'" class="btn btn-primary btn-saipem pull-left" (click)="resetPosition()">Reset</button>
       <button type="submit" [ngClass]="{'btn': true, 'btn-primary btn-saipem': addPositionForm.form.valid, 'btn-error': !addPositionForm.form.valid}"
         (click)="savePosition()" [disabled]="!_tagAndQuantityVisible  || (_isTag && !_tagStep2) || !addPositionForm.form.valid">{{savePositionLabel()}}</button>
       <button type="button" class="btn btn-primary btn-saipem" data-dismiss="modal" (click)="dismissModal()">{{cancelLabel()}}</button>
-    </modal-footer>
+    </mbe-modal-footer>
   </form>
 
 </mbe-modal>

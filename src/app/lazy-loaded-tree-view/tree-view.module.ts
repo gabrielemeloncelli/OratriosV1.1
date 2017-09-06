@@ -1,10 +1,10 @@
-/* tslint:disable:member-ordering no-unused-variable */
 import {
-  ModuleWithProviders, NgModule}       from '@angular/core';
+  ModuleWithProviders,
+  NgModule} from '@angular/core';
 
-import { CommonModule }      from '@angular/common';
-import { ElectricalProjectRoot } from './electrical-project-root';
-import { TreeView } from './tree-view';
+import { CommonModule } from '@angular/common';
+import { ElectricalProjectRootComponent } from './electrical-project-root';
+import { TreeViewComponent } from './tree-view';
 import { TreeNode } from './tree-node';
 import { HttpModule, Http } from '@angular/http';
 import { FormsModule } from '@angular/forms';
@@ -12,11 +12,9 @@ import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports:      [ CommonModule, HttpModule, FormsModule ],
-  declarations: [ TreeView, ElectricalProjectRoot ],
-  exports:      [ TreeView, ElectricalProjectRoot ],
+  declarations: [ TreeViewComponent, ElectricalProjectRootComponent ],
+  exports:      [ TreeViewComponent, ElectricalProjectRootComponent ],
   providers:    [ HttpModule, FormsModule ]
 })
 
-export class TreeViewModule {
-
-};
+export class TreeViewModule {}

@@ -1,8 +1,8 @@
 import { CommodityGroup } from '../fill-bom/commodity-group';
-import { CommodityPart }  from '../fill-bom/commodity-part';
+import { CommodityPart } from '../fill-bom/commodity-part';
 
-export class NodeDTO{
-  id : number;
+export class NodeDTO {
+  id: number;
   name: string;
   nodeType: string;
   hasChildren: boolean;

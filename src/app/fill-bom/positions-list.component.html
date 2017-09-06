@@ -55,13 +55,13 @@
   <mbe-pager [totalItems]="positionsCount" [pageSize]="50" (onPageChanged)="onPageChanged($event)"></mbe-pager>
 </div>
 <mbe-modal id="position-list-modal" [animation]="animation" [keyboard]="keyboard" [backdrop]="backdrop" #confirmModal>
-  <modal-header [show-close]="true">
+  <mbe-modal-header [showClose]="true">
     <h4 class="modal-title">Confirm deletion</h4>
-  </modal-header>
-  <modal-body>
-  </modal-body>
-  <modal-footer>
+  </mbe-modal-header>
+  <mbe-modal-body>
+  </mbe-modal-body>
+  <mbe-modal-footer>
     <button type="button" class="btn btn-primary bth-saipem" data-dismiss="modal" (click)="confirmModal.dismiss()">Cancel</button>
-    <button type="button" class="btn btn-primary btn-saipem" autofocus (click)="confirmDeletion()">Confirm</button>
-  </modal-footer>
+    <button type="button" class="btn btn-primary btn-saipem" mbeAutofocus (click)="confirmDeletion()">Confirm</button>
+  </mbe-modal-footer>
 </mbe-modal>

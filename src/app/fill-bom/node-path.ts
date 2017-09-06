@@ -1,3 +1,3 @@
-export class NodePath{
+export class NodePath {
     public path: string;
 }

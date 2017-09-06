@@ -1,6 +1,7 @@
 import {
   Component,
-  ViewChild
+  ViewChild,
+  OnInit
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -22,11 +23,11 @@ import { PositionAttributeValue } from './position-attribute-value';
 
 
 @Component({
-  selector: "positions-list",
-  templateUrl: "positions-list.component.html",
-  styleUrls: ["positions-list.component.css"]
+  selector: 'mbe-positions-list',
+  templateUrl: 'positions-list.component.html',
+  styleUrls: ['positions-list.component.css']
 })
-export class PositionsListComponent {
+export class PositionsListComponent implements OnInit {
   public nodeName: string;
   public nodeLocked: boolean;
   private _node: TreeNode;
@@ -35,8 +36,8 @@ export class PositionsListComponent {
   public loadingVisible = false;
   public selectedNodePath: string;
   private deletionAction: string;
-  private DELETION_NODE_QUANTITIES = "DELETION_NODE_QUANTITIES";
-  private DELETION_POSITION = "DELETION_POSITION";
+  private DELETION_NODE_QUANTITIES = 'DELETION_NODE_QUANTITIES';
+  private DELETION_POSITION = 'DELETION_POSITION';
   public positionsCount = 0;
   private _currentPage = 0;
   public gridData: BomPosition[];
@@ -49,8 +50,9 @@ export class PositionsListComponent {
   public gridProcessedData: DataResult;
 
 
-  constructor(private selectorService: NodeSelectorService, public positionsService: PositionService, private uiStatusService: UiStatusService) {
-  }
+  constructor(private selectorService: NodeSelectorService,
+    public positionsService: PositionService,
+    private uiStatusService: UiStatusService) {}
 
   ngOnInit() {
     this.nodeName = '-';
@@ -63,7 +65,7 @@ export class PositionsListComponent {
         this.selectedNodePath = path;
         this.uiStatusService.nodePath = path;
       }
-    )
+    );
     this.positionsService.positions.subscribe(positions => {
       this.loadingVisible = false;
       this.gridData = this.completeAttributes(positions);
@@ -94,8 +96,10 @@ export class PositionsListComponent {
     this._node = selectedNode;
     this.nodeName = this._node.name;
     this.nodeLocked = selectedNode.locked;
-    this.uiStatusService.commodityGroup = !selectedNode.commodityGroup ? new CommodityGroup(0, "", "") : selectedNode.commodityGroup;
-    this.uiStatusService.commodityPart = !selectedNode.commodityPart ? new CommodityPart(0, "", "", this.uiStatusService.commodityGroup.code) : selectedNode.commodityPart;
+    this.uiStatusService.commodityGroup = !selectedNode.commodityGroup ? new CommodityGroup(0, '', '') : selectedNode.commodityGroup;
+    this.uiStatusService.commodityPart = !selectedNode.commodityPart ?
+      new CommodityPart(0, '', '', this.uiStatusService.commodityGroup.code) :
+      selectedNode.commodityPart;
     this.positionsService.selectNode(selectedNode.id);
     this.uiStatusService.updateNodePositions(selectedNode.id);
     this.onPageChanged(this._currentPage);
@@ -121,10 +125,10 @@ export class PositionsListComponent {
   confirmDeletion() {
     this.confirmModal.dismiss();
     if (this.deletionAction === this.DELETION_POSITION) {
-      this.positionsService.deletePosition(this._positionToBeDeleted).subscribe(p => { this.updateSelection(this._node) });
+      this.positionsService.deletePosition(this._positionToBeDeleted).subscribe(p => { this.updateSelection(this._node); });
     }
     if (this.deletionAction === this.DELETION_NODE_QUANTITIES) {
-      this.positionsService.clearNode(this._node.id).subscribe(() => { this.updateSelection(this._node) });
+      this.positionsService.clearNode(this._node.id).subscribe(() => { this.updateSelection(this._node); });
     }
   }
   refreshList() {
@@ -150,7 +154,7 @@ export class PositionsListComponent {
 
   copyPastedContents() {
     this.positionsService.pasteNode(this.uiStatusService.nodeToBeCopied.id, this._node.id)
-      .subscribe(() => { this.updateSelection(this._node) });
+      .subscribe(() => { this.updateSelection(this._node); });
   }
 
   onPageChanged(pageChanged: number) {
@@ -161,9 +165,9 @@ export class PositionsListComponent {
   }
 
   completeAttributes(inputPositions: BomPosition[]): BomPosition[] {
-    for (let position of inputPositions) {
+    for (const position of inputPositions) {
       position.isDirty = false;
-      for (let attribute of this.uiStatusService.attributes) {
+      for (const attribute of this.uiStatusService.attributes) {
         if (!position.indexedAttributes[attribute.id]) {
           position.indexedAttributes[attribute.id] =
             new PositionAttributeValue(attribute, '');
@@ -174,8 +178,8 @@ export class PositionsListComponent {
   }
 
   saveDirtyData() {
-    let dirtyData = new Array<BomPosition>();
-    for (let position of this.gridData) {
+    const dirtyData = new Array<BomPosition>();
+    for (const position of this.gridData) {
       if (position.isDirty) {
         // save dirty data
         // TODO: implement
@@ -196,7 +200,7 @@ export class PositionsListComponent {
   }
 
   updatePositionAttributes(dirtyPosition: BomPosition): BomPosition {
-    for (let attribute of dirtyPosition.indexedAttributes) {
+    for (const attribute of dirtyPosition.indexedAttributes) {
       if (!!attribute) {
         if (attribute.value === undefined || attribute.value === '') {
           this.updateAttribute(dirtyPosition, attribute, true);

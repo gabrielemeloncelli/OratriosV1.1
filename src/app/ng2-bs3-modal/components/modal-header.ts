@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, Type } from '@angular/core';
 import { ModalComponent } from './modal';
 
 @Component({
-    selector: 'modal-header',
+    selector: 'mbe-modal-header',
     template: `
         <div class="modal-header">
             <button *ngIf="showClose" type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss()">
@@ -13,6 +13,6 @@ import { ModalComponent } from './modal';
     `
 })
 export class ModalHeaderComponent {
-    @Input('show-close') showClose: boolean = false;
+    @Input('showClose') showClose = false;
     constructor(private modal: ModalComponent) { }
 }
