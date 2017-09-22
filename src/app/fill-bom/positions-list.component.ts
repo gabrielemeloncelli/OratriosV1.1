@@ -182,7 +182,6 @@ export class PositionsListComponent implements OnInit {
     for (const position of this.gridData) {
       if (position.isDirty) {
         // save dirty data
-        // TODO: implement
         dirtyData.push(this.updatePositionAttributes(position));
       }
     }

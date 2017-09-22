@@ -55,6 +55,7 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
   changedNode = new TreeNode(0, '', '', '', 0, false, '', false, null, null);
   private value: any = {};
   private nodeNameDisabled = false;
+  selectedNode: TreeNode = null;
 
   constructor(treeNodeService: TreeNodeService, coreEstService: CoreEstService,
     private uiStatusService: UiStatusService, private commodityGroupService: CommodityGroupService,
@@ -209,6 +210,10 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
     this.selectorService.selectedNodePath.subscribe(
       (path: string) => this.windowResized()
     );
+
+    this.selectorService.selectedNode.subscribe(
+      (node: TreeNode) => this.selectedNode = node
+    )
 
     this.windowResized();
     this.trimSize();

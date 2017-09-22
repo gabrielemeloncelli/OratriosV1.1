@@ -40,6 +40,7 @@ export class UiStatusService {
   public platformAuthenticatedUserName: string;
   public authToken: string;
   public nodeToBeCopied: TreeNode;
+  public nodeTreeToBeCopied: TreeNode;
 
   private nodePositionsUpdateSubject = new Subject<NodePositionsUpdate>();
   public nodePositionsUpdate = this.nodePositionsUpdateSubject.asObservable();

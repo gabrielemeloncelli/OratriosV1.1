@@ -59,25 +59,31 @@ export class TreeNodeService {
       this._http.post(action.url, action.node)
         .subscribe(res => {
           this.nodes[action.id] = null;
-          this.handleAction.bind(this, { name: 'LOAD_NODES',
-            url: 'api/Nodes/' + action.id + '/' + action.node.projectDisciplineId + '/nodes', id: action.id });
+          this.handleAction.bind(this, {
+            name: 'LOAD_NODES',
+            url: 'api/Nodes/' + action.id + '/' + action.node.projectDisciplineId + '/nodes', id: action.id
+          });
         },
-        error => { throw(error); });
+        error => { throw (error); });
     }
     if (action.name === 'EDIT_NODE') {
       this._http.put(action.url, action.node)
         .subscribe(res => {
           this.nodes[action.id] = null;
-          this.handleAction.bind(this, { name: 'LOAD_NODES',
-            url: 'api/Nodes/' + action.id + '/' + action.node.projectDisciplineId + '/nodes', id: action.id });
+          this.handleAction.bind(this, {
+            name: 'LOAD_NODES',
+            url: 'api/Nodes/' + action.id + '/' + action.node.projectDisciplineId + '/nodes', id: action.id
+          });
         });
     }
     if (action.name === 'DELETE_NODE') {
       this._http.delete(action.url)
         .subscribe(res => {
           this.nodes[action.id] = null;
-          this.handleAction.bind(this, { name: 'LOAD_NODES',
-            url: 'api/Nodes/' + action.id + '/' + action.node.projectDisciplineId + '/nodes', id: action.id });
+          this.handleAction.bind(this, {
+            name: 'LOAD_NODES',
+            url: 'api/Nodes/' + action.id + '/' + action.node.projectDisciplineId + '/nodes', id: action.id
+          });
         });
     }
   }
@@ -103,6 +109,13 @@ export class TreeNodeService {
       return this._http.delete(action.url)
         .map((res: Response) => null);
     }
+  }
+
+  copyNodeTree(sourceNodeId: number, targetNodeId: number) {
+    this._http.put(this.BASE_URL + '/copyTree/' + sourceNodeId + '/' + targetNodeId, null)
+      .map((res: Response) => null)
+      .subscribe(() => { this.nodePositionUpdateSubject.next(new NodePositionsUpdate(targetNodeId, false)) },
+      e => this.handleError(e));
   }
 
   dispatchAction(action: any) {
@@ -138,8 +151,8 @@ export class TreeNodeService {
 
   updateNodePositions(id: number) {
     this._http
-    .get(this.BASE_URL + '/' + id.toString() + '/node-update')
-    .map((res: Response) => res.json())
-    .subscribe((upd: NodePositionsUpdate) => this.nodePositionUpdateSubject.next(upd));
+      .get(this.BASE_URL + '/' + id.toString() + '/node-update')
+      .map((res: Response) => res.json())
+      .subscribe((upd: NodePositionsUpdate) => this.nodePositionUpdateSubject.next(upd));
   }
 }

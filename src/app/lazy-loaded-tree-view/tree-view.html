@@ -10,7 +10,7 @@
     title="{{!!root.commodityPart ? root.commodityPart.description : !!root.commodityGroup ? root.commodityGroup.description : ''}}">{{ root.name }}</span>
   <span *ngIf="root.hasPositions" class="glyphicon glyphicon-asterisk"></span>
   <div class="pull-right">
-    <div *ngIf="uiStatusService.userIsAdministrator" class="pull-right" style="width: 80px; padding-left: 5px">
+    <div *ngIf="uiStatusService.userIsAdministrator && uiStatusService.treeToolbarVisible" class="pull-right" style="width: 80px; padding-left: 5px">
       <div style="width: 25px; height: 25px; border: 1px black; float: left">
         <a *ngIf="root.id !== 0 && uiStatusService.userIsAdministrator && root.canDelete()" class="btn btn-xs btn-danger" (click)="deleteNode()"><span class="glyphicon glyphicon-remove-sign"></span></a>
       </div>
@@ -21,8 +21,10 @@
         <a *ngIf="uiStatusService.userIsAdministrator && !root.commodityPart" class="btn btn-xs btn-success" (click)="addNode()"><span class="glyphicon glyphicon-plus"></span></a>
       </div>
     </div>
+    <!--
     <a *ngIf="root.id !== 0 && !!uiStatusService.userCode && (uiStatusService.userIsAdministrator || !root.locked || uiStatusService.userCode === root.lockedBy)" [ngClass]="lockClasses" (click)="toggleLockNode()"><span class="glyphicon glyphicon-lock"></span></a>
     <a *ngIf="root.id !== 0 && !!uiStatusService.userCode && !(uiStatusService.userIsAdministrator || !root.locked || uiStatusService.userCode.login === root.lockedBy)" [ngClass]="lockClasses"><span class="glyphicon glyphicon-lock"></span></a>
+    -->
   </div>
   <div style="clear: both; width: 1px; height: 1px">
   </div>
