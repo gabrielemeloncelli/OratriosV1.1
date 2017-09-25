@@ -37,7 +37,6 @@ export class TreeViewComponent implements OnInit, BubbleNodeMessageInterface {
     this.treeNodeService.getSingleNode(this.root.id)
       .subscribe((r: any) => {
         this.root.url = r.url;
-        this.root.hasPositions = !!this.root.url;
         // Refresh icons by toggling twice the expansion
         this.root.toggleExpansion();
         this.root.toggleExpansion();
