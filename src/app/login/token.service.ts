@@ -7,7 +7,7 @@ import { Subject } from 'rxjs/Subject';
 
 import { TokenStructure } from './token-structure';
 
-import { Observable } from 'rxjs/Rx'; // TODO: check
+import { Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class TokenService {

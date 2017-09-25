@@ -23,11 +23,9 @@ export class TreeNode {
 
 
 
-  expand() {
-    if (this.url) {
-      this.expanded = !this.expanded;
-      this.cssClass = this.getCssClass();
-    }
+  toggleExpansion() {
+    this.expanded = !this.expanded && !!this.url;
+    this.cssClass = this.getCssClass();
   }
 
   canDelete(): boolean {

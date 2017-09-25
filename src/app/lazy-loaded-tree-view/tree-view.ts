@@ -37,6 +37,10 @@ export class TreeViewComponent implements OnInit, BubbleNodeMessageInterface {
     this.treeNodeService.getSingleNode(this.root.id)
       .subscribe((r: any) => {
         this.root.url = r.url;
+        this.root.hasPositions = !!this.root.url;
+        // Refresh icons by toggling twice the expansion
+        this.root.toggleExpansion();
+        this.root.toggleExpansion();
         if (this.root.id > 0) {
           this.root.name = r.name;
           this.root.type = r.type;
@@ -45,9 +49,9 @@ export class TreeViewComponent implements OnInit, BubbleNodeMessageInterface {
         }
         if (modifiedChildNode) {
           if (this.root.expanded) {
-            this.root.expand();
+            this.root.toggleExpansion();
           }
-          this.root.expand();
+          this.root.toggleExpansion();
           this.refreshChildNodes();
         }
       });
@@ -57,7 +61,12 @@ export class TreeViewComponent implements OnInit, BubbleNodeMessageInterface {
     if (this.root.url) {
       this.treeNodeService.fetchTreeNodes(this.root.id, this.uiStatusService.projectDisciplineId)
         .subscribe((r: any) => { this.items = r; });
+    } else {
+      this.items = null;
     }
+    // Expand the root to refresh the calculated values
+    this.root.toggleExpansion();
+    setTimeout(() => { this.root.toggleExpansion(); }, 500);
   }
 
   ngOnInit() {
@@ -110,7 +119,7 @@ export class TreeViewComponent implements OnInit, BubbleNodeMessageInterface {
   }
 
   expand(): void {
-    this.root.expand();
+    this.root.toggleExpansion();
     if (this.root.expanded === true) {
       this.refreshChildNodes();
     }

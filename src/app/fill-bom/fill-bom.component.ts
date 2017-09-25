@@ -213,7 +213,7 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
 
     this.selectorService.selectedNode.subscribe(
       (node: TreeNode) => this.selectedNode = node
-    )
+    );
 
     this.windowResized();
     this.trimSize();

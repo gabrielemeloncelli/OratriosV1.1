@@ -20,7 +20,7 @@ export class ElectricalProjectRootComponent implements OnInit, BubbleNodeMessage
   constructor(private _treeNodeService: TreeNodeService, private _uiStatusService: UiStatusService) {
     this.root  = new TreeNode(0, 'api/Nodest/0/nodes.json', 'Project ' + _uiStatusService.projectCode + ' - '
     + _uiStatusService.disciplineCode, 'project', 0, false, '', false, null, null);
-    this.root.expand();
+    this.root.toggleExpansion();
   }
 
   ngOnInit() {
@@ -40,8 +40,8 @@ export class ElectricalProjectRootComponent implements OnInit, BubbleNodeMessage
 
   refreshChildNodes() {
     // Expand the root to refresh the calculated values
-    this.root.expand();
-    setTimeout(() => { this.root.expand(); }, 500);
+    this.root.toggleExpansion();
+    setTimeout(() => { this.root.toggleExpansion(); }, 500);
   }
 
 }
