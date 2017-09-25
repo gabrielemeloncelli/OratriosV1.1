@@ -1,4 +1,9 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component,
+  OnInit,
+  ViewChild,
+  ViewChildren,
+  AfterViewInit,
+  QueryList } from '@angular/core';
 import { Option } from 'ng-select/dist/option';
 import { SelectComponent } from 'ng-select/dist/select.component';
 
@@ -73,11 +78,13 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
   private _scrollPrevious: number;
   public hideTag: boolean;
   public totItems = 0;
+  private _groupSelect: SelectComponent;
+  private _partSelect: SelectComponent;
 
 
 
-  @ViewChild(SelectComponent)
-  private selectComponent: SelectComponent;
+  @ViewChildren(SelectComponent)
+  private selectComponents: QueryList<SelectComponent>;
 
 
   constructor(public uiStatusService: UiStatusService, private commodityGroupService: CommodityGroupService,
@@ -224,6 +231,8 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     this.modalComponent.onDismiss.subscribe(() => this.cleanupModal());
 
 
+
+
   }
 
 
@@ -233,6 +242,9 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
 
   groupSelected(event: any) {
     const foundGroup: CommodityGroup = this.findSelectedGroup(+event.value);
+    this.resetPart();
+    this.selectedMaterial.partCode = null;
+    this.uiStatusService.PART_CODE = null;
     this.selectedMaterial.groupCode = foundGroup.code;
     this.uiStatusService.commodityGroup = foundGroup;
     this.uiStatusService.commodityPart = new CommodityPart(0, '', '', foundGroup.code);
@@ -369,9 +381,15 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
   }
 
   resetGroupAndPart() {
-    if (this.selectComponent) {
-      this.selectComponent.clear();
+    // Refresh the list of the components when they are displayed
+    this.getSelectComponents();
+    if (this._groupSelect) {
+      this._groupSelect.clear();
     }
+    if (this._partSelect) {
+      this._partSelect.clear();
+    }
+
     if (!this.uiStatusService.commodityGroup.id) {
       this.uiStatusService.commodityGroup = new CommodityGroup(0, '', '');
     }
@@ -396,6 +414,11 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
 
   resetPart() {
     this.changeGroup();
+    // Refresh the list of the components when they are displayed
+    this.getSelectComponents();
+    if (this._partSelect) {
+      this._partSelect.clear();
+    }
     this.parts = new Array<Option>();
   }
 
@@ -941,6 +964,19 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     setTimeout(() => this._loadingTimeoutExpired = true, (pageNumber + 10) * 1000);
     this.materialService.getAll(this.uiStatusService.commodityPart.id, filter, pageNumber, 10);
 
+  }
+
+  getSelectComponents() {
+    if (this.selectComponents) {
+      this.selectComponents.forEach( (component) => {
+        if (component.placeholder === 'No group selected') {
+          this._groupSelect = component;
+        }
+        if (component.placeholder === 'No part selected') {
+          this._partSelect = component;
+        }
+      });
+    }
   }
 
 }
