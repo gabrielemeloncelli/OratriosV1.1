@@ -114,7 +114,7 @@ export class TreeNodeService {
   copyNodeTree(sourceNodeId: number, targetNodeId: number) {
     this._http.put(this.BASE_URL + '/copyTree/' + sourceNodeId + '/' + targetNodeId, null)
       .map((res: Response) => null)
-      .subscribe(() => { this.nodePositionUpdateSubject.next(new NodePositionsUpdate(targetNodeId, false)); },
+      .subscribe(() => { this.nodePositionUpdateSubject.next(new NodePositionsUpdate(targetNodeId, false, true)); },
       e => this.handleError(e));
   }
 

@@ -78,6 +78,9 @@ export class TreeViewComponent implements OnInit, BubbleNodeMessageInterface {
       (upd: NodePositionsUpdate) => {
         if (upd.id === this.root.id) {
           this.root.hasPositions = upd.hasPositions;
+          if(upd.refreshNode) {
+            this.refreshCurrentNode(true);
+          }
         }
       }
     );
