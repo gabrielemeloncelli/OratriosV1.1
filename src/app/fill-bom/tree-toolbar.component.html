@@ -1,6 +1,6 @@
 <div>
     <button class="btn btn-m btn-primary btn-saipem" (click)="copyNodeTree()" data-toogle="tooltip" title="Copy node tree"
     [disabled]="!selectedNode"><span class="glyphicon glyphicon glyphicon-copy"></span></button>
-    <button class="btn btn-m btn-primary btn-saipem" (click)="copyPastedNodeTree()" data-toogle="tooltip" title="{{}}"
+    <button class="btn btn-m btn-primary btn-saipem" (click)="copyPastedNodeTree()" data-toogle="tooltip" title="{{pasteButtonLabel}}"
     [disabled]="!canPasteTree()"><span class="glyphicon glyphicon glyphicon-paste"></span></button>
 </div>
