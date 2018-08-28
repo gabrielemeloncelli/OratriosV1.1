@@ -52,7 +52,7 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
   nodeNameOptions: Option[];
   commodityGroups: CommodityGroup[] = new Array<CommodityGroup>();
   commodityParts: CommodityPart[] = new Array<CommodityPart>();
-  changedNode = new TreeNode(0, '', '', '', 0, false, '', false, null, null);
+  changedNode = new TreeNode(0, '', '', '', 0, false, '', false, null, null, null);
   private value: any = {};
   private nodeNameDisabled = false;
   selectedNode: TreeNode = null;
@@ -90,7 +90,7 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
 
   addChildNode(): void {
     this.actionType = 'add';
-    this.changedNode = new TreeNode(0, '', '', '', this.eventNode.id, false, '', false, null, null);
+    this.changedNode = new TreeNode(0, '', '', '', this.eventNode.id, false, '', false, null, null, null);
     this.handleNode();
     if (this.eventNode && !!this.eventNode.commodityGroup && !this.eventNode.commodityPart) {
       this.changedNode.commodityGroup = this.eventNode.commodityGroup;
@@ -116,6 +116,7 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
       this.eventNode.locked,
       this.eventNode.lockedBy,
       this.eventNode.hasPositions,
+      this.eventNode.lockedWbs,
       this.eventNode.commodityGroup,
       this.eventNode.commodityPart);
     this.handleNode();

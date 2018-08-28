@@ -137,14 +137,12 @@
                   <td *ngFor="let attribute of attributes">
                     <input *ngIf="allowedValues[attribute.spmatId].length == 0" type="text" [(ngModel)]="addedPosition.attributes[attribute.id]"
                       maxlength="{{attribute.maxlength}}" name="{{'attr_' + aIndex + '_' + attribute.id}}" class="form-control"
-                      [required]="(attribute.mandatory || attribute.forcedMandatory) ? 'true' : null" autocomplete="off" />
+                      [required]="(attribute.mandatory || attribute.forcedMandatory) ? 'true' : null" autocomplete="off" enabled="!addedPosition.attributesLocked[attribute.id]"/>
                     <ng-select *ngIf="allowedValues[attribute.spmatId].length > 0" [allowClear]="true" [options]="allowedValues[attribute.spmatId]"
                       (selected)="addedPosition.attributes[attribute.id] = $event.value" (removed)="addedPosition.attributes[attribute.id] = ''"
                       noFilter="true" class="ng-select">
                     </ng-select>
                   </td>
-                  <td>
-                    <td>
                 </tr>
               </tbody>
             </table>

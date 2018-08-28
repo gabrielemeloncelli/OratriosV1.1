@@ -11,7 +11,7 @@ import { NodePath } from './node-path';
 
 @Injectable()
 export class NodeSelectorService {
-  public lastSelectedNode: TreeNode = new TreeNode(0, '', '', '', 0, false, '', false, null, null);
+  public lastSelectedNode: TreeNode = new TreeNode(0, '', '', '', 0, false, '', false, null, null, null);
 
   private _selectedNodeSource = new Subject<TreeNode>();
   private _selectedNodePathSource = new Subject<string>();

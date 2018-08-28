@@ -170,7 +170,7 @@ export class PositionsListComponent implements OnInit {
       for (const attribute of this.uiStatusService.attributes) {
         if (!position.indexedAttributes[attribute.id]) {
           position.indexedAttributes[attribute.id] =
-            new PositionAttributeValue(attribute, '');
+            new PositionAttributeValue(attribute, '', false);
         }
       }
     }
@@ -227,7 +227,7 @@ export class PositionsListComponent implements OnInit {
         dirtyPosition.attributes[foundAttributeIdx].value = attribute.value;
       }
     } else if (!remove) {
-      dirtyPosition.attributes.push(new PositionAttributeValue(attribute.attribute, attribute.value));
+      dirtyPosition.attributes.push(new PositionAttributeValue(attribute.attribute, attribute.value, attribute.locked));
     }
   }
   // Grid data change

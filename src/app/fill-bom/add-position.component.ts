@@ -57,6 +57,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
   private _isEdit = false;
   public attributes: Attribute[];
   public attributeValues: string[];
+  public attributeValuesLocked: boolean[];
   private _groups: CommodityGroup[];
   private _parts: CommodityPart[];
   public errorMessage: string;
@@ -80,6 +81,8 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
   public totItems = 0;
   private _groupSelect: SelectComponent;
   private _partSelect: SelectComponent;
+  private _lockedWbs: string;
+  private _isWbsLocked: boolean;
 
 
 
@@ -491,7 +494,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
   }
 
   cloneAttributeValue(attributeToClone: PositionAttributeValue): PositionAttributeValue {
-    return new PositionAttributeValue(attributeToClone.attribute, attributeToClone.value);
+    return new PositionAttributeValue(attributeToClone.attribute, attributeToClone.value, attributeToClone.locked);
   }
 
 
@@ -500,6 +503,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
       let index: number;
       for (index = 0; index < attributes.length; index += 1) {
         this.attributeValues[attributes[index].attribute.id] = attributes[index].value;
+        this.attributeValuesLocked[attributes[index].attribute.id] = attributes[index].locked;
       }
     }
   }
@@ -518,6 +522,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     this._description2Keypress = false;
     this.selectedMaterial.unit = '';
     this.attributeValues = new Array<string>();
+    this.attributeValuesLocked = new Array<boolean>();
     this.errorMessage = '';
     this.tagError = false;
   }
@@ -525,6 +530,8 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
   resetPositionModel() {
     this.position = new BomPosition();
     this.position.nodeId = this.selectorService.lastSelectedNode.id;
+    this._lockedWbs = this.selectorService.lastSelectedNode.lockedWbs;
+    this._isWbsLocked = this._lockedWbs == null || this._lockedWbs != '';
   }
 
   selectMaterial(materialId: number, idx: number) {
@@ -546,7 +553,22 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     newPosition.nodeId = this.position.nodeId;
     newPosition.attributes = new Array<PositionAttributeValue>();
 
-    this.addedPositions.push(new PositionInput(newPosition, new Array<string>()));
+  
+   
+    var wbsAttribute : Attribute = null;
+    if(this._isWbsLocked) {
+      wbsAttribute = this.getWbsAttribute();
+    }
+
+    const attributeValueArray: string[] = new Array<string>();
+    const attributeValueLockedArray: boolean[] = new Array<boolean>();
+
+    if(this._isWbsLocked && wbsAttribute != null && wbsAttribute.spmatId > 0) {
+      attributeValueArray[wbsAttribute.spmatId] = this._lockedWbs;
+      attributeValueLockedArray[wbsAttribute.spmatId] = true;
+    }    
+
+    this.addedPositions.push(new PositionInput(newPosition, attributeValueArray, attributeValueLockedArray));
     setTimeout(() => {
       const elm = document.getElementById('POSQTY' + (this.addedPositions.length - 1).toString());
       if (!!elm) {
@@ -710,7 +732,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
       newPosition.tag = this.addedPositions[index].bomPosition.tag;
       newPosition.quantity = this.addedPositions[index].bomPosition.quantity;
 
-      newPosition.attributes = this.fetchAttributesFromArray(this.addedPositions[index].attributes);
+      newPosition.attributes = this.fetchAttributesFromArray(this.addedPositions[index].attributes, this.addedPositions[index].attributesLocked);
 
       addedBomPositions.push(newPosition);
     }
@@ -773,7 +795,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     newPosition.tag = this.addedPositions[index].bomPosition.tag;
     newPosition.quantity = this.addedPositions[index].bomPosition.quantity;
 
-    newPosition.attributes = this.fetchAttributesFromArray(this.addedPositions[index].attributes);
+    newPosition.attributes = this.fetchAttributesFromArray(this.addedPositions[index].attributes, this.addedPositions[index].attributesLocked);
 
     this.positionService.addPosition(newPosition)
       .subscribe(
@@ -825,12 +847,12 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     }
   }
 
-  fetchAttributesFromArray(attributeArray: string[]): PositionAttributeValue[] {
+  fetchAttributesFromArray(attributeArray: string[], attributeLockedArray: boolean[]): PositionAttributeValue[] {
     const result = new Array<PositionAttributeValue>();
     let i: number;
     for (i = 0; i < attributeArray.length; i += 1) {
       if (attributeArray[i] != null) {
-        result.push(new PositionAttributeValue(this.getPositionAttribute(i), attributeArray[i]));
+        result.push(new PositionAttributeValue(this.getPositionAttribute(i), attributeArray[i], attributeLockedArray[i]));
       }
     }
     return result;
@@ -842,7 +864,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     const keys = Object.keys(this.attributeValues);
     for (i = 0; i < keys.length; i += 1) {
       const attribute = this.getPositionAttribute(+keys[i]);
-      result.push(new PositionAttributeValue(attribute, this.attributeValues[keys[i]]));
+      result.push(new PositionAttributeValue(attribute, this.attributeValues[keys[i]], this.attributeValuesLocked[keys[i]]));
     }
     return result;
   }
@@ -851,7 +873,9 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     let i: number;
     const keys = Object.keys(this.attributeValues);
     for (i = 0; i < keys.length; i += 1) {
-      this.attributeValues[keys[i]] = '';
+      if (!this.attributeValuesLocked[keys[i]]) {
+        this.attributeValues[keys[i]] = '';
+      }
     }
   }
 
@@ -977,6 +1001,16 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
         }
       });
     }
+  }
+
+  getWbsAttribute(): Attribute {
+    var result: Attribute;
+    this.attributes.forEach(attr => {
+      if(attr.code == "WBS") {
+        result = attr;
+      }
+    });
+    return result;
   }
 
 }

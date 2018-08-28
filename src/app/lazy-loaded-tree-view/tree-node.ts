@@ -16,6 +16,7 @@ export class TreeNode {
    public locked: boolean,
    public lockedBy: string,
    public hasPositions: boolean,
+   public lockedWbs: string,
    public commodityGroup: CommodityGroup,
    public commodityPart: CommodityPart) {
       this.cssClass = this.getCssClass();

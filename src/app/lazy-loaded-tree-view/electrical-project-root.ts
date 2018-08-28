@@ -19,7 +19,7 @@ export class ElectricalProjectRootComponent implements OnInit, BubbleNodeMessage
 
   constructor(private _treeNodeService: TreeNodeService, private _uiStatusService: UiStatusService) {
     this.root  = new TreeNode(0, 'api/Nodest/0/nodes.json', 'Project ' + _uiStatusService.projectCode + ' - '
-    + _uiStatusService.disciplineCode, 'project', 0, false, '', false, null, null);
+    + _uiStatusService.disciplineCode, 'project', 0, false, '', false, null, null, null);
     this.root.toggleExpansion();
   }
 

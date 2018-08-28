@@ -202,7 +202,7 @@ export class PositionStoreService {
   }
 
   mapSingleAttribute(attr: any) {
-    return new PositionAttributeValue(attr.attribute, attr.value);
+    return new PositionAttributeValue(attr.attribute, attr.value, attr.locked);
   }
 
   indexAttributes(rawAttributes: PositionAttributeValue[]): PositionAttributeValue[] {
