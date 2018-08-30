@@ -227,7 +227,16 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
 
     this.materialService.totalItems.subscribe(
       totalItems => {
-        this.totItems = totalItems;
+        this.totItems = this.totItems == 0 ? 1 : 0;
+        if (totalItems == 0) {
+          this.filteredMaterialsLoading = false;
+          this.materialLoadingError = 'No material found.';
+        } else if (!this._loadingTimeoutExpired) {
+          this.materialLoadingError = '';
+        }
+        setTimeout(() => {
+          this.totItems = totalItems;
+        }, 500);
       }
     );
 
