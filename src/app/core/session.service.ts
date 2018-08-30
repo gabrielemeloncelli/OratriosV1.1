@@ -17,7 +17,7 @@ export class SessionService {
   private _userLogin = 'donald';
   private _userIsAdministrator = false;
   private _userSubject: Subject<UserDTO>;
-  private USERDATA_BASE_URL = 'api/Account/UserData';
+  private USERDATA_BASE_URL = '/Oratrios.Api/api/Account/UserData';
 
   constructor(private _http: Http) {
     this._userSubject = new Subject<UserDTO>();

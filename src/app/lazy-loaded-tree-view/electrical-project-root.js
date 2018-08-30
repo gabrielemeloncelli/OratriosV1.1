@@ -17,7 +17,7 @@ var ElectricalProjectRoot = (function () {
     function ElectricalProjectRoot(_treeNodeService, _uiStatusService) {
         this._treeNodeService = _treeNodeService;
         this._uiStatusService = _uiStatusService;
-        this.root = new tree_node_1.TreeNode(0, 'api/Nodest/0/nodes.json', 'Project ' + _uiStatusService.projectCode + ' - '
+        this.root = new tree_node_1.TreeNode(0, '/Oratrios.Api/api/Nodest/0/nodes.json', 'Project ' + _uiStatusService.projectCode + ' - '
             + _uiStatusService.disciplineCode, 'project', 0, false, "", false, null, null);
         this.root.expand();
     }

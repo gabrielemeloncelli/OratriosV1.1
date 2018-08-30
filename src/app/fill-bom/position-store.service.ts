@@ -10,7 +10,7 @@ import { PositionError } from './position-error';
 
 @Injectable()
 export class PositionStoreService {
-  private BASE_URL = 'api/positions';
+  private BASE_URL = '/Oratrios.Api/api/positions';
   constructor(private _http: Http) { }
   addPosition(newPosition: BomPosition): Observable<BomPosition> {
     const headers = new Headers({ 'Content-Type': 'application/json' });

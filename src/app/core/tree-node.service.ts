@@ -24,7 +24,7 @@ export class TreeNodeService {
 
   private nodes: any = {};
 
-  private BASE_URL = 'api/Nodes';
+  private BASE_URL = '/Oratrios.Api/api/Nodes';
 
   private getChildNodesUrl(id: number, projectDisciplineId: number): string {
     return this.BASE_URL + '/' + id + '/' + projectDisciplineId + '/nodes';
@@ -61,7 +61,7 @@ export class TreeNodeService {
           this.nodes[action.id] = null;
           this.handleAction.bind(this, {
             name: 'LOAD_NODES',
-            url: 'api/Nodes/' + action.id + '/' + action.node.projectDisciplineId + '/nodes', id: action.id
+            url: '/Oratrios.Api/api/Nodes/' + action.id + '/' + action.node.projectDisciplineId + '/nodes', id: action.id
           });
         },
         error => { throw (error); });
@@ -72,7 +72,7 @@ export class TreeNodeService {
           this.nodes[action.id] = null;
           this.handleAction.bind(this, {
             name: 'LOAD_NODES',
-            url: 'api/Nodes/' + action.id + '/' + action.node.projectDisciplineId + '/nodes', id: action.id
+            url: '/Oratrios.Api/api/Nodes/' + action.id + '/' + action.node.projectDisciplineId + '/nodes', id: action.id
           });
         });
     }
@@ -82,7 +82,7 @@ export class TreeNodeService {
           this.nodes[action.id] = null;
           this.handleAction.bind(this, {
             name: 'LOAD_NODES',
-            url: 'api/Nodes/' + action.id + '/' + action.node.projectDisciplineId + '/nodes', id: action.id
+            url: '/Oratrios.Api/api/Nodes/' + action.id + '/' + action.node.projectDisciplineId + '/nodes', id: action.id
           });
         });
     }

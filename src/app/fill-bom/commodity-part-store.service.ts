@@ -7,7 +7,7 @@ import { Http, Response } from '@angular/http';
 @Injectable()
 export class CommodityPartStoreService {
   private _store: CommodityPart[][] = new Array<CommodityPart[]>();
-  private BASE_URL = 'api/commodityparts';
+  private BASE_URL = '/Oratrios.Api/api/commodityparts';
 
   constructor(private _http: Http) {}
 

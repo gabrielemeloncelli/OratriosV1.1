@@ -272,7 +272,7 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
     newNode.locked = this.changedNode.locked;
     newNode.lockedBy = this.uiStatusService.userCode;
     newNode.idFather = this.changedNode.idFather;
-    newNode.url = 'api/Nodes/' + newNode.id;
+    newNode.url = '/Oratrios.Api/api/Nodes/' + newNode.id;
     newNode.commodityGroup = this.changedNode.commodityGroup;
     newNode.commodityPart = this.changedNode.commodityPart;
     newNode.projectDisciplineId = this.uiStatusService.projectDisciplineId;
@@ -282,14 +282,14 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
 
   private createNodeAction(newNode: NodeDTO): any {
     let action: any;
-    action = { name: null, url: 'api/Nodes/' + this.eventNode.id.toString(), node: newNode };
+    action = { name: null, url: '/Oratrios.Api/api/Nodes/' + this.eventNode.id.toString(), node: newNode };
     switch (this.actionType) {
       case 'add':
         newNode.id = 0;
-        newNode.url = 'api/Nodes/' + newNode.id;
+        newNode.url = '/Oratrios.Api/api/Nodes/' + newNode.id;
         newNode.idFather = this.eventNode.id;
         action.name = 'STORE_NODE';
-        action.url = 'api/Nodes';
+        action.url = '/Oratrios.Api/api/Nodes';
         break;
       case 'edit':
       case 'togglelock':
@@ -348,15 +348,15 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
   }
 
   public exportOmiFile() {
-    window.location.replace('api/export/omi/' + this.uiStatusService.projectDisciplineId);
+    window.location.replace('/Oratrios.Api/api/export/omi/' + this.uiStatusService.projectDisciplineId);
   }
 
   public exportExcelPositions() {
-    window.location.replace('api/export/excelpositions/' + this.uiStatusService.projectDisciplineId);
+    window.location.replace('/Oratrios.Api/api/export/excelpositions/' + this.uiStatusService.projectDisciplineId);
   }
 
   public exportExcelTree() {
-    window.location.replace('api/export/exceltree/' + this.uiStatusService.projectDisciplineId);
+    window.location.replace('/Oratrios.Api/api/export/exceltree/' + this.uiStatusService.projectDisciplineId);
   }
 
 

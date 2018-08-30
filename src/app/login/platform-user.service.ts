@@ -8,7 +8,7 @@ import { UserDTO } from '../core/user-DTO';
 
 @Injectable()
 export class PlatformUserService {
-    private PLATFORM_USER_ADDRESS = 'api/Account/UserLogin';
+    private PLATFORM_USER_ADDRESS = '/Oratrios.Api/api/Account/UserLogin';
     private platformUserSubject= new Subject<UserDTO>();
     public platformUser = this.platformUserSubject.asObservable();
 

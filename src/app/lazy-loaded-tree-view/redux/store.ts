@@ -42,21 +42,21 @@ export class Store{
       this._http.post(action.url, action.node)
       .subscribe(res => {
         this.nodes[action.id] = null;
-        this.handleAction.bind(this,{name: 'LOAD_NODES', url: 'api/Nodes/' + action.id + '/nodes', id: action.id});
+        this.handleAction.bind(this,{name: 'LOAD_NODES', url: '/Oratrios.Api/api/Nodes/' + action.id + '/nodes', id: action.id});
       });
     }
     if (action.name === "EDIT_NODE"){
       this._http.put(action.url, action.node)
       .subscribe(res => {
         this.nodes[action.id] = null;
-        this.handleAction.bind(this,{name: 'LOAD_NODES', url: 'api/Nodes/' + action.id + '/nodes', id: action.id});
+        this.handleAction.bind(this,{name: 'LOAD_NODES', url: '/Oratrios.Api/api/Nodes/' + action.id + '/nodes', id: action.id});
       });
     }
     if (action.name === "DELETE_NODE"){
       this._http.delete(action.url)
       .subscribe(res => {
         this.nodes[action.id] = null;
-        this.handleAction.bind(this,{name: 'LOAD_NODES', url: 'api/Nodes/' + action.id + '/nodes', id: action.id});
+        this.handleAction.bind(this,{name: 'LOAD_NODES', url: '/Oratrios.Api/api/Nodes/' + action.id + '/nodes', id: action.id});
       });
     }
   }

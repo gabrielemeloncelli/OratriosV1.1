@@ -7,7 +7,7 @@ import { NodeType } from './node-type';
 
 @Injectable()
 export class NodeTypeService {
-    private BASE_URL = 'api/projectdiscipline/nodeTypes';
+    private BASE_URL = '/Oratrios.Api/api/projectdiscipline/nodeTypes';
 
     constructor(private http: Http) { }
 

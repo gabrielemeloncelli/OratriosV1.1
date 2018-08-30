@@ -6,7 +6,7 @@ import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class CommodityGroupStoreService {
-  private BASE_URL = 'api/commoditygroups';
+  private BASE_URL = '/Oratrios.Api/api/commoditygroups';
 
   constructor(private _http: Http) {}
 

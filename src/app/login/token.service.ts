@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class TokenService {
-    private TOKEN_URL = 'TOKEN';
+    private TOKEN_URL = '/Oratrios.Api/TOKEN';
     private tokenValueSubject = new Subject<TokenStructure>();
     public tokenValue = this.tokenValueSubject.asObservable();
     private errorSubject = new Subject<string>();

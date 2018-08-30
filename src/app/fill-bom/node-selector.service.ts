@@ -15,7 +15,7 @@ export class NodeSelectorService {
 
   private _selectedNodeSource = new Subject<TreeNode>();
   private _selectedNodePathSource = new Subject<string>();
-  private BASE_URL = 'api/nodes/';
+  private BASE_URL = '/Oratrios.Api/api/nodes/';
 
   selectedNode = this._selectedNodeSource.asObservable();
   selectedNodePath = this._selectedNodePathSource.asObservable();

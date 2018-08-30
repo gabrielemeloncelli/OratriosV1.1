@@ -9,8 +9,8 @@ import { ProjectDiscipline } from './project-discipline';
 
 @Injectable()
 export class ProjectDisciplineStoreService {
-  private BASE_URL = 'api/projectdiscipline';
-  private PRJ_BASE_URL = 'api/projects';
+  private BASE_URL = '/Oratrios.Api/api/projectdiscipline';
+  private PRJ_BASE_URL = '/Oratrios.Api/api/projects';
   constructor(private _http: Http) {}
 
   selectUser(databaseUserName: string): Observable<Project[]> {

@@ -7,7 +7,7 @@ import { Attribute } from './attribute';
 
 @Injectable()
 export class AttributeStoreService {
-  private BASE_URL = 'api/attributes';
+  private BASE_URL = '/Oratrios.Api/api/attributes';
   constructor(private _http: Http) { }
 
   private _store: Attribute[][] = new Array<Attribute[]>();

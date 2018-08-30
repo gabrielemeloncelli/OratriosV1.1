@@ -8,7 +8,7 @@ import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class ExportService {
-    private BASE_URL = 'api/export';
+    private BASE_URL = '/Oratrios.Api/api/export';
     constructor(private _http: Http) {}
 
 

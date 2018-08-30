@@ -8,7 +8,7 @@ import { Http, Response } from '@angular/http';
 @Injectable()
 export class CommodityTableStoreService {
   private _store: CommodityTable[][] = new Array<CommodityTable[]>();
-  private BASE_URL = 'api/commoditytables';
+  private BASE_URL = '/Oratrios.Api/api/commoditytables';
   constructor(private _http: Http) { }
 
   getAll(disciplineCode: string, groupCode: string, partCode: string): Observable<Array<CommodityTable>> {

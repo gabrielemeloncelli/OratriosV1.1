@@ -7,7 +7,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 @Injectable()
 export class MaterialStoreService {
-  private BASE_URL = 'api/materials';
+  private BASE_URL = '/Oratrios.Api/api/materials';
   constructor(private _http: Http) { }
 
   private _store: Material[][] = new Array<Material[]>();

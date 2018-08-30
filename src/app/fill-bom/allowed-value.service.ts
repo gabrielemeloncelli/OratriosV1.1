@@ -7,7 +7,7 @@ import { AllowedValue } from './allowed-value';
 
 @Injectable()
 export class AllowedValueService {
-  private BASE_URL = 'api/allowedattributevalues';
+  private BASE_URL = '/Oratrios.Api/api/allowedattributevalues';
   constructor(private _http: Http) {}
 
 

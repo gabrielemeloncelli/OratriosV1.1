@@ -20,7 +20,7 @@ var position_error_1 = require("./position-error");
 var PositionStoreService = (function () {
     function PositionStoreService(_http) {
         this._http = _http;
-        this.BASE_URL = 'api/positions';
+        this.BASE_URL = '/Oratrios.Api/api/positions';
     }
     PositionStoreService.prototype.addPosition = function (newPosition) {
         var _this = this;
