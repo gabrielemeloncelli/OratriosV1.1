@@ -94,6 +94,7 @@ export class PositionStoreService {
       currentError = new PositionError();
       currentError.index = parsedPositionErrors[index].Index;
       currentError.message = parsedPositionErrors[index].Message;
+      currentError.link = parsedPositionErrors[index].LinkToDetails;
       result.push(currentError);
     }
 

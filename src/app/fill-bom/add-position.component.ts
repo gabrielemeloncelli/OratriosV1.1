@@ -765,6 +765,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
       newMessage = new PositionError();
       newMessage.index = loopMessage.index;
       newMessage.message = loopMessage.message;
+      newMessage.link = loopMessage.link;
       result.push(newMessage);
     }
     return result;
@@ -774,6 +775,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     let loopMessage: PositionError;
     for (loopMessage of errorMessages) {
       this.addedPositions[loopMessage.index].errorMessage = loopMessage.message;
+      this.addedPositions[loopMessage.index].link = loopMessage.link;
     }
   }
 

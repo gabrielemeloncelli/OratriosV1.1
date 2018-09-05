@@ -7,4 +7,5 @@ export class PositionInput {
   public saved: boolean;
   public saveFailed: boolean;
   public errorMessage: string;
+  public link: string;
 }

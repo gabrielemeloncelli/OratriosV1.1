@@ -126,7 +126,13 @@
               </thead>
               <tbody>
                 <tr *ngFor="let addedPosition of addedPositions; let aIndex = index">
-                  <td><span [ngClass]="{'control-error': positionHasError(addedPosition)}" tooltip="{{addedPosition.errorMessage}}">{{addedPosition.bomPosition.commodityCode}}</span></td>
+                  <td>
+                    <a *ngIf="positionHasError(addedPosition); else elseBlock" class="control-error" target="_blank"
+                      tooltip="{{addedPosition.errorMessage}}" href="{{addedPosition.link}}">
+                        {{addedPosition.bomPosition.commodityCode}}
+                    </a>
+                    <ng-template #elseBlock>{{addedPosition.bomPosition.commodityCode}}</ng-template>
+                  </td>
                   <td>
                     <input type="text" [(ngModel)]="addedPosition.bomPosition.quantity" class="form-control" name="{{'quantity_' + aIndex}}"
                       [id]="'POSQTY' + aIndex.toString()" pattern="[0-9]{1,5}([.][0-9]{1,3})?" autocomplete="off" required/></td>
