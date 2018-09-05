@@ -83,6 +83,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
   private _partSelect: SelectComponent;
   private _lockedWbs: string;
   private _isWbsLocked: boolean;
+  public isBusy: boolean = false;
 
 
 
@@ -720,6 +721,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
   }
 
   savePositionList() {
+    this.isBusy = true;
     this.clearErrorMessages();
     const addedBomPositions = new Array<BomPosition>();
     let newPosition: BomPosition;
@@ -747,10 +749,12 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     }
     this.positionService.addPositionList(addedBomPositions)
       .subscribe(result => {
+        this.isBusy = false;
         this._savedCount = this.addedPositions.length;
         this.checkAllPositionSaved();
       },
       result => {
+        this.isBusy = false;
         this.errorMessage = result.message;
         this.setDetailErrorMessages(this.parseErrorMessages(result.errorObject));
       }

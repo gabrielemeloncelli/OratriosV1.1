@@ -5,6 +5,8 @@
       <h3>{{uiStatusService.nodePath}}</h3>
     </mbe-modal-header>
     <mbe-modal-body>
+      <div id="modal-busy-overlay" [ngClass]="{'hide-overlay': !isBusy, 'show-overlay': isBusy}">
+      </div>
       <div class="row">
         <div id="tabs-and-filters" class="col-md-4">
           <div *ngIf="_commodityPropertiesSwitch && !_isEdit">
