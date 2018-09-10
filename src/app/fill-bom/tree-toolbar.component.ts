@@ -1,6 +1,8 @@
 import {
     Component,
     Input,
+    Output,
+    EventEmitter,
     OnInit
 } from '@angular/core';
 
@@ -15,6 +17,7 @@ import { NodePositionsUpdate } from '../core/node-positions-update';
 })
 export class TreeToolbarComponent {
     @Input() selectedNode: TreeNode;
+    @Output() pasting = new EventEmitter<boolean>();
     constructor(private uiStatusService: UiStatusService,
     private treeNodeService: TreeNodeService) { }
     public pastingFlag = false;
@@ -36,6 +39,7 @@ export class TreeToolbarComponent {
 
     copyPastedNodeTree() {
         this.pastingFlag = true;
+        this.pasting.emit(this.pastingFlag);
         this.pasteButtonLabel = "Pasting ...";
         this.treeNodeService.copyNodeTree(this.uiStatusService.nodeTreeToBeCopied.id, this.selectedNode.id);
         this.uiStatusService.nodeTreeToBeCopied = null;
@@ -43,6 +47,7 @@ export class TreeToolbarComponent {
 
     nodePositionUpdated(update){
         this.pastingFlag = false;
+        this.pasting.emit(this.pastingFlag);
         this.pasteButtonLabel = "Paste node tree";
     }
 }

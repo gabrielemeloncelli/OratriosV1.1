@@ -1,5 +1,6 @@
 <mbe-top-bar></mbe-top-bar>
 <nav class="navbar navbar-default" role="navigation">
+  <div id="base-busy-overlay" [ngClass]="{'hide-overlay': !isBusy, 'show-overlay': isBusy}"></div>
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
@@ -33,7 +34,9 @@
 </nav>
 <div class="row no-margin">
   <div class="col-sm-5 vert-scroll" id="main-fill-bom-col-1">
-    <mbe-tree-toolbar *ngIf="uiStatusService.treeToolbarVisible" [selectedNode]="selectedNode"></mbe-tree-toolbar>
+    <mbe-tree-toolbar *ngIf="uiStatusService.treeToolbarVisible"
+     [selectedNode]="selectedNode"
+     (pasting)="onPasteNode($event)"></mbe-tree-toolbar>
     <mbe-tree-viewx [message]="outMessage">Loading Tree ...</mbe-tree-viewx>
   </div>
   <div class="col-sm-7">

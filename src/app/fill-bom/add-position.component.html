@@ -143,12 +143,16 @@
                       name="{{'tag_' + aIndex}}" autocomplete="off" /></td>
                   <td><a *ngIf="aIndex > 0" (click)="propagateAttrValues(aIndex)" class="btn btn-xs btn-success"><span type="button" class="glyphicon glyphicon-paste"></span></a></td>
                   <td *ngFor="let attribute of attributes">
-                    <input *ngIf="allowedValues[attribute.spmatId].length == 0" type="text" [(ngModel)]="addedPosition.attributes[attribute.id]"
-                      maxlength="{{attribute.maxlength}}" name="{{'attr_' + aIndex + '_' + attribute.id}}" class="form-control"
-                      [required]="(attribute.mandatory || attribute.forcedMandatory) ? 'true' : null" autocomplete="off" enabled="!addedPosition.attributesLocked[attribute.id]"/>
-                    <ng-select *ngIf="allowedValues[attribute.spmatId].length > 0" [allowClear]="true" [options]="allowedValues[attribute.spmatId]"
-                      (selected)="addedPosition.attributes[attribute.id] = $event.value" (removed)="addedPosition.attributes[attribute.id] = ''"
-                      noFilter="true" class="ng-select">
+                    <input *ngIf="wbsAttribute != null && wbsAttribute.spmatId == attribute.spmatId" type="text" [(ngModel)]="addedPosition.attributes[attribute.id]"
+                    name="{{'attr_' + aIndex + '_' + attribute.id}}" class="form-control" enabled="false"/>
+                    <input *ngIf="(wbsAttribute == null || wbsAttribute.spmatId != attribute.spmatId) && allowedValues[attribute.spmatId].length == 0"
+                      type="text" [(ngModel)]="addedPosition.attributes[attribute.id]" maxlength="{{attribute.maxlength}}"
+                      name="{{'attr_' + aIndex + '_' + attribute.id}}" class="form-control"
+                      [required]="(attribute.mandatory || attribute.forcedMandatory) ? 'true' : null" autocomplete="off" 
+                      enabled="!addedPosition.attributesLocked[attribute.id]"/>
+                    <ng-select *ngIf="(wbsAttribute == null || wbsAttribute.spmatId != attribute.spmatId) && allowedValues[attribute.spmatId].length > 0"
+                      [allowClear]="true" [options]="allowedValues[attribute.spmatId]" (selected)="addedPosition.attributes[attribute.id] = $event.value"
+                      (removed)="addedPosition.attributes[attribute.id] = ''" noFilter="true" class="ng-select">
                     </ng-select>
                   </td>
                 </tr>

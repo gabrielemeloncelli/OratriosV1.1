@@ -56,6 +56,7 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
   private value: any = {};
   private nodeNameDisabled = false;
   selectedNode: TreeNode = null;
+  public isBusy: boolean = false;
 
   constructor(treeNodeService: TreeNodeService, coreEstService: CoreEstService,
     private uiStatusService: UiStatusService, private commodityGroupService: CommodityGroupService,
@@ -387,6 +388,10 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
 
   public refreshValue(value: any): void {
     this.value = value;
+  }
+
+  public onPasteNode(pasting: boolean) {
+    this.isBusy = pasting;
   }
 
   private selectGroupOrPart(entityId: number): string {
