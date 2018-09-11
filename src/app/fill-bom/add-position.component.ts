@@ -84,6 +84,8 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
   private _lockedWbs: string;
   private _isWbsLocked: boolean;
   public isBusy: boolean = false;
+  public wbsAttribute : Attribute = null;
+
 
 
 
@@ -166,6 +168,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
 
             });
         }
+        this.wbsAttribute = this.getWbsAttribute();
       }
     );
     this.attributeService.getAll(this.uiStatusService.projectDisciplineId);
@@ -541,7 +544,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     this.position = new BomPosition();
     this.position.nodeId = this.selectorService.lastSelectedNode.id;
     this._lockedWbs = this.selectorService.lastSelectedNode.lockedWbs;
-    this._isWbsLocked = this._lockedWbs == null || this._lockedWbs != '';
+    this._isWbsLocked = this._lockedWbs != null && this._lockedWbs != '';
   }
 
   selectMaterial(materialId: number, idx: number) {
@@ -565,17 +568,14 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
 
   
    
-    var wbsAttribute : Attribute = null;
-    if(this._isWbsLocked) {
-      wbsAttribute = this.getWbsAttribute();
-    }
+
 
     const attributeValueArray: string[] = new Array<string>();
     const attributeValueLockedArray: boolean[] = new Array<boolean>();
 
-    if(this._isWbsLocked && wbsAttribute != null && wbsAttribute.spmatId > 0) {
-      attributeValueArray[wbsAttribute.spmatId] = this._lockedWbs;
-      attributeValueLockedArray[wbsAttribute.spmatId] = true;
+    if(this._isWbsLocked && this.wbsAttribute != null && this.wbsAttribute.spmatId > 0) {
+      attributeValueArray[this.wbsAttribute.spmatId] = this._lockedWbs;
+      attributeValueLockedArray[this.wbsAttribute.spmatId] = true;
     }    
 
     this.addedPositions.push(new PositionInput(newPosition, attributeValueArray, attributeValueLockedArray));
