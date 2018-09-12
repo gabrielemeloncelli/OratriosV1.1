@@ -114,7 +114,7 @@ export class TreeNodeService {
   copyNodeTree(sourceNodeId: number, targetNodeId: number) {
     this._http.put(this.BASE_URL + '/copyTree/' + sourceNodeId + '/' + targetNodeId, null)
       .map((res: Response) => null)
-      .subscribe(() => { this.nodePositionUpdateSubject.next(new NodePositionsUpdate(targetNodeId, false, true)); },
+      .subscribe(() => { this.updateNodePositions(targetNodeId, true); },
       e => this.handleError(e));
   }
 
@@ -149,10 +149,13 @@ export class TreeNodeService {
     return Observable.throw({ message: message, status: status });
   }
 
-  updateNodePositions(id: number) {
+  updateNodePositions(id: number, forceRefresh: boolean) {
     this._http
       .get(this.BASE_URL + '/' + id.toString() + '/node-update')
       .map((res: Response) => res.json())
-      .subscribe((upd: NodePositionsUpdate) => this.nodePositionUpdateSubject.next(upd));
+      .subscribe((upd: NodePositionsUpdate) => {
+        upd.refreshNode = forceRefresh;
+        this.nodePositionUpdateSubject.next(upd);
+      });
   }
 }

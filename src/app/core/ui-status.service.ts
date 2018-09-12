@@ -78,7 +78,7 @@ export class UiStatusService {
    }
 
    updateNodePositions(id: number) {
-    this.nodeService.updateNodePositions(id);
+    this.nodeService.updateNodePositions(id, false);
    }
 
    public triggerSaveDirtyData() {
