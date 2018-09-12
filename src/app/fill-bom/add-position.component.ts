@@ -536,6 +536,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     this.selectedMaterial.unit = '';
     this.attributeValues = new Array<string>();
     this.attributeValuesLocked = new Array<boolean>();
+    this.setLockedWbs();
     this.errorMessage = '';
     this.tagError = false;
   }
@@ -572,10 +573,9 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
 
     const attributeValueArray: string[] = new Array<string>();
     const attributeValueLockedArray: boolean[] = new Array<boolean>();
-
-    if(this._isWbsLocked && this.wbsAttribute != null && this.wbsAttribute.spmatId > 0) {
-      attributeValueArray[this.wbsAttribute.spmatId] = this._lockedWbs;
-      attributeValueLockedArray[this.wbsAttribute.spmatId] = true;
+    if(this._isWbsLocked && this.wbsAttribute != null && this.wbsAttribute.id > 0) {
+      attributeValueArray[this.wbsAttribute.id] = this._lockedWbs;
+      attributeValueLockedArray[this.wbsAttribute.id] = true;
     }    
 
     this.addedPositions.push(new PositionInput(newPosition, attributeValueArray, attributeValueLockedArray));
@@ -891,6 +891,14 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
       if (!this.attributeValuesLocked[keys[i]]) {
         this.attributeValues[keys[i]] = '';
       }
+    }
+    this.setLockedWbs();
+  }
+
+  setLockedWbs() {
+    if(this._isWbsLocked && this.wbsAttribute != null && this.wbsAttribute.id > 0) {
+      this.attributeValues[this.wbsAttribute.id] = this._lockedWbs;
+      this.attributeValuesLocked[this.wbsAttribute.id] = true;
     }
   }
 
