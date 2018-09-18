@@ -166,10 +166,10 @@
           </div>
           <div *ngIf="_isEdit || (_isTag && _tagStep2)" class="pull-left">
             <label>UoM</label>
-            <select *ngIf="_isTag && _tagStep2" required [(ngModel)]="selectedMaterial.unit" name="unitControl" class="form-control">
+            <select *ngIf="!_isEdit && _isTag && _tagStep2" required [(ngModel)]="selectedMaterial.unit" name="unitControl" class="form-control">
               <option *ngFor="let unit of _allowedUnits" [value]="unit.value">{{unit.label}}</option>
             </select>
-            <input *ngIf="!_isTag || !_tagStep2" type="text" [value]="selectedMaterial.unit" class="form-control" name="commodityCode"
+            <input *ngIf="_isEdit || !_isTag || !_tagStep2" type="text" [value]="selectedMaterial.unit" class="form-control" name="commodityCode"
               disabled="true" style="width: 70px" />
           </div>
           <div *ngIf="_isEdit && !_isTag" class="pull-left">
