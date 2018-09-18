@@ -100,7 +100,7 @@
         <div *ngIf="_tagAndQuantityVisible" style="padding: 5px">
           <div *ngIf="_isTag" class="pull-left">
             <label>Tag</label>
-            <input type="text" [(ngModel)]="position.tag" name="tag" [ngClass]="{'form-control': true, 'control-error': tagError}" [required]="_isTag ? 'true' : null"
+            <input type="text" [(uppercase)]="position.tag" name="tag" [ngClass]="{'form-control': true, 'control-error': tagError}" [required]="_isTag ? 'true' : null"
               maxlength="20" autocomplete="off" #tagInput/>
             <button *ngIf="!_tagStep2" class="btn btn-primary btn-saipem" (click)="confirmTag()">Confirm</button>
           </div>
@@ -139,7 +139,7 @@
                     <input type="text" [(ngModel)]="addedPosition.bomPosition.quantity" class="form-control" name="{{'quantity_' + aIndex}}"
                       [id]="'POSQTY' + aIndex.toString()" pattern="[0-9]{1,5}([.][0-9]{1,3})?" autocomplete="off" required/></td>
                   <td *ngIf="!hideTag">
-                    <input type="text" [(ngModel)]="addedPosition.bomPosition.tag" maxlength="60" (keyup)="tagChanged(aIndex)" [ngClass]="{'form-control': true, 'control-error': addedPosition.tagError}"
+                    <input type="text" [(uppercase)]="addedPosition.bomPosition.tag" maxlength="60" (keyup)="tagChanged(aIndex)" [ngClass]="{'form-control': true, 'control-error': addedPosition.tagError}"
                       name="{{'tag_' + aIndex}}" autocomplete="off" /></td>
                   <td><a *ngIf="aIndex > 0" (click)="propagateAttrValues(aIndex)" class="btn btn-xs btn-success"><span type="button" class="glyphicon glyphicon-paste"></span></a></td>
                   <td *ngFor="let attribute of attributes">
@@ -174,7 +174,7 @@
           </div>
           <div *ngIf="_isEdit && !_isTag" class="pull-left">
             <label>Tag</label>
-            <input type="text" [(ngModel)]="position.tag" name="tag" [ngClass]="{'form-control': true, 'control-error': tagError}" [required]="_isTag ? 'true' : null"
+            <input type="text" [(uppercase)]="position.tag" name="tag" [ngClass]="{'form-control': true, 'control-error': tagError}" [required]="_isTag ? 'true' : null"
               maxlength="20" autocomplete="off" #tagInput/>
           </div>
           <div *ngIf="_isEdit || (_isTag  && _tagStep2)">

@@ -34,6 +34,7 @@ import { CoreEstService } from './core-est.service';
 import { NodeSelectorService } from './node-selector.service';
 import { PagerModule } from '../pager/pager.module';
 import { TreeToolbarComponent } from './tree-toolbar.component';
+import { Uppercase } from './uppercase.directive';
 
 @NgModule({
   imports: [ CoreModule,
@@ -47,7 +48,8 @@ import { TreeToolbarComponent } from './tree-toolbar.component';
   declarations: [ PositionsListComponent,
                   AddPositionComponent,
                   FillBomComponent,
-                TreeToolbarComponent ],
+                  TreeToolbarComponent,
+                  Uppercase ],
   exports: [ PositionsListComponent,
               AddPositionComponent ],
   providers: [ CoreEstService,
