@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { DisciplineSelectModule } from './discipline-select/discipline-select.module';
 import { LoginModule } from './login/login.module';
 import { PagerModule } from './pager/pager.module';
+import { SetRefspecModule } from './set-refspec/set-refspec.module';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { PagerModule } from './pager/pager.module';
     ExportModule,
     DisciplineSelectModule,
     LoginModule,
-    PagerModule
+    PagerModule,
+    SetRefspecModule
   ],
   declarations: [ AppComponent ],
   bootstrap:    [ AppComponent ]
