@@ -1,9 +1,17 @@
 var gulp = require('gulp');
+var rename = require('gulp-rename');
 
 var basePaths = {
   dest: 'C:/Publish/Oratrios'
 };
 gulp.task('default', function() {
+  // index.html
+  gulp.src('index-publish.html')
+  .pipe(rename('index.html'))
+  .pipe(gulp.dest(basePaths.dest));
+  // web.config
+  gulp.src('web.config')
+  .pipe(gulp.dest(basePaths.dest))
   // javascript
   gulp.src('dist/*.js')
   .pipe(gulp.dest(basePaths.dest));
