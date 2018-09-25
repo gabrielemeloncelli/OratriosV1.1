@@ -9,6 +9,8 @@ import {
     selector: 'set-refspec'
   })  
   export class SetRefspecComponent implements OnInit {
+    public commodityTemplate: string;
+    public tagTemplate: string;
     ngOnInit() {
     }
   }
