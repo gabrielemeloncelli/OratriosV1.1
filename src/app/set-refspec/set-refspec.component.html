@@ -29,3 +29,22 @@
     <br/>
     {{tagTemplate}}
 </div>
+<div>
+    <table class="table-bordered">
+        <thead>
+          <tr style="font-weight: bold">
+            <td>Commodity Code - Tag</td>
+            <td>REF_SPEC</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let refspec of refspecs; index as idx" [id]="'CCROW' + idx.toString()">
+            <td onclick="window.scrollBy(0, 10);">{{refspec.displayCommodity}}</td>
+            <td><input type="text" class="form-control" value="refspec.refSpec"/></td>
+            <td><a class="btn btn-xs btn-success" (click)="selectMaterial(material.id, idx)"><span class="glyphicon glyphicon-check"></span></a></td>
+          </tr>
+        </tbody>
+      </table>
+      
+
+</div>
