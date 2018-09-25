@@ -1,4 +1,5 @@
 <mbe-top-bar></mbe-top-bar>
+<div id="base-busy-overlay" [ngClass]="{'hide-overlay': !isBusy, 'show-overlay': isBusy}"></div>
 <nav class="navbar navbar-default" role="navigation">
     <div id="base-busy-overlay" [ngClass]="{'hide-overlay': !isBusy, 'show-overlay': isBusy}"></div>
     <div class="container-fluid">
@@ -20,9 +21,10 @@
       </div>
     </div>
 </nav>
-<div>
-    <input type="text" placeholder="commodity code" [(ngModel)]="commodityTemplate" />
-    <input type="text" placeholder="tag" [(ngModel)]="tagTemplate" />
+<div class="margined">
+    <input type="text" placeholder="commodity code" [(ngModel)]="commodityTemplate" /><a  class="btn btn-xs btn-success btnmargined" (click)="findCommodity()"><span class="glyphicon glyphicon-filter"></span></a>
+    <input type="text" placeholder="tag" [(ngModel)]="tagTemplate" /><a  class="btn btn-xs btn-success btnmargined" (click)="findTag()"><span class="glyphicon glyphicon-filter"></span></a>
+    <label>Get all</label><a  class="btn btn-xs btn-success btnmargined" (click)="findAll()"><span class="glyphicon glyphicon-ok"></span></a>
 </div>
 <div>
     {{commodityTemplate}}
@@ -30,18 +32,21 @@
     {{tagTemplate}}
 </div>
 <div>
-    <table class="table-bordered">
+    <table class="table-bordered tablemargined">
         <thead>
-          <tr style="font-weight: bold">
-            <td>Commodity Code - Tag</td>
-            <td>REF_SPEC</td>
+          <tr>
+            <td class="tableheader">Commodity Code - Tag</td>
+            <td class="tableheader">REF_SPEC</td>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let refspec of refspecs; index as idx" [id]="'CCROW' + idx.toString()">
             <td onclick="window.scrollBy(0, 10);">{{refspec.displayCommodity}}</td>
-            <td><input type="text" class="form-control" value="refspec.refSpec"/></td>
-            <td><a class="btn btn-xs btn-success" (click)="selectMaterial(material.id, idx)"><span class="glyphicon glyphicon-check"></span></a></td>
+            <td><input type="text" class="form-control" [(ngModel)]="refspec.refSpec" [disabled]="!refspec.dirty"/></td>
+            <td>
+                <a *ngIf="!refspec.dirty" class="btn btn-xs btn-success" (click)="setDirty(idx)"><span class="glyphicon glyphicon-edit"></span></a>
+                <a *ngIf="refspec.dirty" class="btn btn-xs btn-primary" (click)="saveDirty(idx)"><span class="glyphicon glyphicon-check"></span></a>
+            </td>
           </tr>
         </tbody>
       </table>
