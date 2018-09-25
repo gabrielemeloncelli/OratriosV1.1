@@ -17,6 +17,7 @@
           <a data-toggle="dropdown" class="dropdown-toggle" href="#"> Settings <b class="caret"></b></a>
           <ul role="menu" class="dropdown-menu">
             <li><a><input type="checkbox" [(ngModel)]="uiStatusService.treeToolbarVisible"> Manage node tree </a></li>
+            <li><a routerLink="/set-refspec">Change RefSpec</a></li>
           </ul>
         </li>
         <li class="dropdown">
@@ -26,7 +27,6 @@
             <li class="divider"></li>
             <li><a (click)='exportExcelTree()'>Export tree to Excel</a></li>
             <li><a (click)='exportExcelPositions()'>Export positions to Excel</a></li>
-            <li><a routerLink="/set-refspec">Change RefSpec</a></li>
           </ul>
         </li>
       </ul>
