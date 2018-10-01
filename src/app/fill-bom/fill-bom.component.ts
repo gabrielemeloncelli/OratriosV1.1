@@ -379,11 +379,9 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
   }
 
   public removed(value: any): void {
-    console.log('Removed value is: ', value);
   }
 
   public typed(value: any): void {
-    console.log('New search input: ', value);
   }
 
   public refreshValue(value: any): void {

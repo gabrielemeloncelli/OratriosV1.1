@@ -67,7 +67,7 @@ export class RefSpecService {
             }
         } else {
             transfCommodity = encodeURIComponent(transfCommodity);
-            queryString = 'commodity' + transfCommodity;
+            queryString = 'commodity=' + transfCommodity;
         }
         return queryString;
     }
