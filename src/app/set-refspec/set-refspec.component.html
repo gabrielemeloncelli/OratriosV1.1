@@ -37,7 +37,7 @@
         <tbody>
           <tr *ngFor="let refspec of refspecs; index as idx" [id]="'CCROW' + idx.toString()">
             <td onclick="window.scrollBy(0, 10);">{{refspec.displayCommodity}}</td>
-            <td><input type="text" class="form-control" [(ngModel)]="refspec.refSpec" [disabled]="!refspec.dirty"/></td>
+            <td><input type="text" [ngClass]="{'form-control': true, 'has-error': refspec.hasError}" [(ngModel)]="refspec.refSpec" [disabled]="!refspec.dirty"/></td>
             <td>
                 <a *ngIf="!refspec.dirty" class="btn btn-xs btn-success" (click)="setDirty(idx)"><span class="glyphicon glyphicon-edit"></span></a>
                 <a *ngIf="refspec.dirty" class="btn btn-xs btn-primary" (click)="saveDirty(idx)"><span class="glyphicon glyphicon-check"></span></a>

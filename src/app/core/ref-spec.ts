@@ -3,8 +3,11 @@ import { RefSpecDto } from './ref-spec-dto';
 export class RefSpec {
     dto: RefSpecDto;
     public dirty: boolean;
+    public hasError: boolean;
     constructor (dto: RefSpecDto) {
         this.dto = dto;
+        this.dirty = false;
+        this.hasError = false;
     }
 
     get materialId(): number {

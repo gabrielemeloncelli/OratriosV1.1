@@ -9,6 +9,7 @@ import { RefSpec } from '../core/ref-spec';
 import { RefSpecDto } from '../core/ref-spec-dto';
 import { RefSpecService } from './ref-spec.service';
 import { UiStatusService } from '../core/ui-status.service';
+import { RefSpecDtoUpdateResult } from './ref-spec-dto-update-result';
 
 enum RefSpecFilterType {
     None = 1,
@@ -28,6 +29,7 @@ export class SetRefspecComponent implements OnInit {
     public isBusy = false;
     public totItems = 0;
     public currentFilter = RefSpecFilterType.None;
+    private _updatingIdx = -1;
 
 
     constructor(private _refSpecService: RefSpecService,
@@ -51,6 +53,20 @@ export class SetRefspecComponent implements OnInit {
             }
             this.resetBusy();
         });
+        this._refSpecService.updatedSpec.subscribe(res => {
+            console.log("SetRefspecComponent -- ngAfterViewInit -- subscribe");
+            if (res.dto != null && ((res.dto.commodityCode != null && res.dto.commodityCode != '')
+                || (res.dto.tag != null && res.dto.tag != ''))) {
+                this.refspecs[this._updatingIdx].dirty = false;
+                this.refspecs[this._updatingIdx].hasError = false;
+                if (res.errorMessage != null && res.errorMessage != '') {
+                    this.refspecs[this._updatingIdx].dto.refSpec = res.dto.refSpec;
+                    this.refspecs[this._updatingIdx].hasError = true;
+                }
+            }
+            this._updatingIdx = -1;
+            this.resetBusy();
+        });
         this._refSpecService.getCount(this._uiStatusService.projectDisciplineId, null, null);
     }
 
@@ -59,6 +75,9 @@ export class SetRefspecComponent implements OnInit {
     }
 
     public saveDirty(idx: number): void {
+        this.setBusy();
+        this._updatingIdx = idx;
+        this._refSpecService.updateRefSpec(this._uiStatusService.projectDisciplineId, this.refspecs[idx].dto);
         this.refspecs[idx].dirty = false;
     }
 
@@ -126,7 +145,7 @@ export class SetRefspecComponent implements OnInit {
     private fillNewSearch(): void {
         this.pageChanged(1);
     }
-   
+
 
 
 

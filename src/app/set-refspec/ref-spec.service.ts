@@ -5,6 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { RefSpecDto } from '../core/ref-spec-dto';
+import { RefSpecDtoUpdateResult } from './ref-spec-dto-update-result';
 
 
 
@@ -14,6 +15,9 @@ export class RefSpecService {
     public refSpecs: Observable<Array<RefSpecDto>> = this._refSpecs.asObservable();
     private _count: BehaviorSubject<number> = new BehaviorSubject(0);
     public count: Observable<number> = this._count.asObservable();
+    private _updatedSpec: BehaviorSubject<RefSpecDtoUpdateResult> = new BehaviorSubject(new RefSpecDtoUpdateResult(new RefSpecDto(0, '', '', ''), ''));
+    public updatedSpec: Observable<RefSpecDtoUpdateResult> = this._updatedSpec.asObservable();
+    private _updatingRefSpec: RefSpecDto = null;
     private BASE_URL = '/Oratrios.Api/api/RefSpec';
     constructor(private _http: Http) { }
 
@@ -53,6 +57,31 @@ export class RefSpecService {
             });
 
 
+    }
+
+    updateRefSpec(projectDisciplineId: number, refSpec: RefSpecDto): void {
+        if (!this._updatingRefSpec) {
+        this._updatingRefSpec = refSpec;
+        this._http
+            .put(this.BASE_URL + '/' + projectDisciplineId,
+                refSpec)
+            .subscribe(res => {
+                var result = new RefSpecDtoUpdateResult(this._updatingRefSpec, '');
+                this._updatedSpec.next(result);   
+                this._updatingRefSpec = null;
+            },
+            (error: any) => {                
+                this.refSpecUpdateFailed(error);
+                this._updatingRefSpec = null;
+            });
+            
+        }
+    }
+
+    refSpecUpdateFailed(error: any): void {
+        var result = new RefSpecDtoUpdateResult(this._updatingRefSpec,
+            error.message);
+        this._updatedSpec.next(result);
     }
 
 
