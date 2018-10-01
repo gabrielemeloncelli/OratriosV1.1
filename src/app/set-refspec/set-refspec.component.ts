@@ -54,7 +54,6 @@ export class SetRefspecComponent implements OnInit {
             this.resetBusy();
         });
         this._refSpecService.updatedSpec.subscribe(res => {
-            console.log("SetRefspecComponent -- ngAfterViewInit -- subscribe");
             if (res.dto != null && ((res.dto.commodityCode != null && res.dto.commodityCode != '')
                 || (res.dto.tag != null && res.dto.tag != ''))) {
                 this.refspecs[this._updatingIdx].dirty = false;
