@@ -40,7 +40,7 @@ export class SetRefspecComponent implements OnInit {
         this.currentFilter = RefSpecFilterType.None;
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit() { 
         this._refSpecService.count.subscribe(count => {
             this.totItems = count;
             setTimeout(() => this.fillNewSearch());
