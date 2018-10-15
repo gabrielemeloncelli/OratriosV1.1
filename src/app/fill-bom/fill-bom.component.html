@@ -79,7 +79,7 @@
       <input *ngIf="!nodeNameDisabled && !nameIsPullDown" class="form-control" name="nodeName" id="nodeName" [(ngModel)]="changedNode.name" required
         #nodeName />
       <ng-select *ngIf="!nodeNameDisabled && nameIsPullDown" name="nodeName" #nodeNameSelector [allowClear]="false" [options]="nodeNameOptions"
-        (selected)="nodeNameSelected($event)" placeholder="Select / Change node name" class="ng-select">
+        (selected)="nodeNameSelected($event)" placeholder="Select / Change node name" class="ng-select" required>
       </ng-select>
 
       <span *ngIf="nodeNameDisabled" class="form-control" name="nodeName" id="nodeName">{{changedNode.name}}</span>
@@ -87,12 +87,12 @@
     <p *ngIf="conflictDetected">
       <label class="form-control">{{warningMessage}}</label>
       <br/>
-      <button *ngIf="canConfirmConflict" type="button" class="btn btn-primary btn-saipem" [disabled]="!addNodeForm.valid" (click)="storeNodeConfirm()">Confirm</button>
+      <button *ngIf="canConfirmConflict" type="button" class="btn btn-primary btn-saipem" [disabled]="!addNodeForm.valid || !changedNode.name" (click)="storeNodeConfirm()">Confirm</button>
     </p>
   </mbe-modal-body>
   <mbe-modal-footer>
     <button type="button" class="btn btn-primary btn-saipem" data-dismiss="modal" (click)="navigateModal.dismiss()">Cancel</button>
-    <button type="button" class="btn btn-primary btn-saipem" [disabled]="!addNodeForm.valid" mbeAutofocus (click)="tryStoreNode()">{{confirmButtonText}}</button>
+    <button type="button" class="btn btn-primary btn-saipem" [disabled]="!addNodeForm.valid  || !changedNode.name" mbeAutofocus (click)="tryStoreNode()">{{confirmButtonText}}</button>
   </mbe-modal-footer>
 </form>
 </mbe-modal>
