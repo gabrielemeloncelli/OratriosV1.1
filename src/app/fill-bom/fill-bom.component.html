@@ -75,7 +75,7 @@
     <p>
       <label for="nodeName">Node name&nbsp;</label>
       <br/>
-      <input *ngIf="!nodeNameDisabled && !nameIsPullDown" class="form-control" name="nodeName" id="nodeName" [(ngModel)]="changedNode.name"
+      <input *ngIf="!nodeNameDisabled && !nameIsPullDown" class="form-control" name="nodeName" id="nodeName" [(ngModel)]="changedNode.name" [required]="true"
         #nodeName />
       <ng-select *ngIf="!nodeNameDisabled && nameIsPullDown" name="nodeName" #nodeNameSelector [allowClear]="false" [options]="nodeNameOptions"
         (selected)="nodeNameSelected($event)" placeholder="Select / Change node name" class="ng-select">
