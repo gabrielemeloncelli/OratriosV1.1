@@ -340,13 +340,13 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     }
 
     findMaterial() {
+        this._researchType = ResearchType.Property;
         this.uiStatusService.materialsVisible = true;
         this.filteredMaterialsLoading = true;
         const filter = this.getFilter();
         this.materials = new Array<Material>();
         this.materialLoadingError = '';
         this._loadingTimeoutExpired = false;
-        this._researchType = ResearchType.Property;
         setTimeout(() => this._loadingTimeoutExpired = true, 1000);
         this.materialService.getAllCount(this.uiStatusService.commodityPart.id, filter);
     }
@@ -984,13 +984,14 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     }
 
     findCommodityCode() {
+        this._researchType = ResearchType.Commodity;
+        this.totItems = 1;
         this.uiStatusService.materialsVisible = true;
         this.uiStatusService.tablesAndSizesVisible = true;
         this.filteredMaterialsLoading = true;
         this._loadingTimeoutExpired = false;
         this.materials = new Array<Material>();
         this.materialLoadingError = '';
-        this._researchType = ResearchType.Commodity;
         setTimeout(() => this._loadingTimeoutExpired = true, 1000);
         if (!!this.uiStatusService.commodityPart && this.uiStatusService.commodityPart.id > 0) {
             this.materialService.getByCommodityCodeAndPart(this.uiStatusService.disciplineId,
