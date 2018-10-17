@@ -140,7 +140,7 @@
                       [id]="'POSQTY' + aIndex.toString()" pattern="[0-9]{1,5}([.][0-9]{1,3})?" autocomplete="off" required/></td>
                   <td *ngIf="!hideTag">
                     <input type="text" [(uppercase)]="addedPosition.bomPosition.tag" maxlength="60" (keyup)="tagChanged(aIndex)" [ngClass]="{'form-control': true, 'control-error': addedPosition.tagError}"
-                      name="{{'tag_' + aIndex}}" autocomplete="off" /></td>
+                      name="{{'tag_' + aIndex}}" autocomplete="off" required/></td>
                   <td><a *ngIf="aIndex > 0" (click)="propagateAttrValues(aIndex)" class="btn btn-xs btn-success"><span type="button" class="glyphicon glyphicon-paste"></span></a></td>
                   <td *ngFor="let attribute of attributes">
                     <input *ngIf="_isWbsLocked && wbsAttribute != null && wbsAttribute.spmatId == attribute.spmatId" type="text"
