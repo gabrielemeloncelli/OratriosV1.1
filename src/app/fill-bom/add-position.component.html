@@ -72,7 +72,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let material of materials; index as idx" [id]="'CCROW' + idx.toString()">
-                  <td onclick="window.alert('Alert'); window.scrollBy(0, 10);">{{material.commodityCode}}</td>
+                  <td>{{material.commodityCode}}</td>
                   <td>{{material.description}}</td>
                   <td><a class="btn btn-xs btn-success" (click)="selectMaterial(material.id, idx)"><span class="glyphicon glyphicon-check"></span></a></td>
                 </tr>
