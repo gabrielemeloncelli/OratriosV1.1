@@ -139,8 +139,8 @@
                     <input type="text" [(ngModel)]="addedPosition.bomPosition.quantity" class="form-control" name="{{'quantity_' + aIndex}}"
                       [id]="'POSQTY' + aIndex.toString()" pattern="[0-9]{1,5}([.][0-9]{1,3})?" autocomplete="off" required/></td>
                   <td *ngIf="!hideTag">
-                    <input type="text" [(uppercase)]="addedPosition.bomPosition.tag" maxlength="60" (keyup)="tagChanged(aIndex)" class="form-control"
-                      name="{{'tag_' + aIndex}}" [id]="'POSTAG' + aIndex.toString()" autocomplete="off" required/></td>
+                    <input type="text" [(ngModel)]="addedPosition.bomPosition.tag" (ngModelChange)="inlineTagChanged($event, aIndex)" maxlength="60" class="form-control"
+                      name="{{'tag_' + aIndex}}" [id]="'POSTAG' + aIndex.toString()" autocomplete="off" [required]="'true'"/></td>
                   <td><a *ngIf="aIndex > 0" (click)="propagateAttrValues(aIndex)" class="btn btn-xs btn-success"><span type="button" class="glyphicon glyphicon-paste"></span></a></td>
                   <td *ngFor="let attribute of attributes">
                     <input *ngIf="_isWbsLocked && wbsAttribute != null && wbsAttribute.spmatId == attribute.spmatId" type="text"

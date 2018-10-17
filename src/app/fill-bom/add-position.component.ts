@@ -1049,4 +1049,9 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
         return result;
     }
 
+    inlineTagChanged(newObj: any, index: number): void
+     {
+         this.addedPositions[index].bomPosition.tag = newObj.toString().toUpperCase();
+     }
+
 }
