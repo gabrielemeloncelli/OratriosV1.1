@@ -50,7 +50,7 @@
               <div style="clear: both"></div>
             </div>
           </div>
-          <div *ngIf="!!commoditySelection && !_isEdit" class="form-group">
+          <div *ngIf="!!commoditySelection && !_isEdit && !_isTag" class="form-group">
             <label class="commodity-label">Commodity Code</label>
             <br/>
             <input class="form-control commodity-input pull-left" maxlength="25" [(ngModel)]="commodityCodeToBeFound" name="commodity-code"
