@@ -11,6 +11,7 @@ import { treeNodeReducer } from '../lazy-loaded-tree-view/tree-node-reducer';
 import { treeNodeReducerSingle } from '../lazy-loaded-tree-view/tree-node-reducer-single';
 import { UiStatusService } from '../core/ui-status.service';
 import { NodePositionsUpdate } from './node-positions-update';
+import { NodeAction } from './node-action';
 
 @Injectable()
 export class TreeNodeService {
@@ -95,19 +96,19 @@ export class TreeNodeService {
     return this.treeNodes[id].asObservable();
   }
 
-  persistNode(action: any) {
+  persistNode(action: NodeAction): Observable<NodeAction> {
     if (action.name === 'STORE_NODE') {
       return this._http.post(action.url, action.node)
-        .map((res: Response) => null)
+        .map((res: Response) => action)
         .catch(this.handleError);
     }
     if (action.name === 'EDIT_NODE') {
       return this._http.put(action.url, action.node)
-        .map((res: Response) => null);
+        .map((res: Response) => action);
     }
     if (action.name === 'DELETE_NODE') {
       return this._http.delete(action.url)
-        .map((res: Response) => null);
+        .map((res: Response) => action);
     }
   }
 

@@ -17,6 +17,7 @@ import { NodeType } from '../core/node-type';
 import { CommodityGroup } from './commodity-group';
 import { CommodityPart } from './commodity-part';
 import { NodeSelectorService } from './node-selector.service';
+import { NodeAction } from '../core/node-action';
 
 declare let jQuery: any;
 
@@ -237,8 +238,8 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
     if (action.name) {
       this.treeNodeService.persistNode(action)
         .subscribe(
-        () => {
-          this.refreshTree();
+        action => {
+          this.refreshTree(action);
           this.modalComponent.dismiss();
         },
         error => {
@@ -260,7 +261,7 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
     const action = this.createNodeAction(newNode);
     if (action.name) {
       this.treeNodeService.persistNode(action)
-        .subscribe(() => { this.refreshTree(); });
+        .subscribe(() => { this.refreshTree(action); });
     }
   }
 
@@ -281,9 +282,8 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
     return newNode;
   }
 
-  private createNodeAction(newNode: NodeDTO): any {
-    let action: any;
-    action = { name: null, url: '/Oratrios.Api/api/Nodes/' + this.eventNode.id.toString(), node: newNode };
+  private createNodeAction(newNode: NodeDTO): NodeAction {
+    let action: NodeAction = new NodeAction(null, '/Oratrios.Api/api/Nodes/' + this.eventNode.id.toString(), newNode);
     switch (this.actionType) {
       case 'add':
         newNode.id = 0;
@@ -324,17 +324,17 @@ export class FillBomComponent implements BubbleNodeMessageInterface, OnInit {
 
   }
 
-  refreshTree() {
+  refreshTree(action: NodeAction) {
     switch (this.actionType) {
       case 'add':
-        this.eventNodeView.refreshCurrentNode(true);
+        this.eventNodeView.refreshCurrentNode(true, action);
         break;
       case 'delete':
-        this.eventParentNodeView.refreshCurrentNode(true);
+        this.eventParentNodeView.refreshCurrentNode(true, action);
         break;
       case 'edit':
       case 'togglelock':
-        this.eventNodeView.refreshCurrentNode(false);
+        this.eventNodeView.refreshCurrentNode(false, action);
         break;
     }
 

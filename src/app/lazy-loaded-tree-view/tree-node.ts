@@ -29,6 +29,10 @@ export class TreeNode {
     this.cssClass = this.getCssClass();
   }
 
+  refreshCss() {
+    this.cssClass = this.getCssClass();
+  }
+
   canDelete(): boolean {
     if (!!this.url) {
       return false;
