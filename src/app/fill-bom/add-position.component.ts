@@ -93,6 +93,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     public isBusy: boolean = false;
     public wbsAttribute: Attribute = null;
     private _researchType: ResearchType;
+    public _tagUnitLocked = false;
 
 
 
@@ -548,6 +549,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
         this.setLockedWbs();
         this.errorMessage = '';
         this.tagError = false;
+        this._tagUnitLocked = false;
     }
 
     resetPositionModel() {
@@ -1004,11 +1006,15 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     confirmTag() {
         this.positionService.getTag(this.position.tag, this.uiStatusService.projectDisciplineId)
             .subscribe(tagPositions => {
+                this._tagUnitLocked = false;
                 if (!!tagPositions && !!tagPositions[0]) {
                     this.selectedMaterial.description = tagPositions[0].description;
                     this.selectedMaterial.description2 = tagPositions[0].description2;
+                    this.selectedMaterial.unit = tagPositions[0].unit;
+                    this._tagUnitLocked = true;
                 }
                 this._tagStep2 = true;
+                
             });
     }
 
