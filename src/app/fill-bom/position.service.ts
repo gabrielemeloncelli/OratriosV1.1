@@ -18,7 +18,7 @@ export class PositionService {
 
   constructor(private _storeService: PositionStoreService) { }
 
-  addPosition(newPosition: BomPosition): Observable<BomPosition> {
+  addPosition(newPosition: BomPosition): Observable<PositionErrorList> {
     return this._storeService.addPosition(newPosition);
   }
 

@@ -33,6 +33,7 @@ import { PositionError } from './position-error';
 import { AllowedValue } from './allowed-value';
 import { AllowedValueService } from './allowed-value.service';
 
+
 enum ResearchType {
     Property = 1,
     Commodity
@@ -708,7 +709,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
                         }
                     },
                     e => {
-                        this.errorMessage = e.message;
+                        this.errorMessage = e.errorObject[0].message;
                         if (this.errorMessage === 'Duplicated Tag') {
                             this.tagError = true;
                         }
@@ -836,8 +837,8 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
                     if (this.errorMessage && this.errorMessage.length > 0) {
                         this.errorMessage += ' - ';
                     }
-                    this.errorMessage += e.message;
-                    if (e.message === 'Duplicated Tag') {
+                    this.errorMessage += e.errorObject[0].message;
+                    if (e.errorObject[0].message === 'Duplicated Tag') {
                         this.addedPositions[index].tagError = true;
                     }
                 }
