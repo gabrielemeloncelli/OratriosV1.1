@@ -168,6 +168,7 @@ export class PositionStoreService {
         resultPosition.isTwm = res.isTwm;
         resultPosition.description2 = res.description2;
         resultPosition.unit = res.unit;
+        resultPosition.refSpec = res.refSpec;
         resultPosition.attributes = this.mapAttributes(res.attributes);
         resultPosition.indexedAttributes = this.indexAttributes(resultPosition.attributes);
         return resultPosition;

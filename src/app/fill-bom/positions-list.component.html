@@ -43,7 +43,9 @@
     </kendo-grid-column>
     <kendo-grid-column field="unit" title="Unit" width="65" [filterable]="false">
     </kendo-grid-column>
-    <kendo-grid-column *ngFor="let extraAttribute of uiStatusService.attributes" title="{{extraAttribute.code}}" width="180">
+    <kendo-grid-column field="refSpec" title="RefSpec" width="100" [filterable]="false">
+    </kendo-grid-column>
+    <kendo-grid-column *ngFor="let extraAttribute of uiStatusService.getAttributesNoRefSpec()" title="{{extraAttribute.code}}" width="180">
       <ng-template kendoGridCellTemplate let-dataItem>
         <input *ngIf="!!dataItem.indexedAttributes[extraAttribute.id]" [(ngModel)]="dataItem.indexedAttributes[extraAttribute.id].value"
           (input)="setDirty(dataItem)" class="column-input" />

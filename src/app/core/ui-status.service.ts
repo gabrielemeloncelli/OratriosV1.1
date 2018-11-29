@@ -13,6 +13,7 @@ import { CommodityPart } from '../fill-bom/commodity-part';
 import { TreeNode } from '../lazy-loaded-tree-view/tree-node';
 import { TreeNodeService } from './tree-node.service';
 import { Attribute } from '../fill-bom/attribute';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Injectable()
 export class UiStatusService {
@@ -44,11 +45,14 @@ export class UiStatusService {
 
   private nodePositionsUpdateSubject = new Subject<NodePositionsUpdate>();
   public nodePositionsUpdate = this.nodePositionsUpdateSubject.asObservable();
-  public attributes: Attribute[];
+  public attributesx: Attribute[];
+  public attributesNoRefSpec: Attribute[];
   public positionsDirty = false;
   private _saveDirtyData = new Subject<void>();
   public saveDirtyData = this._saveDirtyData.asObservable();
   public treeToolbarVisible = false;
+  private _attributes: Attribute[];
+  private REF_SPEC_ATTRIBUTE_CODE = 'REF_SPEC_SA';
 
 
   constructor(private nodeTypeService: NodeTypeService,
@@ -83,5 +87,24 @@ export class UiStatusService {
 
    public triggerSaveDirtyData() {
      this._saveDirtyData.next();
+   }
+
+   public setAttributes(attributes: Attribute[]): void {
+       this._attributes = attributes;
+   }
+
+   public getAttributes(): Attribute[] {
+       return this._attributes;
+   }
+
+   public getAttributesNoRefSpec(): Attribute[] {
+       let attributes = new Array<Attribute>();
+       let attribute: Attribute;
+       for(attribute of this._attributes) {
+           if(attribute.code != this.REF_SPEC_ATTRIBUTE_CODE) {
+               attributes.push(attribute);
+           }
+       }
+       return attributes;
    }
  }

@@ -167,7 +167,7 @@ export class PositionsListComponent implements OnInit {
   completeAttributes(inputPositions: BomPosition[]): BomPosition[] {
     for (const position of inputPositions) {
       position.isDirty = false;
-      for (const attribute of this.uiStatusService.attributes) {
+      for (const attribute of this.uiStatusService.getAttributes()) {
         if (!position.indexedAttributes[attribute.id]) {
           position.indexedAttributes[attribute.id] =
             new PositionAttributeValue(attribute, '', false);

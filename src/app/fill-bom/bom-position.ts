@@ -14,6 +14,7 @@ export class BomPosition {
   public isTwm: boolean;
   public description2: string;
   public unit: string;
+  public refSpec: string;
   public attributes: PositionAttributeValue[];
   public indexedAttributes: PositionAttributeValue[];
   public isDirty: boolean;
