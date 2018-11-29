@@ -112,6 +112,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
         this._allowedUnits = new Array<Option>();
         this._allowedUnits.push(new Option({ value: 'U', label: 'U' }));
         this._allowedUnits.push(new Option({ value: 'M2', label: 'M2' }));
+        this._allowedUnits.push(new Option({ value: 'm', label: 'm' }));
         this.resetMaterial();
         this.resetAddedPositions();
 
