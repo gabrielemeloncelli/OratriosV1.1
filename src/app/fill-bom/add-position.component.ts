@@ -95,6 +95,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     public wbsAttribute: Attribute = null;
     private _researchType: ResearchType;
     public _tagUnitLocked = false;
+    public tagDescrLocked = false;
 
 
 
@@ -551,6 +552,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
         this.errorMessage = '';
         this.tagError = false;
         this._tagUnitLocked = false;
+        this.tagDescrLocked = false;
     }
 
     resetPositionModel() {
@@ -1013,6 +1015,7 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
                     this.selectedMaterial.description2 = tagPositions[0].description2;
                     this.selectedMaterial.unit = tagPositions[0].unit;
                     this._tagUnitLocked = true;
+                    this.tagDescrLocked = true;
                 }
                 this._tagStep2 = true;
                 
@@ -1059,6 +1062,10 @@ export class AddPositionComponent implements OnInit, AfterViewInit {
     inlineTagChanged(newObj: any, index: number): void
      {
          this.addedPositions[index].bomPosition.tag = newObj.toString().toUpperCase();
+     }
+
+     unlockTagDescr(): void {
+         this.tagDescrLocked = false;
      }
 
 }

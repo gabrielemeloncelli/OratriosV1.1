@@ -123,5 +123,11 @@ div.hide-overlay
 
 div.show-overlay
 {
-  display: block
+  display: block;
+}
+
+.hide-label
+{
+    color: #ffffff;
+    display: block;
 }

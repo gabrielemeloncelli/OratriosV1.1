@@ -107,12 +107,16 @@
           <div *ngIf="_isTag && _tagStep2" class="pull-left">
             <label>Description 1</label>
             <textarea [(ngModel)]="selectedMaterial.description" (keyup)="descriptionChanged()" class="form-control" name="materialDescription"
-              cols="100" rows="3" pattern=".{1,511}" maxlength="511" required></textarea>
+              cols="100" rows="3" pattern=".{1,511}" maxlength="511" required [disabled]="tagDescrLocked"></textarea>
           </div>
           <div *ngIf="_isTag && _tagStep2" class="pull-left">
             <label>Description 2</label>
             <textarea [(ngModel)]="selectedMaterial.description2" (keydown)="description2KeyPress()" class="form-control" name="materialDescription2"
-              cols="100" rows="3" pattern=".{1,511}" maxlength="511" required></textarea>
+              cols="100" rows="3" pattern=".{1,511}" maxlength="511" required [disabled]="tagDescrLocked"></textarea>
+          </div>
+          <div *ngIf="tagDescrLocked" class="pull-left">
+            <label class="hide-label">Unlock descriptions</label>
+            <button class="btn btn-primary btn-saipem" (click)="unlockTagDescr()">Unlock descriptions</button>
           </div>
           <div style="width: 1px; height: 1px; clear: both"></div>
           <div *ngIf="!_isEdit && !_isTag" class="addingMaterials" class="addingMaterials">
