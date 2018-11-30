@@ -6,6 +6,7 @@
     <a class="btn btn-m btn-primary btn-saipem" (click)="addCatalogItem(false)" data-toogle="tooltip" title="Add catalog item with tag"><span class="glyphicon glyphicon-bookmark"></span></a>
     <a class="btn btn-m btn-primary btn-saipem" (click)="addTagItem()" data-toogle="tooltip" title="Add tag item"><span class="glyphicon glyphicon-tag"></span></a>
     <a class="btn btn-m btn-primary btn-saipem" (click)="clearNode()" data-toogle="tooltip" title="Reset node quantities"><span class="glyphicon glyphicon-erase"></span></a>
+    <a class="btn btn-m btn-primary btn-saipem" (click)="removeNodePositions()" data-toogle="tooltip" title="Delete node positions"><span class="glyphicon glyphicon-trash"></span></a>
     <a class="btn btn-m btn-primary btn-saipem" (click)="copyNodeContents()" data-toogle="tooltip" title="Copy node content"><span class="glyphicon glyphicon glyphicon-copy"></span></a>
     <button class="btn btn-m btn-primary btn-saipem" (click)="copyPastedContents()" data-toogle="tooltip" title="Paste node content"
       [disabled]="!canPaste()"><span class="glyphicon glyphicon glyphicon-paste"></span></button>

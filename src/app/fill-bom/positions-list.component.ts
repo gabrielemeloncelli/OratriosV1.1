@@ -38,6 +38,7 @@ export class PositionsListComponent implements OnInit {
   private deletionAction: string;
   private DELETION_NODE_QUANTITIES = 'DELETION_NODE_QUANTITIES';
   private DELETION_POSITION = 'DELETION_POSITION';
+  private DELETION_NODE_POSITIONS = 'DELETION_NODE_POSITIONS';
   public positionsCount = 0;
   private _currentPage = 0;
   public gridData: BomPosition[];
@@ -122,6 +123,11 @@ export class PositionsListComponent implements OnInit {
     this.askForConfirmationDeletion();
   }
 
+  removeNodePositions() {
+      this.deletionAction = this.DELETION_NODE_POSITIONS;
+      this.askForConfirmationDeletion();
+  }
+
   confirmDeletion() {
     this.confirmModal.dismiss();
     if (this.deletionAction === this.DELETION_POSITION) {
@@ -129,6 +135,9 @@ export class PositionsListComponent implements OnInit {
     }
     if (this.deletionAction === this.DELETION_NODE_QUANTITIES) {
       this.positionsService.clearNode(this._node.id).subscribe(() => { this.updateSelection(this._node); });
+    }
+    if (this.deletionAction === this.DELETION_NODE_POSITIONS) {
+        this.positionsService.removeNodePositions(this._node.id).subscribe(() => { this.updateSelection(this._node); });
     }
   }
   refreshList() {

@@ -141,6 +141,18 @@ export class PositionStoreService {
         return result.asObservable();
     }
 
+    removeNodePositions(nodeId: number): Observable<null> {
+        const result = new Subject<null>();
+        this._http
+            .delete(this.BASE_URL + '/node/hard/' + nodeId)
+            .map((res: Response) => res.json())
+            .subscribe(res => {
+                result.next();
+            }
+            );
+        return result.asObservable();
+    }
+
     pasteNode(sourceNodeId: number, targetNodeId: number): Observable<null> {
         const result = new Subject<null>();
         this._http
